@@ -35,7 +35,12 @@ fn card(dir: &str, code: &str, (title, gb_code, cgb, japan): Gb, label: &[u8]) -
     rom[0x13f..0x13f + gb_code.len()].copy_from_slice(gb_code);
     rom[0x143] = cgb;
     rom[0x14a] = u8::from(!japan);
-    let ext = dir.to_lowercase();
+    // A disc is whatever image it was ripped to; slot never opens one to draw its case.
+    let ext = if dir == "PSX" {
+        "chd".to_string()
+    } else {
+        dir.to_lowercase()
+    };
     std::fs::write(d.path().join(format!("Games/{dir}/{STEM}.{ext}")), rom).expect("rom");
     std::fs::write(d.path().join(format!("Labels/{dir}/{STEM}.png")), label).expect("label");
     d
@@ -93,8 +98,9 @@ fn assert_same_as_slot(label: &[u8]) {
     // Boy pak for each CGB flag: grey, black and clear, the last in its own rounded mould. A pak
     // filed under the other Game Boy folder still takes its shell from the flag, not the folder.
     // Then paks slot's table colours by their header: by code, by title, and a Japanese copy
-    // that shares a title but not the plastic.
+    // that shares a title but not the plastic. Last, a PlayStation case, which has no header.
     for (dir, code, gb) in [
+        ("PSX", "", NO_GB),
         ("GBA", EMERALD, NO_GB),
         ("GBA", PLAIN, NO_GB),
         ("GB", "", (b"", b"", 0x00, false)),

@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { fromDirectory, fromFiles } from './card.js';
+import { fromDirectory, fromFiles, shelved } from './card.js';
 
 const notFound = () => Object.assign(new Error('not found'), { name: 'NotFoundError' });
 
@@ -166,6 +166,51 @@ test('a listed card carries every file in its Labels folder but dotfiles', async
     ['Labels/GBA/Gone.png', 'g'],
     ['Labels/Odd/note.txt', 'n'],
   ]);
+});
+
+const DISCS = {
+  Games: {
+    PSX: {
+      'Adventure.m3u': '# both discs\r\nAdventure (Disc 1).chd\r\n./adventure (disc 2).CHD\r\n',
+      'Adventure (Disc 1).chd': '',
+      'Adventure (Disc 2).chd': '',
+      'Racer.cue': '',
+      'Racer.bin': '',
+      'Homebrew.exe': '',
+      '._Racer.cue': '',
+      'Pak.gba': '',
+    },
+  },
+  Labels: { PSX: { 'Racer.png': 'r' } },
+};
+
+test('PlayStation discs are carts, and a .cue’s tracks are not', async () => {
+  for (const source of [await fromDirectory(dirHandle(DISCS)), fromFiles(listed(DISCS))]) {
+    assert.deepEqual(
+      source.carts.map((c) => `${c.platform}/${c.name}`),
+      ['PSX/Adventure.m3u', 'PSX/Adventure (Disc 1).chd', 'PSX/Adventure (Disc 2).chd', 'PSX/Homebrew.exe', 'PSX/Racer.cue'],
+    );
+    assert.deepEqual([...source.labels.keys()], ['PSX/Racer']);
+  }
+});
+
+test('a playlist is shelved in place of the discs it names', async () => {
+  for (const source of [await fromDirectory(dirHandle(DISCS)), fromFiles(listed(DISCS))]) {
+    assert.deepEqual(
+      (await shelved(source.carts)).map((c) => c.name),
+      ['Adventure.m3u', 'Homebrew.exe', 'Racer.cue'],
+    );
+  }
+});
+
+test('a playlist that cannot be read hides nothing, and carts are never hidden', async () => {
+  const carts = [
+    { platform: 'PSX', name: 'A.m3u', file: () => Promise.reject(new Error('gone')) },
+    { platform: 'PSX', name: 'A (Disc 1).chd', file: async () => new File([''], 'f') },
+    { platform: 'PSX', name: 'B.m3u', file: async () => new File(['Pak.gba\n'], 'f') },
+    { platform: 'GBA', name: 'Pak.gba', file: async () => new File([''], 'f') },
+  ];
+  assert.deepEqual(await shelved(carts), carts);
 });
 
 test('a folder the browser listed as empty says it could not be read', () => {

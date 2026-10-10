@@ -37,6 +37,16 @@ impl Dat {
         self.by_crc.get(&crc).map(String::as_str)
     }
 
+    /// The database's own spelling of `name`, ignoring case, for a game that is found by what
+    /// its file is called because its checksum cannot be taken: a disc.
+    pub fn named(&self, name: &str) -> Option<&str> {
+        let want = name.to_lowercase();
+        self.by_crc
+            .values()
+            .find(|n| n.to_lowercase() == want)
+            .map(String::as_str)
+    }
+
     /// Every dump filed under `name`, lowest CRC first, so a game chosen by name can be found in
     /// a set keyed by checksum.
     pub fn crcs_for(&self, name: &str) -> Vec<u32> {
@@ -145,6 +155,16 @@ mod tests {
             vec![0x6C75_479C]
         );
         assert!(dat.crcs_for("Kirby").is_empty());
+    }
+
+    #[test]
+    fn a_name_is_found_in_the_databases_spelling_whatever_its_case() {
+        let dat = Dat::parse(EXCERPT);
+        assert_eq!(
+            dat.named("metroid fusion (usa)"),
+            Some("Metroid Fusion (USA)")
+        );
+        assert_eq!(dat.named("Metroid Fusion"), None);
     }
 
     #[test]

@@ -175,7 +175,13 @@ export function createEditor(api) {
     $('ed-shell-custom').value = `#${shell.colour}`;
     press('ed-finish', shell.finish);
     enable('ed-finish', shells && !shell.auto);
-    $('ed-outline-row').hidden = c.platform === 'GBA';
+    // A PlayStation case is not plastic slot colours, so its shell rows and their rule go.
+    const plastic = api.hasShell(c);
+    const shellRow = $('ed-shell').closest('.prop');
+    shellRow.hidden = !plastic;
+    shellRow.previousElementSibling.hidden = !plastic;
+    $('ed-finish').closest('.prop').hidden = !plastic;
+    $('ed-outline-row').hidden = !plastic || c.platform === 'GBA';
     press('ed-outline', shell.outline);
     enable('ed-outline', shells);
 

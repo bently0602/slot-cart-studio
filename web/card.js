@@ -4,12 +4,18 @@
 
 // slot files a cart under the folder its platform names, in Games/, Labels/, Saves/ and States/
 // alike, and the folder is what decides the platform: the rom is never opened to ask.
-// Listed newest first, which is the order the studio's shelves and tabs run in.
-export const PLATFORMS = ['GBA', 'GBC', 'GB'];
+// The handhelds newest first, then the PlayStation, which is the order the studio's shelves and
+// tabs run in.
+export const PLATFORMS = ['GBA', 'GBC', 'GB', 'PSX'];
 
 // slot's own rule, from slot-store's platform.rs. A .gba under GB/ is not a Game Boy cart and is
-// passed over in silence, the way slot passes over it.
-const EXTENSIONS = { GBA: ['gba'], GB: ['gb', 'gbc'], GBC: ['gb', 'gbc'] };
+// passed over in silence, the way slot passes over it. A .cue's .bin tracks are passed over too.
+const EXTENSIONS = {
+  GBA: ['gba'],
+  GB: ['gb', 'gbc'],
+  GBC: ['gb', 'gbc'],
+  PSX: ['chd', 'cue', 'pbp', 'iso', 'exe', 'm3u'],
+};
 const ANY_ROM = ['gba', 'gb', 'gbc'];
 
 const named = (dir) => PLATFORMS.find((p) => p === dir.toUpperCase());
@@ -35,7 +41,27 @@ const byCart = (a, b) =>
         ? 1
         : 0;
 
-const NO_GAMES = 'That doesn’t look like a slot SD card. Be sure to select the root of the card.';
+// slot shelves a PlayStation playlist as one game and hides the discs it names, which share its
+// label. A playlist that can't be read hides nothing.
+const fold = (name) => name.normalize('NFC').toLowerCase();
+export async function shelved(carts) {
+  const isPlaylist = (c) => c.platform === 'PSX' && ext(c.name) === 'm3u';
+  const discs = new Set();
+  for (const c of carts.filter(isPlaylist)) {
+    let text = '';
+    try {
+      text = await (await c.file()).text();
+    } catch {
+      continue;
+    }
+    for (const line of text.split(/\r?\n/).map((l) => l.trim())) {
+      if (line && !line.startsWith('#')) discs.add(fold(line.replace(/^\.[\\/]/, '')));
+    }
+  }
+  return carts.filter((c) => c.platform !== 'PSX' || isPlaylist(c) || !discs.has(fold(c.name)));
+}
+
+const NO_GAMES ='That doesn’t look like a slot SD card. Be sure to select the root of the card.';
 const UNREADABLE =
   'Your browser couldn’t read that folder. In Firefox, the card’s hidden .Spotlight-V100 folder or a file with an accented name like é can cause this.';
 const OLD_SHELL_FILE =
@@ -62,7 +88,7 @@ export async function fromDirectory(root) {
     sawPlatform = true;
     for await (const [file, fh] of handle.entries()) {
       if (fh.kind === 'file' && isCart(platform, file)) {
-        carts.push({ platform, stem: stemOf(file), file: () => fh.getFile() });
+        carts.push({ platform, stem: stemOf(file), name: file, file: () => fh.getFile() });
       }
     }
   }
@@ -195,7 +221,7 @@ export function fromFiles(files) {
     if (!platform) continue;
     if (dir.toLowerCase() === 'games') {
       sawPlatform = true;
-      if (isCart(platform, name)) carts.push({ platform, stem: stemOf(name), file: async () => file });
+      if (isCart(platform, name)) carts.push({ platform, stem: stemOf(name), name, file: async () => file });
     } else if (dir.toLowerCase() === 'labels' && isLabel(name)) {
       labels.set(labelKey(platform, stemOf(name)), async () => file);
     }

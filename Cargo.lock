@@ -463,6 +463,10 @@ dependencies = [
 ]
 
 [[package]]
+name = "slot-input"
+version = "0.1.0"
+
+[[package]]
 name = "slot-power"
 version = "0.1.0"
 
@@ -470,6 +474,7 @@ version = "0.1.0"
 name = "slot-store"
 version = "0.1.0"
 dependencies = [
+ "slot-input",
  "unicode-normalization",
 ]
 

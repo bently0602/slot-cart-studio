@@ -24,7 +24,7 @@ import init, {
   stub_target,
   thumbnail_name,
 } from './pkg/slot_cart_studio.js';
-import { fromDirectory, fromFiles, labelKey, PLATFORMS } from './card.js';
+import { fromDirectory, fromFiles, labelKey, PLATFORMS, shelved } from './card.js';
 import { fetchArt, fetchDat, fetchIndex, fetchThumb, limiter } from './libretro.js';
 import { createEditor } from './editor.js';
 import { amend, commit } from './history.js';
@@ -101,7 +101,14 @@ function newCart({ platform, stem, file }) {
   };
 }
 
+// A PlayStation game is a disc image: hundreds of megabytes, and as a .chd no longer the raw
+// tracks Redump's checksums are of. So it is never read. It is matched by what its file is called,
+// it has no shell to choose, and its label is its cover, which libretro has by name.
+const onDisc = (c) => c.platform === 'PSX';
+
 const realPathOf = (c) => {
+  // A disc's cover is fetched by dress(), which files it here as the real label.
+  if (onDisc(c)) return c.rejected ? null : (c.real?.path ?? null);
   const key = c.rejected ? null : artKey(c);
   return (key && artIndex?.[key]?.['support-texture']) || null;
 };
@@ -264,7 +271,7 @@ const noImage = (e) => {
 function describe(c, state) {
   if (state === 'error') return c.error;
   if (state === 'looking' && !c.looking) return 'Loading the real label…';
-  if (state === 'looking') return c.crc === null ? 'Reading the ROM…' : 'Looking it up…';
+  if (state === 'looking') return c.crc === null && !onDisc(c) ? 'Reading the ROM…' : 'Looking it up…';
   if (state === 'unfilled') return '';
   return '';
 }
@@ -512,9 +519,10 @@ async function open(source) {
     banner(FATAL);
     return;
   }
+  const carts = await shelved(source.carts);
   editor.close();
   loading(null);
-  session = { source, carts: source.carts.map(newCart) };
+  session = { source, carts: carts.map(newCart) };
   $('banner').hidden = true;
   // A card opened mid-scan replaces identify()'s loop before it reaches progress(total, total, ''),
   // so the old bar has to be cleared here rather than left for a call that may never come.
@@ -530,7 +538,7 @@ async function open(source) {
   $('write-bar').hidden = true;
   $('fill-open').hidden = true;
   if (session.carts.length === 0) {
-    banner('There are no .gba files in that card’s Games folder.');
+    banner('There are no games in that card’s Games folder.');
     return;
   }
   loading('Reading the card…');
@@ -578,12 +586,14 @@ async function identify(s) {
     if (s !== session || fatal) return;
     progress(i, total, c.stem);
     try {
-      const file = await c.file();
-      const head = new Uint8Array(await file.slice(0, HEAD).arrayBuffer());
-      // Only a GBA rom carries a game code. On a Game Boy cart 0xAC is inside the RST vectors,
-      // so a code read from there is opcode bytes dressed up as one.
-      c.code = c.platform === 'GBA' ? header_code(head) : '';
-      if (c.platform !== 'GBA') c.head = head;
+      const file = onDisc(c) ? null : await c.file();
+      if (file) {
+        const head = new Uint8Array(await file.slice(0, HEAD).arrayBuffer());
+        // Only a GBA rom carries a game code. On a Game Boy cart 0xAC is inside the RST vectors,
+        // so a code read from there is opcode bytes dressed up as one.
+        c.code = c.platform === 'GBA' ? header_code(head) : '';
+        if (c.platform !== 'GBA') c.head = head;
+      }
       const label = s.source.labels.get(labelKey(c.platform, c.stem));
       if (label) {
         const bytes = new Uint8Array(await (await label()).arrayBuffer());
@@ -591,7 +601,7 @@ async function identify(s) {
         c.choice = 'card';
         c.existing = existing_face(bytes, c.platform, c.code, c.head, c.shell, c.stem);
         c.looking = false;
-      } else {
+      } else if (file) {
         c.crc = await crcOf(file);
       }
     } catch (e) {
@@ -636,16 +646,26 @@ async function match(s) {
     s.datFailed = false;
     $('banner').hidden = true;
   }
-  const pending = s.carts.filter((c) => c.crc !== null && !c.game && !c.existing && !c.error);
+  const pending = s.carts.filter((c) => (c.crc !== null || onDisc(c)) && !c.game && !c.existing && !c.error);
   await Promise.all(pending.map((c) => art(s, c)));
   if (s === session && !fatal && s.fill == null) await fillOrAsk(s);
+}
+
+// A cart is named by its checksum. A disc is named by its file, when that is spelled the way
+// Redump spells the game, and a playlist by its first disc.
+function gameFor(c) {
+  const db = dats.get(c.platform);
+  if (!db) return null;
+  if (!onDisc(c)) return c.crc === null ? null : (db.game_for(c.crc) ?? null);
+  const stem = c.stem.normalize('NFC');
+  return db.named(stem) ?? db.named(`${stem} (Disc 1)`) ?? null;
 }
 
 async function art(s, c) {
   c.looking = true;
   paint(c);
   try {
-    c.game = dats.get(c.platform)?.game_for(c.crc) ?? null;
+    c.game = gameFor(c);
     await dress(s, c);
   } catch (e) {
     if (trapped(e)) return;
@@ -658,6 +678,7 @@ async function art(s, c) {
 // Where the set files this cart's art: under its own checksum while its game is the one that
 // checksum names, else under the first dump of the game chosen for it that the set has.
 function artKey(c) {
+  if (onDisc(c)) return null;
   const own = c.crc === null ? null : crcHex(c.crc);
   const db = dats.get(c.platform);
   if (!c.game || !db || (c.crc !== null && db.game_for(c.crc) === c.game)) return own;
@@ -700,6 +721,12 @@ async function dress(s, c) {
   }
   const box = await boxJob;
   if (s !== session || fatal) return;
+  if (onDisc(c)) {
+    c.real =
+      box && readable(box)
+        ? { path: `libretro:${name}`, bytes: box, failed: false, pending: Promise.resolve() }
+        : null;
+  }
   c.boxHue = box ? (box_hue(box) ?? null) : null;
   if (!c.userHue) c.deep = null;
   c.dressed = true;
@@ -712,7 +739,7 @@ const platformsOf = (s) => PLATFORMS.filter((p) => s.carts.some((c) => c.platfor
 
 // A tab per platform on the card, with what it holds. One platform is no choice at all, so a
 // card of nothing but GBA carts shows no switcher and reads exactly as it did before.
-const PLATFORM_NAMES = { GBA: 'Game Boy Advance', GB: 'Game Boy', GBC: 'Game Boy Color' };
+const PLATFORM_NAMES = { GBA: 'Game Boy Advance', GB: 'Game Boy', GBC: 'Game Boy Color', PSX: 'PlayStation' };
 
 function renderTabs() {
   const s = session;
@@ -987,10 +1014,10 @@ function shellOf(c) {
 async function lookUp(s, c) {
   paint(c);
   try {
-    if (c.crc === null) c.crc = await crcOf(await c.file());
+    if (c.crc === null && !onDisc(c)) c.crc = await crcOf(await c.file());
     if (!dats.has(c.platform)) dats.set(c.platform, Dat.parse(await fetchDat(c.platform)));
     if (s !== session || fatal) return;
-    c.game = dats.get(c.platform).game_for(c.crc) ?? null;
+    c.game = gameFor(c);
     await dress(s, c);
   } catch (e) {
     if (trapped(e)) return;
@@ -1064,7 +1091,8 @@ const editor = createEditor({
   useCustomLogo,
   useCustomLabel,
   ensureTiles,
-  canShell: (c) => !c.looking && ['ready', 'has-label', 'needs-logo', 'unfilled'].includes(stateOf(c)) && shell_key_ok(c.stem),
+  hasShell: (c) => !onDisc(c),
+  canShell: (c) => !onDisc(c) && !c.looking && ['ready', 'has-label', 'needs-logo', 'unfilled'].includes(stateOf(c)) && shell_key_ok(c.stem),
   search: (c, query) => dats.get(c.platform)?.search(query, 30) ?? null,
   chooseGame,
   noMatch,

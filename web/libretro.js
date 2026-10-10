@@ -2,7 +2,7 @@
 // cross-origin requests. thumbnails.libretro.com serves the same images and sends no
 // access-control-allow-origin header at all, so a page can fetch it and still not read a byte.
 
-const DAT = 'https://raw.githubusercontent.com/libretro/libretro-database/master/metadat/no-intro/';
+const DAT = 'https://raw.githubusercontent.com/libretro/libretro-database/master/metadat/';
 const THUMBS = 'https://raw.githubusercontent.com/libretro-thumbnails/';
 
 // One database and one thumbnail repository per platform, under libretro's own name for the
@@ -13,10 +13,13 @@ const NAMES = {
   GBA: 'Nintendo - Game Boy Advance',
   GB: 'Nintendo - Game Boy',
   GBC: 'Nintendo - Game Boy Color',
+  PSX: 'Sony - PlayStation',
 };
+// Cartridges are catalogued by No-Intro; discs are Redump's.
+const SETS = { PSX: 'redump' };
 
 export async function fetchDat(platform) {
-  const r = await fetch(`${DAT}${encodeURIComponent(NAMES[platform])}.dat`);
+  const r = await fetch(`${DAT}${SETS[platform] ?? 'no-intro'}/${encodeURIComponent(NAMES[platform])}.dat`);
   if (!r.ok) throw new Error(`HTTP ${r.status}`);
   return r.text();
 }

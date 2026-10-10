@@ -1,7 +1,7 @@
 version: '3'
 
 vars:
-  SLOT: ../slot
+  SLOT: ../slot-b
   # What the studio's faces are made of: the four files compiled in place, slot's art.rs that
   # src/art.rs copies, the assets they include, where `Cart` comes from, gba.rs, whose header
   # rule src/rom.rs mirrors, gb.rs, whose header the shim answers for, and ini.rs and
@@ -62,6 +62,11 @@ tasks:
     deps: [build]
     cmds:
       - python3 -m http.server 8765 --bind 127.0.0.1 --directory web
+
+  desktop:
+    desc: Cross-build the studio as one file for Windows x64 and macOS arm64 into dist/
+    cmds:
+      - ./build-desktop.sh
 
   art:
     desc: 'Serve a harvested set at :8766, for http://127.0.0.1:8765/?art=http://127.0.0.1:8766/'

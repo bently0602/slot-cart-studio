@@ -8,4 +8,4 @@ publish = false
 name = "slot_store"
 
 [dependencies]
-slot_store_real = { package = "slot-store", path = "../../../slot/crates/slot-store" }
+slot_store_real = { package = "slot-store", path = "../../../slot-b/crates/slot-store" }

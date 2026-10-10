@@ -5,19 +5,19 @@
 
 #[allow(dead_code)]
 #[rustfmt::skip]
-#[path = "../../slot/crates/slot-ui/src/cart.rs"]
+#[path = "../../slot-b/crates/slot-ui/src/cart.rs"]
 mod cart;
 #[allow(dead_code)]
 #[rustfmt::skip]
-#[path = "../../slot/crates/slot-ui/src/shell.rs"]
+#[path = "../../slot-b/crates/slot-ui/src/shell.rs"]
 mod shell;
 #[allow(dead_code)]
 #[rustfmt::skip]
-#[path = "../../slot/crates/slot-ui/src/silhouette.rs"]
+#[path = "../../slot-b/crates/slot-ui/src/silhouette.rs"]
 mod silhouette;
 #[allow(dead_code)]
 #[rustfmt::skip]
-#[path = "../../slot/crates/slot-ui/src/text.rs"]
+#[path = "../../slot-b/crates/slot-ui/src/text.rs"]
 mod text;
 
 mod art;
@@ -42,9 +42,9 @@ pub fn cart_size(platform: &str) -> Vec<u32> {
 }
 
 /// A label the card already has, on its cart. `platform` is the card folder the rom sits in,
-/// `GBA`, `GB` or `GBC`, which is how the page names a platform either side of the wasm boundary.
-/// `head` is a Game Boy rom's first 0x150 bytes, which pick its pak; a GBA cart passes none.
-/// `shell` is the cart's value, empty for Automatic.
+/// `GBA`, `GB`, `GBC` or `PSX`, which is how the page names a platform either side of the wasm
+/// boundary. `head` is a Game Boy rom's first 0x150 bytes, which pick its pak; a GBA cart passes
+/// none. `shell` is the cart's value, empty for Automatic. A PlayStation case uses neither.
 #[wasm_bindgen]
 pub fn existing_face(
     png: &[u8],
@@ -93,6 +93,10 @@ impl JsDat {
 
     pub fn crcs_for(&self, name: &str) -> Vec<u32> {
         self.0.crcs_for(name)
+    }
+
+    pub fn named(&self, name: &str) -> Option<String> {
+        self.0.named(name).map(str::to_string)
     }
 
     /// Games whose name contains `query`, for the finder a cart opens when its match is wrong.

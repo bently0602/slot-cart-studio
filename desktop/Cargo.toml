@@ -1,0 +1,19 @@
+[package]
+name = "slot-cart-studio-desktop"
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.96"
+license = "GPL-3.0-or-later"
+publish = false
+build = "build.rs"
+
+[[bin]]
+name = "slot-cart-studio"
+path = "src/main.rs"
+
+# No dependencies, so it cross-compiles with nothing but a linker for the target.
+
+[profile.release]
+opt-level = "s"
+# rustc strips Mach-O with the host's `strip`, which a Linux host does not have.
+strip = "none"

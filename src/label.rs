@@ -15,11 +15,16 @@ pub const H: u32 = 661;
 pub const GB_W: u32 = 1024;
 pub const GB_H: u32 = 901;
 
+/// The PlayStation cover: slot's well is a 268 square, so this is that at twice the size.
+pub const PSX_W: u32 = 536;
+pub const PSX_H: u32 = 536;
+
 /// The label a platform's well wants.
 pub fn size(platform: Platform) -> (u32, u32) {
     match platform {
         Platform::Gba => (W, H),
         Platform::Gb | Platform::Gbc => (GB_W, GB_H),
+        Platform::Psx => (PSX_W, PSX_H),
     }
 }
 
@@ -215,6 +220,10 @@ impl Band {
 /// The part of a label slot shows, as x0, y0, x1, y1. slot covers its well with the label, so a
 /// label of another shape loses rows or columns.
 fn shown(lw: u32, lh: u32) -> (u32, u32, u32, u32) {
+    // A cover is its square well's shape already, so all of it shows.
+    if (lw, lh) == (PSX_W, PSX_H) {
+        return (0, 0, lw, lh);
+    }
     let (ww, wh) = if (lw, lh) == (W, H) {
         (crate::cart::LABEL_W, crate::cart::LABEL_H)
     } else {
@@ -758,6 +767,27 @@ mod tests {
                 &face[i..i + 3]
             );
         }
+    }
+
+    #[test]
+    fn a_disc_label_is_the_square_its_well_is() {
+        let label =
+            Label::full(&png_of(&solid(600, 290), 600, 290), Platform::Psx).expect("decodes");
+        let (rgb, w, h) = rgb_of(&label.png());
+        assert_eq!((w, h), (PSX_W, PSX_H));
+        assert!(rgb.chunks_exact(3).all(|p| p == [INK[0], INK[1], INK[2]]));
+
+        // Twice the well slot covers with it.
+        let (lw, lh) = crate::cart::label_size(&slot_store::Cart {
+            platform: Platform::Psx,
+            stem: String::new(),
+            rom: Default::default(),
+            label: None,
+            title: String::new(),
+            code: String::new(),
+            shell: None,
+        });
+        assert_eq!((2 * lw, 2 * lh), (PSX_W, PSX_H));
     }
 
     #[test]
