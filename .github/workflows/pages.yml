@@ -33,12 +33,13 @@ jobs:
       - id: pin
         run: echo "ref=$(cat slot-cart-studio/slot.ref)" >> "$GITHUB_OUTPUT"
 
-      # Beside the studio, as the two sit on a desk, so ../slot means the same thing here.
+      # Beside the studio, as the two sit on a desk, so ../slot-b means the same thing here. The
+      # fork, because it is the slot with PlayStation in it.
       - uses: actions/checkout@v7
         with:
-          repository: BrandonKowalski/slot
+          repository: bently0602/slot
           ref: ${{ steps.pin.outputs.ref }}
-          path: slot
+          path: slot-b
 
       # The channel rust-toolchain.toml pins, with the target it names.
       - name: Rust with the wasm32 target

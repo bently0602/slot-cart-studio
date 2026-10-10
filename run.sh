@@ -35,6 +35,11 @@ if [ ! -d "$SLOT/crates/slot-ui" ]; then
   echo "run.sh: no slot checkout at $SLOT; the studio builds against the fork with PlayStation in it" >&2
   exit 1
 fi
+pin="$(cat slot.ref)"
+head="$(git -C "$SLOT" rev-parse HEAD 2>/dev/null || echo unknown)"
+if [ "$head" != "$pin" ]; then
+  echo "run.sh: warning: $SLOT is at ${head:0:7}, slot.ref pins ${pin:0:7}; faces may differ from the deployed studio" >&2
+fi
 
 wasm-pack build --release --target web --no-typescript --out-dir web/pkg
 
