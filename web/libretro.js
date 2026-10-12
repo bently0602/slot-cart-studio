@@ -14,6 +14,7 @@ const NAMES = {
   GB: 'Nintendo - Game Boy',
   GBC: 'Nintendo - Game Boy Color',
   PSX: 'Sony - PlayStation',
+  SNES: 'Nintendo - Super Nintendo Entertainment System',
 };
 // Cartridges are catalogued by No-Intro; discs are Redump's.
 const SETS = { PSX: 'redump' };

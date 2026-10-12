@@ -15,6 +15,7 @@ vars:
     crates/slot-ui/assets/lettering_gbc.png crates/slot-ui/assets/lettering_gba.png
     crates/slot-ui/assets/label.ttf crates/slot-store/src/scan.rs crates/slot-store/src/gba.rs
     crates/slot-store/src/gb.rs crates/slot-store/src/ini.rs crates/slot-store/src/cart_shell.rs
+    crates/slot-store/src/platform.rs crates/slot-store/src/core.rs crates/slot-store/src/music.rs
 
 tasks:
   default:
@@ -26,7 +27,8 @@ tasks:
     desc: Native tests, the faces against slot's included
     cmds:
       - cargo test
-      - node --test web/*.test.mjs
+      - npm test
+      - python3 -m unittest discover -s tools -p 'test_*.py'
 
   check:
     desc: Formatting, clippy for both targets, and the tests
@@ -35,7 +37,8 @@ tasks:
       - cargo clippy --all-targets -- -D warnings
       - cargo clippy --lib --target wasm32-unknown-unknown -- -D warnings
       - cargo test
-      - node --test web/*.test.mjs
+      - npm test
+      - python3 -m unittest discover -s tools -p 'test_*.py'
 
   slot:pin-check:
     desc: Say whether ../slot's cart face still matches the commit in slot.ref
@@ -55,7 +58,15 @@ tasks:
   build:
     desc: Build the WASM package into web/pkg
     cmds:
-      - wasm-pack build --release --target web --no-typescript --out-dir web/pkg
+      - npm ci
+      - npm run build
+      - wasm-pack build --release --target web --no-typescript --no-pack --out-dir web/pkg
+
+  browser:
+    desc: Check SNES and music workflows in headless Chromium
+    deps: [build]
+    cmds:
+      - npm run test:browser
 
   serve:
     desc: Serve web/ at http://127.0.0.1:8765
@@ -67,6 +78,14 @@ tasks:
     desc: Cross-build the studio as one file for Windows x64 and macOS arm64 into dist/
     cmds:
       - ./build-desktop.sh
+
+  desktop:check:
+    desc: Formatting, server lookup tests and Clippy for the desktop app
+    deps: [build]
+    cmds:
+      - cargo fmt --manifest-path desktop/Cargo.toml --check
+      - cargo test --manifest-path desktop/Cargo.toml
+      - cargo clippy --manifest-path desktop/Cargo.toml --all-targets -- -D warnings
 
   art:
     desc: 'Serve a harvested set at :8766, for http://127.0.0.1:8765/?art=http://127.0.0.1:8766/'

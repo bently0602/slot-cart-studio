@@ -36,7 +36,9 @@ fn card(dir: &str, code: &str, (title, gb_code, cgb, japan): Gb, label: &[u8]) -
     rom[0x143] = cgb;
     rom[0x14a] = u8::from(!japan);
     // A disc is whatever image it was ripped to; slot never opens one to draw its case.
-    let ext = if dir == "PSX" {
+    let ext = if dir == "SNES" {
+        "sfc".to_string()
+    } else if dir == "PSX" {
         "chd".to_string()
     } else {
         dir.to_lowercase()
@@ -101,6 +103,7 @@ fn assert_same_as_slot(label: &[u8]) {
     // that shares a title but not the plastic. Last, a PlayStation case, which has no header.
     for (dir, code, gb) in [
         ("PSX", "", NO_GB),
+        ("SNES", "", NO_GB),
         ("GBA", EMERALD, NO_GB),
         ("GBA", PLAIN, NO_GB),
         ("GB", "", (b"", b"", 0x00, false)),
@@ -210,6 +213,7 @@ fn a_chosen_shell_matches_slot() {
         ),
         ("GBC", "", (b"", b"", 0xc0, false), "notched 123456 glitter"),
         ("GBA", EMERALD, NO_GB, "auto c0282c solid"),
+        ("SNES", "", NO_GB, "auto 336699 solid"),
         ("GBA", PLAIN, NO_GB, "rounded 2b3a88 clear"),
     ] {
         let d = card(dir, code, gb, &label);

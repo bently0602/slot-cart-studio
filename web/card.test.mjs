@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { fromDirectory, fromFiles, shelved } from './card.js';
+import { albumCoverPath, fromDirectory, fromFiles, shelved } from './card.js';
 
 const notFound = () => Object.assign(new Error('not found'), { name: 'NotFoundError' });
 
@@ -30,6 +30,75 @@ const listed = (tree, prefix = 'card') =>
   );
 
 const GAMES = { Games: { GBA: { 'A.gba': '' } } };
+
+test('both card readers scan SNES extensions and recursive folder-defined albums', async () => {
+  const tree = { Games: {
+    SNES: { 'A.sfc': '', 'B.SMC': '', 'C.swc': '', 'D.fig': '', 'skip.bin': '', '.hidden.sfc': '' },
+    Music: { 'Root.mp3': '', '.hidden': { 'no.mp3': '' },
+      'Artist é': { Same: { '10.flac': '', '2.MP3': '', 'cover.png': '', 'COVER.JPG': '', 'cover.jpeg': '',
+        'Disc 2': { 'one.mp3': '' } } }, Other: { Same: { 'one.mp3': '' } } },
+  }, Labels: { SNES: { 'A.png': '' } } };
+  for (const source of [await fromDirectory(dirHandle(tree)), fromFiles(listed(tree))]) {
+    assert.deepEqual(source.carts.map((c) => c.name), ['A.sfc', 'B.SMC', 'C.swc', 'D.fig']);
+    assert.equal(source.labels.size, 1);
+    assert.equal(source.albums.length, 4);
+    const album = source.albums.find((a) => a.path === 'Games/Music/Artist é/Same');
+    assert.deepEqual(album.tracks.map((t) => t.name), ['2.MP3', '10.flac']);
+    assert.equal(album.cover.name, 'COVER.JPG');
+    assert.equal(albumCoverPath(album), 'Games/Music/Artist é/Same/COVER.JPG');
+  }
+});
+
+test('music-only cards are accepted by both readers', async () => {
+  const tree = { Games: { Music: { Album: { 'track.flac': '' } } } };
+  for (const source of [await fromDirectory(dirHandle(tree)), fromFiles(listed(tree))]) {
+    assert.equal(source.carts.length, 0);
+    assert.equal(source.albums.length, 1);
+    assert.equal(albumCoverPath(source.albums[0]), 'Games/Music/Album/cover.jpg');
+  }
+});
+
+test('cover write failures preserve replacements and remove newly created incomplete files', async () => {
+  for (const failure of ['create', 'write', 'close']) {
+  for (const existing of [false, true]) {
+    const name = existing ? 'COVER.PNG' : 'cover.jpg';
+    const files = new Map(existing ? [[name, 'old cover']] : []);
+    const removed = [];
+    let aborts = 0;
+    const tree = { Games: { Music: { Album: { 'one.mp3': '', ...(existing ? { [name]: 'old cover' } : {}) } } } };
+    const basic = dirHandle(tree);
+    const target = {
+      async getFileHandle(file, options = {}) {
+        if (!files.has(file)) {
+          if (!options.create) throw notFound();
+          files.set(file, '');
+        }
+        return { async createWritable() {
+          if (failure === 'create') throw new Error('card full');
+          return {
+          async write() { if (failure === 'write') throw new Error('card full'); },
+          async close() { if (failure === 'close') throw new Error('card full'); }, async abort() { aborts++; },
+        }; } };
+      },
+      async removeEntry(file) { removed.push(file); files.delete(file); },
+    };
+    const root = { ...basic, async getDirectoryHandle(dir) {
+      if (dir !== 'Games') return basic.getDirectoryHandle(dir);
+      const games = await basic.getDirectoryHandle(dir);
+      return { ...games, async getDirectoryHandle(music) {
+        const m = await games.getDirectoryHandle(music);
+        return { ...m, getDirectoryHandle: async () => target };
+      } };
+    } };
+    const source = await fromDirectory(root);
+    await assert.rejects(source.writeCover(source.albums[0], new Uint8Array([1]), existing), /card full/);
+    assert.equal(aborts, failure === 'create' ? 0 : 1);
+    assert.deepEqual(removed, existing ? [] : [name]);
+    assert.equal(files.get(name), existing ? 'old cover' : undefined);
+    await assert.rejects(source.writeCover({ path: 'Games/Music/../Album', cover: null }, new Uint8Array()), /Invalid music cover path/);
+  }
+  }
+});
 const CONFIG = 'A = rounded 112233 solid\n';
 const SYSTEM = 'A = notched 445566 clear\n';
 const LABELS = 'A = auto\n';

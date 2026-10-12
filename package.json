@@ -1,0 +1,19 @@
+{
+  "name": "slot-cart-studio-web",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node tools/build-web.mjs",
+    "test": "node --test web/*.test.mjs worker/*.test.mjs",
+    "test:browser": "node --test tools/browser.test.mjs",
+    "test:desktop": "node --test tools/desktop.test.mjs"
+  },
+  "dependencies": {
+    "music-metadata": "12.1.1"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.64.0",
+    "esbuild": "0.28.2",
+    "wrangler": "4.149.0"
+  }
+}

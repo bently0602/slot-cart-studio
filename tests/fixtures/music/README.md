@@ -1,0 +1,1 @@
+Original synthesized sine-tone fixtures from slot tests/fixtures/music. No commercial recordings. tagged.mp3 is a 440 Hz mono 44.1 kHz tone; tagged.flac is an 880 Hz stereo 48 kHz tone. embedded.mp3 includes an original PNG front cover. Used only to test metadata and artwork parsing.

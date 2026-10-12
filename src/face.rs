@@ -14,6 +14,7 @@ pub fn platform_of(dir: &str) -> Platform {
         "GB" => Platform::Gb,
         "GBC" => Platform::Gbc,
         "PSX" => Platform::Psx,
+        "SNES" => Platform::Snes,
         _ => Platform::Gba,
     }
 }

@@ -3,12 +3,17 @@
 use std::io::{self, BufRead, BufReader, Write};
 use std::net::{Ipv4Addr, TcpListener, TcpStream};
 use std::process::Command;
+use std::sync::Arc;
 use std::thread;
 use std::time::Duration;
+
+mod music;
 
 include!(concat!(env!("OUT_DIR"), "/web.rs"));
 
 const PORT: u16 = 8765;
+const CONFIG: &[u8] =
+    b"export const DEFAULT_MUSIC_API = new URL('/api/music/', location.origin).href;\n";
 
 fn main() {
     let no_open = std::env::args().any(|a| a == "--no-open");
@@ -29,14 +34,16 @@ fn main() {
         println!("Open that address in a browser.");
     }
 
+    let music = Arc::new(music::MusicSearch::new());
     for stream in listener.incoming().flatten() {
+        let music = Arc::clone(&music);
         thread::spawn(move || {
-            let _ = serve(stream);
+            let _ = serve(stream, &music);
         });
     }
 }
 
-fn serve(stream: TcpStream) -> io::Result<()> {
+fn serve(stream: TcpStream, music: &music::MusicSearch) -> io::Result<()> {
     // Browsers open connections ahead of need and leave some of them silent.
     stream.set_read_timeout(Some(Duration::from_secs(10)))?;
     let mut reader = BufReader::new(&stream);
@@ -63,26 +70,66 @@ fn serve(stream: TcpStream) -> io::Result<()> {
     let path = if path.is_empty() { "index.html" } else { path };
     let head = method == "HEAD";
 
-    let (status, kind, body): (&str, &str, &[u8]) = if method != "GET" && !head {
-        (
-            "405 Method Not Allowed",
-            "text/plain",
-            b"method not allowed",
-        )
+    if path == "api/music/search" {
+        let response = if method == "GET" {
+            music.search(target)
+        } else {
+            music::Response::error(405, "Use GET for album search")
+        };
+        return reply(
+            &stream,
+            response.status,
+            "application/json",
+            &response.body,
+            head,
+            response.retry_after.as_deref(),
+            "GET",
+        );
+    }
+    let (status, kind, body): (u16, &str, &[u8]) = if method != "GET" && !head {
+        (405, "text/plain", b"method not allowed")
+    } else if path == "config.js" {
+        (200, "text/javascript; charset=utf-8", CONFIG)
     } else {
         match FILES.iter().find(|(name, _)| *name == path) {
-            Some((name, bytes)) => ("200 OK", content_type(name), bytes),
-            None => ("404 Not Found", "text/plain", b"not found"),
+            Some((name, bytes)) => (200, content_type(name), bytes),
+            None => (404, "text/plain", b"not found"),
         }
     };
+    reply(&stream, status, kind, body, head, None, "GET, HEAD")
+}
 
-    let mut out = &stream;
+fn reply(
+    mut out: &TcpStream,
+    status: u16,
+    kind: &str,
+    body: &[u8],
+    head: bool,
+    retry_after: Option<&str>,
+    allowed: &str,
+) -> io::Result<()> {
+    let reason = match status {
+        200 => "OK",
+        400 => "Bad Request",
+        404 => "Not Found",
+        405 => "Method Not Allowed",
+        429 => "Too Many Requests",
+        503 => "Service Unavailable",
+        _ => "Internal Server Error",
+    };
     write!(
         out,
-        "HTTP/1.1 {status}\r\nContent-Type: {kind}\r\nContent-Length: {}\r\n\
-         Cache-Control: no-cache\r\nConnection: close\r\n\r\n",
+        "HTTP/1.1 {status} {reason}\r\nContent-Type: {kind}\r\nContent-Length: {}\r\n\
+         Cache-Control: no-cache\r\nConnection: close\r\n",
         body.len()
     )?;
+    if let Some(seconds) = retry_after {
+        write!(out, "Retry-After: {seconds}\r\n")?;
+    }
+    if status == 405 {
+        write!(out, "Allow: {allowed}\r\n")?;
+    }
+    write!(out, "\r\n")?;
     if !head {
         out.write_all(body)?;
     }
@@ -124,4 +171,42 @@ fn open(url: &str) -> bool {
         c
     };
     command.spawn().is_ok()
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use std::io::Read;
+
+    fn request(method: &str, path: &str) -> String {
+        let listener = TcpListener::bind("127.0.0.1:0").unwrap();
+        let address = listener.local_addr().unwrap();
+        let server = thread::spawn(move || {
+            serve(listener.accept().unwrap().0, &music::MusicSearch::new()).unwrap();
+        });
+        let mut stream = TcpStream::connect(address).unwrap();
+        write!(
+            stream,
+            "{method} {path} HTTP/1.1\r\nHost: {address}\r\nConnection: close\r\n\r\n"
+        )
+        .unwrap();
+        let mut response = String::new();
+        stream.read_to_string(&mut response).unwrap();
+        server.join().unwrap();
+        response
+    }
+
+    #[test]
+    fn desktop_config_uses_the_local_api_and_invalid_searches_do_not_contact_upstream() {
+        let config = request("GET", "/config.js");
+        assert!(config.starts_with("HTTP/1.1 200"));
+        assert!(config.contains("new URL('/api/music/', location.origin).href"));
+        assert!(!config.contains("studio.slot-cfw.fyi"));
+        let missing = request("GET", "/api/music/search?album=");
+        assert!(missing.starts_with("HTTP/1.1 400"));
+        assert!(missing.contains("application/json"));
+        let post = request("POST", "/api/music/search?album=Album");
+        assert!(post.starts_with("HTTP/1.1 405"));
+        assert!(post.contains("Allow: GET\r\n"));
+    }
 }

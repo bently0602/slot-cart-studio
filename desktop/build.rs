@@ -5,6 +5,7 @@ use std::{env, fs};
 
 const KINDS: &[&str] = &["html", "css", "js", "wasm", "png", "svg", "ico", "woff2"];
 const WASM: &str = "pkg/slot_cart_studio_bg.wasm";
+const MUSIC: &str = "vendor/music-metadata.js";
 
 fn main() {
     let web = PathBuf::from(env::var("CARGO_MANIFEST_DIR").unwrap()).join("../web");
@@ -16,6 +17,10 @@ fn main() {
     assert!(
         files.iter().any(|(name, _)| name == WASM),
         "web/{WASM} is missing: build it first with ./run.sh --build-only"
+    );
+    assert!(
+        files.iter().any(|(name, _)| name == MUSIC),
+        "web/{MUSIC} is missing: build it first with npm ci && npm run build"
     );
 
     let mut table = String::from("static FILES: &[(&str, &[u8])] = &[\n");

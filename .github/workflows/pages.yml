@@ -42,6 +42,14 @@ jobs:
           path: slot-b
 
       # The channel rust-toolchain.toml pins, with the target it names.
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Bundle music metadata parser
+        working-directory: slot-cart-studio
+        run: npm ci && npm run build
+
       - name: Rust with the wasm32 target
         run: rustup toolchain install 1.96 --profile minimal --target wasm32-unknown-unknown
 
@@ -54,7 +62,25 @@ jobs:
 
       - name: Build
         working-directory: slot-cart-studio
-        run: wasm-pack build --release --target web --no-typescript --out-dir web/pkg
+        run: wasm-pack build --release --target web --no-typescript --no-pack --out-dir web/pkg
+
+      - name: Verify studio and lookup service
+        working-directory: slot-cart-studio
+        run: |
+          set -eu
+          cargo fmt --check
+          cargo clippy --all-targets -- -D warnings
+          cargo clippy --lib --target wasm32-unknown-unknown -- -D warnings
+          cargo test
+          cargo fmt --manifest-path desktop/Cargo.toml --check
+          cargo test --manifest-path desktop/Cargo.toml
+          cargo clippy --manifest-path desktop/Cargo.toml --all-targets -- -D warnings
+          npm test
+          python3 -m pip install Pillow numpy
+          python3 -m unittest discover -s tools -p 'test_*.py'
+          npx playwright install --with-deps chromium
+          npm run test:browser
+          npx wrangler deploy --dry-run --outdir out/worker
 
       - name: Stamp the commit into the footer
         working-directory: slot-cart-studio
@@ -64,6 +90,15 @@ jobs:
           grep -q "^const BUILD = '$GITHUB_SHA';\$" web/studio.js
 
       - uses: actions/configure-pages@v5
+
+      - name: Verify release services are ready
+        run: |
+          set -eu
+          curl -fsS 'https://studio.slot-cfw.fyi/api/music/search?artist=Daft%20Punk&album=Discovery' \
+            | jq -e '.candidates | type == "array"'
+          curl -fsS 'https://art.slot-cfw.fyi/index.json' | jq -e '
+            ([.[] | .wheel? // empty | select(startswith("SNES/"))] | length > 0) and
+            ([.[] | .["support-texture"]? // empty | select(startswith("SNES/"))] | length > 0)'
 
       - uses: actions/upload-pages-artifact@v3
         with:

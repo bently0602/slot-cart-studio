@@ -24,7 +24,11 @@ import init, {
   stub_target,
   thumbnail_name,
 } from './pkg/slot_cart_studio.js';
-import { fromDirectory, fromFiles, labelKey, PLATFORMS, shelved } from './card.js';
+import { albumCoverPath, fromDirectory, fromFiles, labelKey, PLATFORMS, shelved } from './card.js';
+import { matchedChecksum, romChecksums } from './snes.js';
+import { existingCover, needsCoverWrite, readAlbum } from './music.js';
+import { createMusicEditor, setCoverImage } from './music-editor.js';
+import { DEFAULT_MUSIC_API } from './config.js';
 import { fetchArt, fetchDat, fetchIndex, fetchThumb, limiter } from './libretro.js';
 import { createEditor } from './editor.js';
 import { amend, commit } from './history.js';
@@ -74,6 +78,7 @@ function newCart({ platform, stem, file }) {
     shellOnCard: '',
     existingPng: null,
     crc: null,
+    bareCrc: null,
     game: null,
     // Logos stay PNG bytes, which are small. The label made from one is not kept: see withLabel.
     logoBytes: null,
@@ -174,6 +179,8 @@ const bandOf = (c) => lookOf(c)?.band ?? null;
 
 const readyCarts = () =>
   session ? session.carts.filter((c) => stateOf(c) === 'ready' && c.result !== 'skipped') : [];
+const readyAlbums = () => session?.albums.filter(needsCoverWrite) ?? [];
+const MUSIC_API = new URLSearchParams(location.search).get('musicApi') ?? DEFAULT_MUSIC_API;
 
 const shellChanges = () => (session ? session.carts.filter((c) => c.shell !== c.shellOnCard) : []);
 // Into the Labels layer.
@@ -293,10 +300,11 @@ function buildCard(c) {
     .map((tag) => tag.trim())
     .filter(Boolean);
   root.setAttribute('aria-label', `Edit ${clean_label(c.stem)}`);
-  root.addEventListener('click', () => editor.open(c));
+  root.addEventListener('click', () => { musicEditor.close(); editor.open(c); });
   root.addEventListener('keydown', (e) => {
     if (e.target !== root || (e.key !== 'Enter' && e.key !== ' ')) return;
     e.preventDefault();
+    musicEditor.close();
     editor.open(c);
   });
   // Always taken, so a file dropped on a cart that can't use it doesn't navigate the page away.
@@ -521,14 +529,19 @@ async function open(source) {
   }
   const carts = await shelved(source.carts);
   editor.close();
+  musicEditor.close();
+  for (const album of session?.albums ?? []) setCoverImage(album.el.image, null);
   loading(null);
-  session = { source, carts: carts.map(newCart) };
+  session = { source, carts: carts.map(newCart), albums: (source.albums ?? []).map((a) => ({
+    ...a, title: a.path.split('/').at(-1), artist: 'Unknown Artist', loading: true,
+    selected: null, original: null, history: { undo: [], redo: [] },
+  })) };
   $('banner').hidden = true;
   // A card opened mid-scan replaces identify()'s loop before it reaches progress(total, total, ''),
   // so the old bar has to be cleared here rather than left for a call that may never come.
   $('progress').hidden = true;
   $('progress-text').textContent = '';
-  $('grid').replaceChildren(...session.carts.map(buildCard));
+  $('grid').replaceChildren(...session.carts.map(buildCard), ...session.albums.map(buildAlbum));
   session.carts.forEach(paint);
   showPlatform(platformsOf(session)[0] ?? PLATFORMS[0]);
   // The card is chosen, so the chooser goes: the write bar sits in its place, once there is
@@ -537,22 +550,58 @@ async function open(source) {
   $('pick-files-label').hidden = true;
   $('write-bar').hidden = true;
   $('fill-open').hidden = true;
-  if (session.carts.length === 0) {
-    banner('There are no games in that card’s Games folder.');
+  if (session.carts.length === 0 && session.albums.length === 0) {
+    banner('There are no games or music albums in that card’s Games folder.');
     return;
   }
   loading('Reading the card…');
-  track(identify(session));
+  if (session.carts.length) track(identify(session));
+  track(identifyAlbums(session));
 }
 
-async function crcOf(file) {
-  const crc = new Crc32();
-  const reader = file.stream().getReader();
-  for (;;) {
-    const { done, value } = await reader.read();
-    if (done) return crc.finish();
-    crc.update(value);
+function buildAlbum(album) {
+  const root = $('card-tpl').content.firstElementChild.cloneNode(true);
+  root.classList.add('album');
+  const face = root.querySelector('.face');
+  face.replaceChildren();
+  const image = Object.assign(document.createElement('img'), { className: 'music-cover', alt: 'Album cover', hidden: true });
+  const placeholder = Object.assign(document.createElement('span'), { className: 'placeholder', textContent: '♪' });
+  face.append(image, placeholder);
+  album.el = { root, image, placeholder, title: root.querySelector('.stem'), artist: root.querySelector('.game'), path: root.querySelector('.print') };
+  root.addEventListener('click', () => musicEditor.open(album));
+  root.addEventListener('keydown', (e) => {
+    if (e.target === root && ['Enter', ' '].includes(e.key)) { e.preventDefault(); musicEditor.open(album); }
+  });
+  paintAlbum(album);
+  return root;
+}
+
+function paintAlbum(album) {
+  const { root, image, placeholder, title, artist, path } = album.el;
+  title.textContent = album.title;
+  artist.textContent = album.loading ? 'Reading album…' : album.artist;
+  path.textContent = album.path;
+  root.setAttribute('aria-label', `Edit cover for ${album.title} by ${album.artist}`);
+  root.dataset.state = album.loading ? 'looking' : needsCoverWrite(album) ? 'ready' : album.artwork ? 'has-label' : 'needs-logo';
+  setCoverImage(image, album.selected);
+  placeholder.hidden = !!album.selected;
+  updateWriteBar();
+  if (musicEditor.current() === album) musicEditor.refresh();
+}
+
+async function identifyAlbums(s) {
+  for (const album of s.albums) {
+    if (s !== session) return;
+    Object.assign(album, await readAlbum(album));
+    if (s !== session) return;
+    try { album.original = album.selected = await existingCover(album); }
+    catch (e) { album.artworkError = `The current cover could not be read: ${e.message}. Import or search to replace it.`; }
+    if (s !== session) return;
+    album.loading = false;
+    paintAlbum(album);
+    musicEditor.scanFinished(album);
   }
+  if (s === session && !s.carts.length) loading(null);
 }
 
 async function identify(s) {
@@ -602,7 +651,7 @@ async function identify(s) {
         c.existing = existing_face(bytes, c.platform, c.code, c.head, c.shell, c.stem);
         c.looking = false;
       } else if (file) {
-        c.crc = await crcOf(file);
+        Object.assign(c, await romChecksums(file, c.platform, Crc32));
       }
     } catch (e) {
       if (trapped(e)) return;
@@ -656,7 +705,7 @@ async function match(s) {
 function gameFor(c) {
   const db = dats.get(c.platform);
   if (!db) return null;
-  if (!onDisc(c)) return c.crc === null ? null : (db.game_for(c.crc) ?? null);
+  if (!onDisc(c)) return matchedChecksum(db, c.crc, c.bareCrc)?.game ?? null;
   const stem = c.stem.normalize('NFC');
   return db.named(stem) ?? db.named(`${stem} (Disc 1)`) ?? null;
 }
@@ -679,9 +728,14 @@ async function art(s, c) {
 // checksum names, else under the first dump of the game chosen for it that the set has.
 function artKey(c) {
   if (onDisc(c)) return null;
-  const own = c.crc === null ? null : crcHex(c.crc);
   const db = dats.get(c.platform);
-  if (!c.game || !db || (c.crc !== null && db.game_for(c.crc) === c.game)) return own;
+  const own = [c.crc, c.bareCrc].filter((crc) => {
+    if (crc === null) return false;
+    const game = db?.game_for(crc);
+    return !c.game || !game || game === c.game;
+  }).map(crcHex);
+  const match = db && matchedChecksum(db, c.crc, c.bareCrc);
+  if (!c.game || !db || match?.game === c.game) return own.find((key) => artIndex?.[key]) ?? (match ? crcHex(match.crc) : own[0]) ?? null;
   return Array.from(db.crcs_for(c.game), crcHex).find((k) => artIndex?.[k]) ?? null;
 }
 
@@ -692,7 +746,7 @@ async function dress(s, c) {
   // dressed from it. libretro is found by name, so those requests only happen when there is one.
   const name = c.game ? thumbnail_name(c.game) : null;
   const key = artKey(c);
-  c.look = parseLook(key && artIndex?.[key]?.look);
+  c.look = c.platform === 'SNES' ? null : parseLook(key && artIndex?.[key]?.look);
   // The queue is shared, so a card replaced while its jobs wait gives up their turns without
   // a request instead of making the new card wait behind its downloads.
   const thumb = (folder) =>
@@ -735,11 +789,11 @@ async function dress(s, c) {
 }
 
 // The platforms this card actually holds, in the studio's shelf order.
-const platformsOf = (s) => PLATFORMS.filter((p) => s.carts.some((c) => c.platform === p));
+const platformsOf = (s) => [...PLATFORMS.filter((p) => s.carts.some((c) => c.platform === p)), ...(s.albums.length ? ['Music'] : [])];
 
 // A tab per platform on the card, with what it holds. One platform is no choice at all, so a
 // card of nothing but GBA carts shows no switcher and reads exactly as it did before.
-const PLATFORM_NAMES = { GBA: 'Game Boy Advance', GB: 'Game Boy', GBC: 'Game Boy Color', PSX: 'PlayStation' };
+const PLATFORM_NAMES = { GBA: 'Game Boy Advance', GB: 'Game Boy', GBC: 'Game Boy Color', PSX: 'PlayStation', SNES: 'Super Nintendo', Music: 'Music' };
 
 function renderTabs() {
   const s = session;
@@ -747,7 +801,7 @@ function renderTabs() {
   $('tabs').hidden = present.length < 2;
   $('tabs').replaceChildren(
     ...present.map((p) => {
-      const n = s.carts.filter((c) => c.platform === p).length;
+      const n = p === 'Music' ? s.albums.length : s.carts.filter((c) => c.platform === p).length;
       const tab = Object.assign(document.createElement('button'), { type: 'button', className: 'shelf-tab' });
       tab.append(PLATFORM_NAMES[p] ?? p, Object.assign(document.createElement('span'), { className: 'n', textContent: n }));
       tab.setAttribute('aria-pressed', String(p === s.platform));
@@ -761,18 +815,22 @@ function renderTabs() {
 // chosen colour and any logo dropped on it, so coming back to a tab finds it as it was left.
 function showPlatform(p) {
   editor.close();
+  musicEditor.close();
   session.platform = p;
   for (const c of session.carts) c.el.root.hidden = c.platform !== p;
+  for (const album of session.albums) album.el.root.hidden = p !== 'Music';
   renderTabs();
 }
 
 function updateWriteBar() {
   if (!session) return;
-  const n = readyCarts().length + shellChanges().length;
+  const n = readyCarts().length + shellChanges().length + readyAlbums().length;
   // Nothing to write means no button at all.
   $('write-bar').hidden = n === 0 && !writing;
   $('write').disabled = n === 0 || writing || fatal;
   $('write').textContent = session.source.direct ? 'Write to card' : 'Download ZIP';
+  $('music-save').textContent = $('write').textContent;
+  $('music-save').disabled = $('write').disabled;
 }
 
 function writeProgress(done, total) {
@@ -859,10 +917,12 @@ async function writeLabels() {
   const s = session;
   const carts = readyCarts();
   const shells = shellChanges();
-  if ((!carts.length && !shells.length) || writing || fatal) return;
+  const albums = readyAlbums().map((album) => ({ album, asset: album.selected, path: albumCoverPath(album) }));
+  if ((!carts.length && !shells.length && !albums.length) || writing || fatal) return;
   writing = true;
   updateWriteBar();
-  writeProgress(0, carts.length + shells.length);
+  musicEditor.refresh();
+  writeProgress(0, carts.length + shells.length + albums.length);
   try {
     if (s.source.direct) {
       const count = { written: 0, skipped: 0, failed: 0 };
@@ -888,10 +948,28 @@ async function writeLabels() {
           c.byHand = false;
         }
         count[c.result]++;
-        writeProgress(count.written + count.skipped + count.failed, carts.length + shells.length);
+        writeProgress(count.written + count.skipped + count.failed, carts.length + shells.length + albums.length);
         paint(c);
       }
       let shellNote = '';
+      const musicProblems = [];
+      for (const [i, { album, asset }] of albums.entries()) {
+        try {
+          album.result = await s.source.writeCover(album, asset.bytes, !!album.cover);
+          if (album.result === 'written') {
+            const name = album.cover?.name ?? 'cover.jpg';
+            album.cover = { name, file: async () => new File([asset.blob], name) };
+            album.artwork = { kind: 'local', file: album.cover.file };
+            album.original = asset;
+            album.history = { undo: [], redo: [] };
+          } else musicProblems.push(`${album.title}: a cover appeared on the card and was kept.`);
+        } catch (e) {
+          album.result = 'failed';
+          musicProblems.push(`${album.title}: ${e.message}`);
+        }
+        writeProgress(carts.length + i + 1, carts.length + shells.length + albums.length);
+        paintAlbum(album);
+      }
       if (shells.length) {
         if (s.shellReadFailed) {
           shellNote = 'Shells not written: the card’s shells couldn’t be read.';
@@ -918,67 +996,80 @@ async function writeLabels() {
           count.failed && `${plural(count.failed, 'label', 'labels')} couldn’t be written.`,
           count.skipped && `${plural(count.skipped, 'label was', 'labels were')} skipped: one turned up on the card meanwhile.`,
           shellNote,
+          ...musicProblems,
         ].filter(Boolean);
         if (problems.length) banner(problems.join(' '));
       }
     } else {
       const zip = new Zip();
-      // Each entry is taken out of WASM memory as soon as it is added, so the card's labels pile
-      // up here, where memory is given back, and not in the module.
-      const parts = [];
-      const written = new Set();
-      const carried = s.source.labelFiles;
-      const total = carts.length + shells.length + carried.length;
-      for (const [i, c] of carts.entries()) {
-        writeProgress(i + 1, total);
-        const path = `Labels/${c.platform}/${c.stem}.png`;
-        zip.add(path, withCartLabel(c, (label) => label.png()));
-        parts.push(zip.take());
-        written.add(pathKey(path));
-        // Packing a few hundred carts is seconds of synchronous work with nothing on screen, so
-        // give the tab a turn to paint the bar and take input.
-        await new Promise((r) => setTimeout(r, 0));
-        // A trap elsewhere, or a card replacing this one, can happen while this awaits.
-        if (fatal || s !== session) return;
-      }
-      let shellNote = '';
-      if (shells.length) {
-        if (s.shellReadFailed) {
-          shellNote = 'Shells not written: the card’s shells couldn’t be read.';
-        } else {
-          try {
-            const text = mergedShells(s, shells, shells.map((c) => c.shell));
-            zip.add(SHELL_FILE, new TextEncoder().encode(text));
-            parts.push(zip.take());
-            written.add(pathKey(SHELL_FILE));
-          } catch (e) {
-            if (trapped(e)) return;
-            logError(SHELL_FILE, e);
-            shellNote = 'Writing the shells failed.';
+      let consumed = false;
+      try {
+        // Each entry is taken out of WASM memory as soon as it is added, so the card's labels pile
+        // up here, where memory is given back, and not in the module.
+        const parts = [];
+        const written = new Set();
+        const carried = s.source.labelFiles;
+        const total = carts.length + shells.length + carried.length + albums.length;
+        for (const [i, c] of carts.entries()) {
+          writeProgress(i + 1, total);
+          const path = `Labels/${c.platform}/${c.stem}.png`;
+          zip.add(path, withCartLabel(c, (label) => label.png()));
+          parts.push(zip.take());
+          written.add(pathKey(path));
+          // Packing a few hundred carts is seconds of synchronous work with nothing on screen, so
+          // give the tab a turn to paint the bar and take input.
+          await new Promise((r) => setTimeout(r, 0));
+          // A trap elsewhere, or a card replacing this one, can happen while this awaits.
+          if (fatal || s !== session) return;
+        }
+        for (const [i, { asset, path }] of albums.entries()) {
+          zip.add(path, asset.bytes);
+          parts.push(zip.take());
+          written.add(pathKey(path));
+          writeProgress(carts.length + i + 1, total);
+        }
+        let shellNote = '';
+        if (shells.length) {
+          if (s.shellReadFailed) {
+            shellNote = 'Shells not written: the card’s shells couldn’t be read.';
+          } else {
+            try {
+              const text = mergedShells(s, shells, shells.map((c) => c.shell));
+              zip.add(SHELL_FILE, new TextEncoder().encode(text));
+              parts.push(zip.take());
+              written.add(pathKey(SHELL_FILE));
+            } catch (e) {
+              if (trapped(e)) return;
+              logError(SHELL_FILE, e);
+              shellNote = 'Writing the shells failed.';
+            }
           }
         }
-      }
-      let unread = 0;
-      for (const [i, f] of carried.entries()) {
-        writeProgress(carts.length + shells.length + i + 1, total);
-        if (written.has(pathKey(f.path))) continue;
-        try {
-          zip.add(f.path, new Uint8Array(await (await f.file()).arrayBuffer()));
-          parts.push(zip.take());
-        } catch (e) {
-          if (trapped(e)) return;
-          logError(f.path, e);
-          unread++;
+        let unread = 0;
+        for (const [i, f] of carried.entries()) {
+          writeProgress(carts.length + shells.length + i + 1, total);
+          if (written.has(pathKey(f.path))) continue;
+          try {
+            zip.add(f.path, new Uint8Array(await (await f.file()).arrayBuffer()));
+            parts.push(zip.take());
+          } catch (e) {
+            if (trapped(e)) return;
+            logError(f.path, e);
+            unread++;
+          }
+          if (fatal || s !== session) return;
         }
-        if (fatal || s !== session) return;
+        consumed = true;
+        parts.push(zip.finish());
+        download(new Blob(parts, { type: 'application/zip' }), 'labels.zip');
+        const unreadNote =
+          unread > 0 &&
+          `${unread === 1 ? '1 file' : `${unread} files`} in the card’s Labels folder couldn’t be read and aren’t in the zip. Merge it into the card’s Labels folder rather than replacing it.`;
+        const notes = [shellNote, unreadNote, albums.length && 'Unzip at the card root and merge the Games and Labels folders. Music covers are inside Games/Music.'].filter(Boolean);
+        if (s === session && notes.length) banner(notes.join(' '));
+      } finally {
+        if (!consumed && !fatal) zip.free();
       }
-      parts.push(zip.finish());
-      download(new Blob(parts, { type: 'application/zip' }), 'labels.zip');
-      const unreadNote =
-        unread > 0 &&
-        `${unread === 1 ? '1 file' : `${unread} files`} in the card’s Labels folder couldn’t be read and aren’t in the zip. Merge it into the card’s Labels folder rather than replacing it.`;
-      const notes = [shellNote, unreadNote].filter(Boolean);
-      if (s === session && notes.length) banner(notes.join(' '));
     }
   } catch (e) {
     if (!trapped(e)) throw e;
@@ -986,6 +1077,7 @@ async function writeLabels() {
     writing = false;
     writeProgress(0, 0);
     updateWriteBar();
+    musicEditor.refresh();
   }
 }
 
@@ -1014,7 +1106,7 @@ function shellOf(c) {
 async function lookUp(s, c) {
   paint(c);
   try {
-    if (c.crc === null && !onDisc(c)) c.crc = await crcOf(await c.file());
+    if (c.crc === null && !onDisc(c)) Object.assign(c, await romChecksums(await c.file(), c.platform, Crc32));
     if (!dats.has(c.platform)) dats.set(c.platform, Dat.parse(await fetchDat(c.platform)));
     if (s !== session || fatal) return;
     c.game = gameFor(c);
@@ -1029,6 +1121,7 @@ async function lookUp(s, c) {
 }
 
 function setShell(c, next) {
+  if (next && c.platform === 'SNES') next = { ...next, outline: 'auto', finish: 'solid' };
   c.shell = next ? `${next.outline} ${next.colour} ${next.finish}` : '';
 }
 
@@ -1105,6 +1198,13 @@ const editor = createEditor({
   changed,
 });
 
+const musicEditor = createMusicEditor({
+  base: MUSIC_API,
+  changed: paintAlbum,
+  closeCart: () => editor.close(),
+  canEdit: () => !writing && !fatal,
+});
+
 async function start() {
   await init();
   for (const platform of PLATFORMS) faceBox.set(platform, Array.from(cart_size(platform)));
@@ -1148,6 +1248,7 @@ async function start() {
     }
   });
   $('write').addEventListener('click', () => track(writeLabels()));
+  $('music-save').addEventListener('click', () => track(writeLabels()));
   $('fill-open').addEventListener('click', () => track(askFill(session)));
   for (const kind of ['real', 'logo']) $(`fill-${kind}`).addEventListener('click', () => answerFill(kind));
   $('fill').addEventListener('cancel', (e) => {
@@ -1174,7 +1275,9 @@ async function start() {
       openFiles: (files) => open(fromFiles(files)),
       openDirectory: async (root) => open(await fromDirectory(root)),
       idle: () =>
-        busy === 0 && session !== null && session.carts.every((c) => stateOf(c) !== 'looking'),
+        busy === 0 && session !== null && session.carts.every((c) => stateOf(c) !== 'looking') && session.albums.every((a) => !a.loading),
+      albums: () => session?.albums.map((a) => ({ path: a.path, title: a.title, artist: a.artist,
+        artwork: a.artwork?.kind ?? null, selected: !!a.selected, ready: needsCoverWrite(a), result: a.result })) ?? [],
       states: () =>
         session
           ? session.carts.map((c) => ({

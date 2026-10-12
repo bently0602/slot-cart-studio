@@ -6,7 +6,7 @@
 // alike, and the folder is what decides the platform: the rom is never opened to ask.
 // The handhelds newest first, then the PlayStation, which is the order the studio's shelves and
 // tabs run in.
-export const PLATFORMS = ['GBA', 'GBC', 'GB', 'PSX'];
+export const PLATFORMS = ['GBA', 'GBC', 'GB', 'PSX', 'SNES'];
 
 // slot's own rule, from slot-store's platform.rs. A .gba under GB/ is not a Game Boy cart and is
 // passed over in silence, the way slot passes over it. A .cue's .bin tracks are passed over too.
@@ -15,8 +15,9 @@ const EXTENSIONS = {
   GB: ['gb', 'gbc'],
   GBC: ['gb', 'gbc'],
   PSX: ['chd', 'cue', 'pbp', 'iso', 'exe', 'm3u'],
+  SNES: ['sfc', 'smc', 'swc', 'fig'],
 };
-const ANY_ROM = ['gba', 'gb', 'gbc'];
+const ANY_ROM = ['gba', 'gb', 'gbc', 'sfc', 'smc', 'swc', 'fig'];
 
 const named = (dir) => PLATFORMS.find((p) => p === dir.toUpperCase());
 const ext = (name) => name.slice(name.lastIndexOf('.') + 1).toLowerCase();
@@ -27,6 +28,58 @@ const isCart = (platform, name) => visible(name) && EXTENSIONS[platform].include
 const isRom = (name) => visible(name) && ANY_ROM.includes(ext(name));
 const isLabel = (name) => visible(name) && ext(name) === 'png';
 const stemOf = (name) => name.slice(0, name.lastIndexOf('.'));
+
+// Music is a shelf of folder-defined albums, not an emulator platform.
+const musicFile = (name) => visible(name) && ['mp3', 'flac'].includes(ext(name));
+const safePart = (part) => !!part && part !== '.' && part !== '..' && !part.includes('\\') && visible(part);
+
+function albumFromFiles(path, files) {
+  const tracks = files.filter((f) => musicFile(f.name)).sort((a, b) =>
+    a.name.localeCompare(b.name, undefined, { numeric: true }));
+  if (!tracks.length) return null;
+  const cover = ['cover.jpg', 'cover.jpeg', 'cover.png'].map((name) =>
+    files.find((f) => f.name.toLowerCase() === name)).find(Boolean) ?? null;
+  return { path, tracks, cover };
+}
+
+async function musicDirectories(dir, path, albums) {
+  const files = [];
+  for await (const [name, handle] of dir.entries()) {
+    if (!safePart(name)) continue;
+    if (handle.kind === 'directory') await musicDirectories(handle, `${path}/${name}`, albums);
+    else if (handle.kind === 'file') files.push({ name, file: () => handle.getFile() });
+  }
+  const album = albumFromFiles(path, files);
+  if (album) albums.push(album);
+}
+
+export function albumCoverPath(album) {
+  return `${album.path}/${album.cover?.name ?? 'cover.jpg'}`;
+}
+
+// File System Access commits replacements on close. On failure only a newly created file is removed.
+async function writeFile(dir, name, bytes, replace) {
+  let existed = false;
+  try {
+    await dir.getFileHandle(name);
+    existed = true;
+    if (!replace) return 'skipped';
+  } catch (e) {
+    if (e.name !== 'NotFoundError') throw e;
+  }
+  const file = await dir.getFileHandle(name, { create: true });
+  let out;
+  try {
+    out = await file.createWritable();
+    await out.write(bytes);
+    await out.close();
+  } catch (e) {
+    await out?.abort().catch(() => {});
+    if (!existed) await dir.removeEntry(name).catch(() => {});
+    throw e;
+  }
+  return 'written';
+}
 
 // macOS lists exFAT names decomposed, whatever form was written, so names are compared composed.
 // What gets written is still the listing's own spelling. The platform is part of the key because
@@ -77,9 +130,15 @@ export async function fromDirectory(root) {
     throw new Error(NO_GAMES);
   }
   const carts = [];
+  const albums = [];
   let sawPlatform = false;
   let loose = false;
   for await (const [name, handle] of games.entries()) {
+    if (handle.kind === 'directory' && name.toLowerCase() === 'music') {
+      sawPlatform = true;
+      await musicDirectories(handle, `Games/${name}`, albums);
+      continue;
+    }
     const platform = handle.kind === 'directory' ? named(name) : null;
     if (!platform) {
       if (handle.kind === 'file' && isRom(name)) loose = true;
@@ -142,10 +201,20 @@ export async function fromDirectory(root) {
 
   return {
     carts: carts.sort(byCart),
+    albums: albums.sort((a, b) => a.path.localeCompare(b.path, undefined, { numeric: true })),
     labels,
     direct: true,
     systemShells,
     labelShells,
+    async writeCover(album, bytes, replace = false) {
+      const path = albumCoverPath(album).split('/');
+      if (path[0] !== 'Games' || path[1].toLowerCase() !== 'music' || !path.every(safePart)) {
+        throw new Error('Invalid music cover path');
+      }
+      let dir = root;
+      for (const part of path.slice(0, -1)) dir = await dir.getDirectoryHandle(part);
+      return writeFile(dir, path.at(-1), bytes, replace);
+    },
     async writeShells(text) {
       const dir = await root.getDirectoryHandle('Labels', { create: true });
       const file = await dir.getFileHandle('cart_shell.txt', { create: true });
@@ -163,30 +232,7 @@ export async function fromDirectory(root) {
       const root_dir = await root.getDirectoryHandle('Labels', { create: true });
       const dir = await root_dir.getDirectoryHandle(platform, { create: true });
       const name = `${stem}.png`;
-      let existed = false;
-      try {
-        await dir.getFileHandle(name);
-        existed = true;
-        if (!replace) return 'skipped';
-      } catch (e) {
-        if (e.name !== 'NotFoundError') throw e;
-      }
-      // The file exists from here on, empty until the write closes. A write that fails (a full
-      // card, permission withdrawn, the card pulled) must take it away again: an empty file left
-      // behind reads as a label the card already has, so the studio would never make this one.
-      const file = await dir.getFileHandle(name, { create: true });
-      let out = null;
-      try {
-        out = await file.createWritable();
-        await out.write(bytes);
-        await out.close();
-      } catch (e) {
-        await out?.abort().catch(() => {});
-        // A label being replaced is left as it was: the write only lands when it closes.
-        if (!existed) await dir.removeEntry(name).catch(() => {});
-        throw e;
-      }
-      return 'written';
+      return writeFile(dir, name, bytes, replace);
     },
   };
 }
@@ -196,11 +242,20 @@ export function fromFiles(files) {
   const carts = [];
   const labels = new Map();
   const labelFiles = [];
+  const musicFolders = new Map();
   let sawPlatform = false;
   let loose = false;
   const shellFiles = {};
   for (const file of files) {
     const parts = file.webkitRelativePath.split('/');
+    if (parts.length >= 4 && parts[1].toLowerCase() === 'games' && parts[2].toLowerCase() === 'music') {
+      if (!parts.slice(2).every(safePart)) continue;
+      sawPlatform = true;
+      const path = ['Games', ...parts.slice(2, -1)].join('/');
+      if (!musicFolders.has(path)) musicFolders.set(path, []);
+      musicFolders.get(path).push({ name: parts.at(-1), file: async () => file });
+      continue;
+    }
     if (parts.length >= 3 && parts[1].toLowerCase() === 'labels' && parts.slice(2).every(visible)) {
       labelFiles.push({ path: ['Labels', ...parts.slice(2)].join('/'), file: async () => file });
     }
@@ -233,10 +288,13 @@ export function fromFiles(files) {
   };
   return {
     carts: carts.sort(byCart),
+    albums: [...musicFolders].map(([path, files]) => albumFromFiles(path, files)).filter(Boolean)
+      .sort((a, b) => a.path.localeCompare(b.path, undefined, { numeric: true })),
     labels,
     labelFiles,
     direct: false,
     write: null,
+    writeCover: null,
     systemShells: () => text(shellFiles.config ?? shellFiles.system),
     labelShells: () => text(shellFiles.labels),
   };

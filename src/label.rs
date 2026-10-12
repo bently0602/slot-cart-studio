@@ -19,12 +19,17 @@ pub const GB_H: u32 = 901;
 pub const PSX_W: u32 = 536;
 pub const PSX_H: u32 = 536;
 
+/// Four times slot's 240 by 146 SNES label well.
+pub const SNES_W: u32 = 960;
+pub const SNES_H: u32 = 584;
+
 /// The label a platform's well wants.
 pub fn size(platform: Platform) -> (u32, u32) {
     match platform {
         Platform::Gba => (W, H),
         Platform::Gb | Platform::Gbc => (GB_W, GB_H),
         Platform::Psx => (PSX_W, PSX_H),
+        Platform::Snes => (SNES_W, SNES_H),
     }
 }
 
@@ -602,6 +607,7 @@ mod tests {
         assert_eq!(size(Platform::Gba), (W, H));
         assert_eq!(size(Platform::Gb), (GB_W, GB_H));
         assert_eq!(size(Platform::Gbc), (GB_W, GB_H));
+        assert_eq!(size(Platform::Snes), (SNES_W, SNES_H));
 
         let want = crate::cart::GB_LABEL_W as f32 / crate::cart::GB_LABEL_H as f32;
         let got = GB_W as f32 / GB_H as f32;

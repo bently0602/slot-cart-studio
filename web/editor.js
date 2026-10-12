@@ -169,7 +169,8 @@ export function createEditor(api) {
     $('ed-shell').querySelector('span').textContent = shell.auto ? 'Automatic' : shell.name;
     for (const b of $('ed-shell-presets').querySelectorAll('button')) {
       const [, colour, finish] = b.dataset.value.split(' ');
-      b.setAttribute('aria-pressed', String(!shell.auto && colour === shell.colour && finish === shell.finish));
+      b.dataset.finish = c.platform === 'SNES' ? 'solid' : finish;
+      b.setAttribute('aria-pressed', String(!shell.auto && colour === shell.colour && (c.platform === 'SNES' || finish === shell.finish)));
     }
     $('ed-shell-auto').setAttribute('aria-pressed', String(shell.auto));
     $('ed-shell-custom').value = `#${shell.colour}`;
@@ -180,8 +181,8 @@ export function createEditor(api) {
     const shellRow = $('ed-shell').closest('.prop');
     shellRow.hidden = !plastic;
     shellRow.previousElementSibling.hidden = !plastic;
-    $('ed-finish').closest('.prop').hidden = !plastic;
-    $('ed-outline-row').hidden = !plastic || c.platform === 'GBA';
+    $('ed-finish').closest('.prop').hidden = !plastic || c.platform === 'SNES';
+    $('ed-outline-row').hidden = !plastic || ['GBA', 'SNES'].includes(c.platform);
     press('ed-outline', shell.outline);
     enable('ed-outline', shells);
 

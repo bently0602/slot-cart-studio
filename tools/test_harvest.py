@@ -2,9 +2,65 @@
 
 import tempfile
 import unittest
+import io
+import json
+from contextlib import ExitStack, redirect_stdout
 from pathlib import Path
+from unittest.mock import patch
 
 import harvest
+
+
+class Snes(unittest.TestCase):
+    def test_harvest_falls_back_to_headerless_crc_and_resumes_both_aliases(self):
+        with tempfile.TemporaryDirectory() as tmp, ExitStack() as stack:
+            card, output = Path(tmp) / 'card', Path(tmp) / 'art'
+            rom = card / 'Games' / 'SNES' / 'Game.smc'
+            rom.parent.mkdir(parents=True)
+            rom.write_bytes(bytes(512) + b'a' * 32768)
+            raw, _, _, bare = harvest.rom_job(rom, 'SNES')
+            media = [{'type': kind, 'region': 'us', 'url': f'https://example.test/{kind}'}
+                     for kind in ['wheel', 'support-texture']]
+            stack.enter_context(patch('harvest.sys.argv', ['harvest', '--dat', 'SNES', '--card', str(card), '--out', str(output)]))
+            stack.enter_context(patch('harvest.creds', return_value={}))
+            stack.enter_context(patch('harvest.check_systems', return_value={'SNES': 4}))
+            stack.enter_context(patch('harvest.quota', return_value={'per_day': 100, 'today': 0, 'per_min': 60, 'threads': 1}))
+            stack.enter_context(patch('harvest.dat_entries', return_value={bare: 'Game (USA)'}))
+            stack.enter_context(patch('harvest.fetch', return_value=b'\x89PNG\r\n\x1a\n' + bytes(256)))
+            stack.enter_context(patch('harvest.time.sleep'))
+            api = stack.enter_context(patch('harvest.call', side_effect=[None, {'response': {'jeu': {'medias': media}}}]))
+            stack.enter_context(redirect_stdout(io.StringIO()))
+            harvest.main()
+            self.assertEqual([call.args[1]['crc'] for call in api.call_args_list], [raw, bare])
+            self.assertEqual(api.call_args_list[1].args[1]['romtaille'], '32768')
+            index = json.loads((output / 'index.json').read_text())
+            self.assertEqual(index[raw], index[bare])
+            self.assertEqual(set(index[raw]), {'wheel', 'support-texture'})
+            api.reset_mock()
+            harvest.main()
+            api.assert_not_called()
+
+    def test_headered_rom_jobs_retain_raw_and_headerless_checksums(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / 'Game.smc'
+            path.write_bytes(b'header'.ljust(512, b'\x00') + b'a' * 32768)
+            raw, name, size, bare = harvest.rom_job(path, 'SNES')
+            self.assertEqual(raw, harvest.crc32(path))
+            self.assertEqual(bare, harvest.crc32(path, 512))
+            self.assertNotEqual(raw, bare)
+            self.assertEqual(size, 33280)
+            self.assertEqual(name, 'Game.smc')
+            self.assertIsNone(harvest.rom_job(path, 'GBA')[3])
+
+    def test_snes_skips_unmeasured_look_templates_and_resumes_aliases(self):
+        self.assertEqual(harvest.media_for('SNES', ['wheel', 'look', 'support-texture']), ['wheel', 'support-texture'])
+        self.assertEqual(harvest.media_for('GB', ['wheel', 'look']), ['wheel', 'look'])
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp) / 'SNES'
+            (root / 'wheel').mkdir(parents=True)
+            (root / 'wheel' / 'AAAA0000.png').write_bytes(b'x')
+            index = {'BBBB0000': {'wheel': 'SNES/wheel/AAAA0000.png'}}
+            self.assertEqual(harvest.todo_for('BBBB0000', ['wheel'], index, root, False), [])
 
 
 class TodoFor(unittest.TestCase):

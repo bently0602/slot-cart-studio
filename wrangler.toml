@@ -1,0 +1,13 @@
+name = "slot-studio-music"
+main = "worker/index.js"
+compatibility_date = "2026-10-11"
+workers_dev = false
+routes = [{ pattern = "studio.slot-cfw.fyi/api/music/*", zone_name = "slot-cfw.fyi" }]
+
+[[durable_objects.bindings]]
+name = "MUSIC_SEARCH"
+class_name = "MusicSearch"
+
+[[migrations]]
+tag = "v1"
+new_sqlite_classes = ["MusicSearch"]

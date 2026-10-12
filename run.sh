@@ -15,7 +15,7 @@ SLOT=../slot-b
 # Non-login shells do not always have cargo's bin on PATH.
 export PATH="$HOME/.cargo/bin:$PATH"
 
-for tool in cargo python3 git; do
+for tool in cargo python3 git node npm; do
   command -v "$tool" >/dev/null || { echo "run.sh: $tool is not installed in WSL" >&2; exit 1; }
 done
 
@@ -41,7 +41,9 @@ if [ "$head" != "$pin" ]; then
   echo "run.sh: warning: $SLOT is at ${head:0:7}, slot.ref pins ${pin:0:7}; faces may differ from the deployed studio" >&2
 fi
 
-wasm-pack build --release --target web --no-typescript --out-dir web/pkg
+npm ci
+npm run build
+wasm-pack build --release --target web --no-typescript --no-pack --out-dir web/pkg
 
 [ "${1:-}" = "--build-only" ] && exit 0
 

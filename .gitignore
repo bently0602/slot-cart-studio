@@ -1,5 +1,9 @@
 /target
 /web/pkg
+/web/vendor
+/node_modules
+/.wrangler
+/test-results
 /out
 /desktop/target
 /dist

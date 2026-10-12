@@ -59,8 +59,10 @@ PLATFORMS = {
     'GBA': 'Nintendo - Game Boy Advance',
     'GB': 'Nintendo - Game Boy',
     'GBC': 'Nintendo - Game Boy Color',
+    'SNES': 'Nintendo - Super Nintendo Entertainment System',
 }
-EXTENSIONS = {'GBA': ('.gba',), 'GB': ('.gb', '.gbc'), 'GBC': ('.gb', '.gbc')}
+EXTENSIONS = {'GBA': ('.gba',), 'GB': ('.gb', '.gbc'), 'GBC': ('.gb', '.gbc'),
+              'SNES': ('.sfc', '.smc', '.swc', '.fig')}
 
 # ScreenScraper's own system ids. They are named "Game Boy Color", not libretro's "Nintendo -
 # Game Boy Color", so there is no shared name to look them up by. Stated here and then checked
@@ -200,15 +202,30 @@ def check_systems(c):
             sys.exit(f'ScreenScraper lists no system {sid}, which this expects to be {platform}')
         if got != SS_EXPECT[platform]:
             sys.exit(f'system {sid} is "{got}", not "{SS_EXPECT[platform]}": ids have moved')
-    return SS_SYSTEM
+    snes = [sid for sid, name in names.items() if name in ('super nintendo', 'super nintendo entertainment system', 'snes')]
+    if len(snes) != 1:
+        sys.exit('ScreenScraper must list exactly one Super Nintendo system')
+    return dict(SS_SYSTEM, SNES=snes[0])
 
 
-def crc32(path):
+def crc32(path, offset=0):
     h = 0
     with open(path, 'rb') as f:
+        f.seek(offset)
         while chunk := f.read(1 << 20):
             h = zlib.crc32(chunk, h)
     return f'{h & 0xffffffff:08X}'
+
+
+def rom_job(path, platform):
+    size = path.stat().st_size
+    bare = crc32(path, 512) if platform == 'SNES' and size > 512 and size % 32768 == 512 else None
+    return crc32(path), path.name, size, bare
+
+
+def media_for(platform, wanted):
+    # SNES templates have not been measured; never invent a background from a handheld crop.
+    return [media for media in wanted if platform != 'SNES' or media != 'look']
 
 
 def pick(medias, want, regions=REGIONS):
@@ -266,7 +283,8 @@ def todo_for(crc, wanted, index, root, relook, redo=False):
     def needed(w):
         if w == 'look':
             return relook or 'look' not in index.get(crc, {})
-        return not (root / w / f'{crc}.png').exists()
+        path = index.get(crc, {}).get(w)
+        return not ((root.parent / path).exists() if isinstance(path, str) else (root / w / f'{crc}.png').exists())
     return [w for w in wanted if needed(w)]
 
 
@@ -283,10 +301,15 @@ def roms(card, platform):
 def probe(path, c, ids):
     platform = Path(path).parent.name.upper()
     system = ids.get(platform)
-    data = call('jeuInfos.php', dict(c, crc=crc32(path), systemeid=system or '',
-                                     romnom=Path(path).name,
-                                     romtaille=str(Path(path).stat().st_size)))
+    crc, name, size, bare = rom_job(Path(path), platform)
+    params = dict(c, crc=crc, systemeid=system or '', romnom=name, romtaille=str(size))
+    data = call('jeuInfos.php', params)
     jeu = (data or {}).get('response', {}).get('jeu')
+    if not jeu and bare:
+        q = quota(c)
+        time.sleep(60.0 / q['per_min'] if q['per_min'] else 1.0)
+        data = call('jeuInfos.php', dict(params, crc=bare, romtaille=str(size - 512)))
+        jeu = (data or {}).get('response', {}).get('jeu')
     if not jeu:
         print(f'{Path(path).name}: no match')
         return
@@ -333,7 +356,8 @@ def main():
     pause = 60.0 / q['per_min'] if q['per_min'] else 1.0
 
     wanted = [m.strip() for m in args.media.split(',') if m.strip()]
-    if 'look' in wanted:
+    chosen = list(PLATFORMS) if args.dat == 'all' else ([args.dat] if args.dat else list(PLATFORMS))
+    if 'look' in wanted and any(platform != 'SNES' for platform in chosen):
         try:
             global look
             import look
@@ -353,18 +377,20 @@ def main():
     n = {'asked': 0, 'saved': 0, 'missed': 0, 'skipped': 0, 'done': 0}
 
     def work(platform, root, system, entries, job):
-        crc, romname, size = job
+        crc, romname, size, bare = job
         if stop.is_set():
             return
         # The dat's name is only ever what this run calls a cart while it works; a rom it has
         # never heard of goes by its checksum, which is what the file is named anyway.
-        name = entries.get(crc, crc)
-        regions = regions_for(entries.get(crc) or romname)
+        name = entries.get(crc) or entries.get(bare, crc)
+        regions = regions_for(entries.get(crc) or entries.get(bare) or romname)
         redo = args.reregion and regions[0] != 'us'
-        todo = todo_for(crc, wanted, index, root, args.relook, redo)
+        todo = todo_for(crc, media_for(platform, wanted), index, root, args.relook, redo)
         if not todo:
             with lock:
                 n['skipped'] += 1
+                if bare and crc in index:
+                    index.setdefault(bare, {}).update(index[crc])
             return
         with lock:
             if (left is not None and n['asked'] >= left) or (args.limit and n['asked'] >= args.limit):
@@ -376,6 +402,14 @@ def main():
             params['romtaille'] = str(size)
         try:
             data = call('jeuInfos.php', params)
+            if bare and not ((data or {}).get('response', {}).get('jeu')):
+                with lock:
+                    if left is not None and n['asked'] >= left:
+                        stop.set()
+                        return
+                    n['asked'] += 1
+                time.sleep(pause)
+                data = call('jeuInfos.php', dict(params, crc=bare, romtaille=str(size - 512)))
         except QuotaSpent:
             stop.set()
             return
@@ -404,6 +438,8 @@ def main():
                 entry = index.setdefault(crc, {})
                 for w in got:
                     entry[w] = measured if w == 'look' else str((root / w / f'{crc}.png').relative_to(args.out))
+                if bare:
+                    index.setdefault(bare, {}).update(entry)
             else:
                 n['missed'] += 1
             n['done'] += 1
@@ -412,7 +448,6 @@ def main():
         time.sleep(pause)
 
     try:
-        chosen = list(PLATFORMS) if args.dat == 'all' else ([args.dat] if args.dat else list(PLATFORMS))
         for platform in chosen:
             if stop.is_set():
                 break
@@ -421,9 +456,9 @@ def main():
                 # Every rom on the card, whether No-Intro knows it or not: a file is named for its
                 # checksum, so a dump nobody has catalogued still has somewhere to go. Only a
                 # sweep of a whole platform needs the dat, because only that needs a list.
-                jobs = [(crc32(p), p.name, p.stat().st_size) for p in roms(args.card, platform)]
+                jobs = [rom_job(p, platform) for p in roms(args.card, platform)]
             else:
-                jobs = [(crc, f'{name}.bin', 0) for crc, name in entries.items()]
+                jobs = [(crc, f'{name}.bin', 0, None) for crc, name in entries.items()]
             if not jobs:
                 continue
             system = ids[platform]

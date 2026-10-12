@@ -317,3 +317,22 @@ body.editing .cart:not(.current){opacity:.45}
 .tile .badge.on-card{background:var(--shell-accent);color:var(--opening)}
 .tile .add{display:grid;place-items:center;aspect-ratio:1.6;border:2px dashed #55555f;border-radius:4px;color:var(--muted);font-size:24px}
 .tile.has-file .add{display:none}
+.album .face{aspect-ratio:1;max-width:240px;margin:auto;display:grid;place-items:center}
+.music-cover{display:block;width:100%;aspect-ratio:1;object-fit:cover;image-rendering:auto}
+.album .music-cover{height:100%;max-height:240px}
+.album .placeholder{font-size:42px;color:var(--muted)}
+.album .print,.music-identity{overflow-wrap:anywhere;color:var(--muted)}
+.music-editor .props{margin-top:16px}
+.music-identity{font-size:12px;margin:0 0 16px}
+.music-search-form{display:grid;gap:10px}
+.music-search-form label{display:grid;gap:4px;font-size:13px;color:var(--muted)}
+.music-search-form input{width:100%;min-width:0;box-sizing:border-box;padding:10px;background:#15151a;color:var(--ink,#eee);border:1px solid #45454e;border-radius:4px;font:inherit}
+.music-message{font-size:13px;line-height:1.5}
+.music-hits{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:0;padding:0}
+.music-hit{display:flex;flex-direction:column;gap:4px;width:100%;height:100%;padding:10px;text-align:left;border:1px solid #45454e;border-radius:6px;color:inherit;background:#25252d;font:inherit;cursor:pointer}
+.music-hit img{width:100%;aspect-ratio:1;object-fit:cover}
+.music-hit strong{font-size:13px;overflow-wrap:anywhere}
+.music-hit span,.music-hit small{font-size:11px;color:var(--muted)}
+.music-hit:disabled{opacity:.55;cursor:default}
+.music-hit:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.music-placeholder{padding:80px 16px;text-align:center;background:var(--recess);border-radius:8px}

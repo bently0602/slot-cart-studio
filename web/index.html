@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Cart Studio · slot</title>
-<meta name="description" content="Cart labels for a slot SD card, made from libretro's logos and checked on the cart before they are written.">
+<meta name="description" content="Preview and save cartridge labels, including SNES, and music album covers for your slot SD card.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap">
@@ -61,6 +61,7 @@
   <footer class="credits">
     <p>Game names and CRCs from <a href="https://github.com/libretro/libretro-database">libretro-database</a> (<a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>).</p>
     <p>Game logos from <a href="https://www.screenscraper.fr/">ScreenScraper</a> (<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>).</p>
+    <p>Album matches from <a href="https://musicbrainz.org/">MusicBrainz</a>; covers from <a href="https://coverartarchive.org/">Cover Art Archive</a>.</p>
     <p>Game Boy is a trademark of Nintendo. Not affiliated with Nintendo.</p>
     <p id="build"></p>
   </footer>
@@ -161,6 +162,26 @@
   </div>
 </aside>
 <div id="ed-tip" class="tip" role="tooltip" hidden></div>
+
+<aside class="editor music-editor" id="music-editor" hidden tabindex="-1" aria-labelledby="music-name">
+  <div class="ed-head"><h2 id="music-name"></h2><button class="key dark ed-icon" id="music-close" type="button" aria-label="Close album editor">×</button></div>
+  <p class="music-identity" id="music-identity"></p>
+  <img class="ed-face music-cover" id="music-face" alt="Selected album cover" hidden>
+  <p class="music-placeholder" id="music-placeholder">No cover selected</p>
+  <div class="props">
+    <form id="music-search-form" class="music-search-form">
+      <label>Artist<input id="music-artist" maxlength="200" autocomplete="off"></label>
+      <label>Album<input id="music-album" maxlength="200" required autocomplete="off"></label>
+      <button class="key dark" id="music-search" type="submit">Search covers</button>
+    </form>
+    <button class="key dark" id="music-import" type="button">Import JPEG or PNG</button>
+    <input id="music-file" class="visually-hidden" type="file" accept="image/jpeg,image/png,.jpg,.jpeg,.png" tabindex="-1">
+    <p id="music-message" class="music-message" role="status" aria-live="polite"></p>
+    <ul id="music-hits" class="music-hits" aria-label="Album cover suggestions"></ul>
+  </div>
+  <div class="ed-foot"><div class="ed-history"><button class="key dark" id="music-undo" type="button">Undo</button><button class="key dark" id="music-redo" type="button">Redo</button></div><button class="key dark" id="music-revert" type="button">Revert</button></div>
+  <button class="btn" id="music-save" type="button" disabled>Write to card</button>
+</aside>
 
 <template id="card-tpl">
   <article class="cart" tabindex="0" role="button">
