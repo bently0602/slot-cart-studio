@@ -1,0 +1,147 @@
+name: Desktop release
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Existing v-prefixed tag to build and release
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: desktop-release-${{ github.event.inputs.tag || github.ref_name }}
+  cancel-in-progress: false
+
+env:
+  RELEASE_TAG: ${{ github.event.inputs.tag || github.ref_name }}
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  build:
+    name: Build Windows x64 and macOS arm64
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - name: Validate release tag
+        run: |
+          git check-ref-format "refs/tags/$RELEASE_TAG"
+          if [[ "$RELEASE_TAG" != v* ]]; then
+            echo 'Release tags must start with v.' >&2
+            exit 1
+          fi
+
+      - uses: actions/checkout@v7
+        with:
+          ref: refs/tags/${{ env.RELEASE_TAG }}
+          path: slot-cart-studio
+          persist-credentials: false
+
+      - name: Read pinned slot revision
+        id: slot
+        run: echo "ref=$(tr -d '\r\n' < slot-cart-studio/slot.ref)" >> "$GITHUB_OUTPUT"
+
+      - uses: actions/checkout@v7
+        with:
+          repository: bently0602/slot
+          ref: ${{ steps.slot.outputs.ref }}
+          path: slot-b
+          persist-credentials: false
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+
+      - name: Install Rust
+        run: >-
+          rustup toolchain install 1.96 --profile minimal
+          --component rustfmt --component clippy
+          --target wasm32-unknown-unknown
+
+      - name: Install cross-build tools
+        run: |
+          curl -fsSL https://ziglang.org/download/0.13.0/zig-linux-x86_64-0.13.0.tar.xz \
+            -o "$RUNNER_TEMP/zig.tar.xz"
+          echo "d45312e61ebcc48032b77bc4cf7fd6915c11fa16e4aad116b66c9468211230ea  $RUNNER_TEMP/zig.tar.xz" \
+            | sha256sum --check
+          mkdir -p "$RUNNER_TEMP/zig"
+          tar -xJf "$RUNNER_TEMP/zig.tar.xz" -C "$RUNNER_TEMP/zig" --strip-components=1
+          echo "$RUNNER_TEMP/zig" >> "$GITHUB_PATH"
+          cargo +1.96 install --locked cargo-zigbuild --version 0.23.4
+
+      - name: Build desktop packages
+        working-directory: slot-cart-studio
+        run: bash ./build-desktop.sh
+
+      - name: Verify local server and frontend
+        working-directory: slot-cart-studio
+        run: |
+          cargo test --locked --manifest-path desktop/Cargo.toml
+          npm test
+          npx playwright install --with-deps chromium
+          npm run test:browser
+
+      - name: Package release downloads
+        working-directory: slot-cart-studio
+        run: |
+          test -s dist/windows-x64/cart-studio.exe
+          test -s dist/macos-arm64/cart-studio
+          test -s dist/macos-arm64/first-run.sh
+          for platform in windows-x64 macos-arm64; do
+            (cd "dist/$platform" && python3 -m zipfile -c "../cart-studio-$platform.zip" *)
+          done
+
+      - name: Upload Windows artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: cart-studio-windows-x64
+          path: slot-cart-studio/dist/cart-studio-windows-x64.zip
+          if-no-files-found: error
+          compression-level: 0
+
+      - name: Upload macOS artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: cart-studio-macos-arm64
+          path: slot-cart-studio/dist/cart-studio-macos-arm64.zip
+          if-no-files-found: error
+          compression-level: 0
+
+  release:
+    name: Publish GitHub Release
+    needs: build
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v7
+        with:
+          pattern: cart-studio-*
+          merge-multiple: true
+          path: release
+
+      - name: Publish release with both downloads
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          assets=(release/cart-studio-windows-x64.zip release/cart-studio-macos-arm64.zip)
+          for asset in "${assets[@]}"; do
+            test -s "$asset"
+          done
+          if gh release view "$RELEASE_TAG" >/dev/null 2>&1; then
+            gh release upload "$RELEASE_TAG" "${assets[@]}" --clobber
+            gh release edit "$RELEASE_TAG" --draft=false
+          else
+            gh release create "$RELEASE_TAG" "${assets[@]}" \
+              --verify-tag --generate-notes --title "Cart Studio $RELEASE_TAG"
+          fi

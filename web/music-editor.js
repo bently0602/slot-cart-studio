@@ -13,26 +13,27 @@ export function setCoverImage(image, asset) {
   image.src = image.dataset.assetUrl;
 }
 
-export function createMusicEditor({ base, changed, closeCart, canEdit }) {
+export function createMusicEditor({ base, changed, closeCart, canEdit, ui }) {
   let album = null;
   let controller = null;
   let generation = 0;
   let selecting = false;
   let pendingFields = null;
-  const panel = $('music-editor');
+  const panel = ui.musicEditor.el.dom;
+  const panelView = ui.musicEditor;
   const stop = () => { controller?.abort(); generation++; selecting = false; };
   function refresh() {
     if (!album) return;
-    $('music-name').textContent = album.title;
+    panelView.setTitle(ui.encode(album.title));
     $('music-identity').textContent = `${album.artist} · ${album.path}`;
     setCoverImage($('music-face'), album.selected);
     $('music-placeholder').hidden = !!album.selected;
     const blocked = album.loading || selecting || !canEdit();
-    $('music-search').disabled = blocked;
-    $('music-import').disabled = blocked;
-    $('music-undo').disabled = blocked || !album.history.undo.length;
-    $('music-redo').disabled = blocked || !album.history.redo.length;
-    $('music-revert').disabled = blocked || album.selected === album.original;
+    ui.buttons['music-search'].setDisabled(blocked);
+    ui.buttons['music-import'].setDisabled(blocked);
+    ui.buttons['music-undo'].setDisabled(blocked || !album.history.undo.length);
+    ui.buttons['music-redo'].setDisabled(blocked || !album.history.redo.length);
+    ui.buttons['music-revert'].setDisabled(blocked || album.selected === album.original);
   }
   function message(value) { $('music-message').textContent = value; }
   function newRequest() {
@@ -46,7 +47,7 @@ export function createMusicEditor({ base, changed, closeCart, canEdit }) {
   }
   function clearHits() {
     for (const image of $('music-hits').querySelectorAll('img')) setCoverImage(image, null);
-    $('music-hits').replaceChildren();
+    ui.clearMusicResults();
   }
   async function select(candidate) {
     if (!canEdit()) return;
@@ -81,17 +82,7 @@ export function createMusicEditor({ base, changed, closeCart, canEdit }) {
       if (!request.current()) return;
       message(candidates.length ? 'Choose a cover below, or adjust the search.' : 'No albums found. Adjust the search or import an image.');
       for (const candidate of candidates) {
-        const li = document.createElement('li');
-        const button = Object.assign(document.createElement('button'), { type: 'button', className: 'music-hit', disabled: true });
-        const image = Object.assign(document.createElement('img'), { alt: `${candidate.title} cover`, hidden: true });
-        const heading = Object.assign(document.createElement('strong'), { textContent: candidate.title });
-        const artist = Object.assign(document.createElement('span'), { textContent: candidate.artist });
-        const info = Object.assign(document.createElement('small'), { textContent: [candidate.year, candidate.type].filter(Boolean).join(' · ') });
-        const status = Object.assign(document.createElement('small'), { textContent: 'Loading preview…' });
-        button.append(image, heading, artist, info, status);
-        button.addEventListener('click', () => select(candidate));
-        li.append(button);
-        $('music-hits').append(li);
+        const { image, button, status } = ui.addMusicResult(candidate, () => select(candidate));
         previews(async () => {
           if (!request.current()) return;
           try {
@@ -102,9 +93,9 @@ export function createMusicEditor({ base, changed, closeCart, canEdit }) {
             if (!request.current()) return;
             setCoverImage(image, asset);
             status.textContent = '';
-            button.disabled = false;
+            button.enable();
           } catch {
-            if (request.current()) { status.textContent = 'Preview unavailable. Click to retry'; button.disabled = false; }
+            if (request.current()) { status.textContent = 'Preview unavailable. Click to retry'; button.enable(); }
           }
         });
       }
@@ -119,8 +110,7 @@ export function createMusicEditor({ base, changed, closeCart, canEdit }) {
     album = null;
     pendingFields = null;
     setCoverImage($('music-face'), null);
-    panel.hidden = true;
-    if ($('editor').hidden) document.body.classList.remove('editing');
+    panelView.hide();
   }
   function open(next) {
     if (album === next) return;
@@ -132,16 +122,17 @@ export function createMusicEditor({ base, changed, closeCart, canEdit }) {
     $('music-album').value = album.title;
     pendingFields = album.loading ? { artist: $('music-artist').value, album: $('music-album').value } : null;
     message(album.artworkError ?? (album.artwork ? 'Your current cover is kept. Search or import to replace it.' : ''));
-    panel.hidden = false;
-    document.body.classList.add('editing');
+    panelView.show();
     refresh();
-    panel.focus({ preventScroll: true });
+    panelView.focus();
     if (!album.artwork && !album.loading) search();
   }
-  $('music-close').addEventListener('click', close);
-  $('music-search-form').addEventListener('submit', (e) => { e.preventDefault(); search(); });
+  ui.buttons['music-close'].on('click', close);
+  panelView.on('hide', () => { if (album) close(); });
+  ui.buttons['music-search'].on('click', search);
+  for (const id of ['music-artist', 'music-album']) ui.fields[id].on('specialkey', (_, event) => { if (event.getKey() === event.ENTER) { event.stopEvent(); search(); } });
   for (const id of ['music-artist', 'music-album']) $(id).addEventListener('input', () => { stop(); clearHits(); refresh(); });
-  $('music-import').addEventListener('click', () => $('music-file').click());
+  ui.buttons['music-import'].on('click', () => $('music-file').click());
   $('music-file').addEventListener('change', async (e) => {
     const file = e.target.files[0];
     e.target.value = '';
@@ -161,7 +152,7 @@ export function createMusicEditor({ base, changed, closeCart, canEdit }) {
       if (request.owns()) { selecting = false; refresh(); }
     }
   });
-  for (const action of ['undo', 'redo', 'revert']) $(`music-${action}`).addEventListener('click', () => {
+  for (const action of ['undo', 'redo', 'revert']) ui.buttons['music-' + action].on('click', () => {
     if (album && canEdit() && coverHistory(album, action)) { changed(album); refresh(); }
   });
   panel.addEventListener('keydown', (e) => {

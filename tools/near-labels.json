@@ -1,0 +1,10026 @@
+{
+  "3 Ninjas Kick Back": {
+    "slug": "07f9ca83c609c92aeaa8a9c66c4a31de088e9cf5",
+    "sha1": "07f9ca83c609c92aeaa8a9c66c4a31de088e9cf5",
+    "size": [
+      3181,
+      3249
+    ],
+    "crop": [
+      1132,
+      544,
+      1988,
+      2468
+    ]
+  },
+  "7th Saga, The": {
+    "slug": "0b76920cb8ec66adbd770ffa6aa0e8cf0c60b51d",
+    "sha1": "0b76920cb8ec66adbd770ffa6aa0e8cf0c60b51d",
+    "size": [
+      3989,
+      3324
+    ],
+    "crop": [
+      1128,
+      528,
+      1984,
+      2452
+    ]
+  },
+  "ABC Monday Night Football": {
+    "slug": "11564e11caac4b5c48e9fee29189e4a8e0a0bf64",
+    "sha1": "11564e11caac4b5c48e9fee29189e4a8e0a0bf64",
+    "size": [
+      3686,
+      3274
+    ],
+    "crop": [
+      1140,
+      544,
+      1996,
+      2468
+    ]
+  },
+  "ACME Animation Factory": {
+    "slug": "57b73fb1303b51d222fe7e30666a273ad1759034",
+    "sha1": "57b73fb1303b51d222fe7e30666a273ad1759034",
+    "size": [
+      3635,
+      3249
+    ],
+    "crop": [
+      1120,
+      540,
+      1996,
+      2464
+    ]
+  },
+  "ASP - Air Strike Patrol": {
+    "slug": "f311cc6fa2c5494a28f2a328461281974fc85d46",
+    "sha1": "f311cc6fa2c5494a28f2a328461281974fc85d46",
+    "size": [
+      3635,
+      3274
+    ],
+    "crop": [
+      1132,
+      540,
+      1988,
+      2464
+    ]
+  },
+  "Aaahh!!! Real Monsters": {
+    "slug": "43971b6ecad957d1fc74661566152afc3bf5487c",
+    "sha1": "43971b6ecad957d1fc74661566152afc3bf5487c",
+    "size": [
+      3206,
+      3324
+    ],
+    "crop": [
+      1124,
+      524,
+      1960,
+      2448
+    ]
+  },
+  "ActRaiser": {
+    "slug": "22d9f1cf9f83f9af66b398dd96bb851b43076cd8",
+    "sha1": "22d9f1cf9f83f9af66b398dd96bb851b43076cd8",
+    "size": [
+      3635,
+      3249
+    ],
+    "crop": [
+      1124,
+      544,
+      2000,
+      2468
+    ]
+  },
+  "ActRaiser 2": {
+    "slug": "d31d8fb1b284e4b55f2c77c24b7823fab0549774",
+    "sha1": "d31d8fb1b284e4b55f2c77c24b7823fab0549774",
+    "size": [
+      3610,
+      3299
+    ],
+    "crop": [
+      1108,
+      532,
+      1984,
+      2456
+    ]
+  },
+  "Addams Family - Pugsley_s Scavenger Hunt, The": {
+    "slug": "6273101089d3b0efe251294235a28901e8ca1042",
+    "sha1": "6273101089d3b0efe251294235a28901e8ca1042",
+    "size": [
+      3231,
+      3274
+    ],
+    "crop": [
+      1124,
+      536,
+      1940,
+      2460
+    ]
+  },
+  "Addams Family Values": {
+    "slug": "f22ed5ca174e47d6b77c9f6194d523309f543760",
+    "sha1": "f22ed5ca174e47d6b77c9f6194d523309f543760",
+    "size": [
+      3307,
+      3324
+    ],
+    "crop": [
+      1128,
+      544,
+      2004,
+      2468
+    ]
+  },
+  "Addams Family, The": {
+    "slug": "6c8f9e9ebd53703081e3101bd54ced9f6f0a4be5",
+    "sha1": "6c8f9e9ebd53703081e3101bd54ced9f6f0a4be5",
+    "size": [
+      3231,
+      3274
+    ],
+    "crop": [
+      1120,
+      536,
+      1996,
+      2460
+    ]
+  },
+  "Adventures of Batman _ Robin, The": {
+    "slug": "70f2b3657ff6b5e040ef1177c5c8e96881f0f917",
+    "sha1": "70f2b3657ff6b5e040ef1177c5c8e96881f0f917",
+    "size": [
+      3231,
+      3299
+    ],
+    "crop": [
+      1120,
+      540,
+      1936,
+      2464
+    ]
+  },
+  "Adventures of Dr. Franken, The": {
+    "slug": "41abceeeb4522b507ba01c15005792d9e4c494f9",
+    "sha1": "41abceeeb4522b507ba01c15005792d9e4c494f9",
+    "size": [
+      3206,
+      3249
+    ],
+    "crop": [
+      1140,
+      540,
+      1996,
+      2464
+    ]
+  },
+  "Adventures of Kid Kleets, The": {
+    "slug": "541d15decf26b1b9ad48126b6234892e37f69ae8",
+    "sha1": "541d15decf26b1b9ad48126b6234892e37f69ae8",
+    "size": [
+      3610,
+      3274
+    ],
+    "crop": [
+      1120,
+      532,
+      1936,
+      2456
+    ]
+  },
+  "Adventures of Mighty Max, The": {
+    "slug": "09192e7cb84ab9ad7c565cebecd682dc220edbb1",
+    "sha1": "09192e7cb84ab9ad7c565cebecd682dc220edbb1",
+    "size": [
+      3256,
+      3299
+    ],
+    "crop": [
+      1120,
+      540,
+      1956,
+      2464
+    ]
+  },
+  "Adventures of Rocky and Bullwinkle and Friends, The": {
+    "slug": "7df00817ced2797af02d0519c605701edfd53ac2",
+    "sha1": "7df00817ced2797af02d0519c605701edfd53ac2",
+    "size": [
+      3181,
+      3249
+    ],
+    "crop": [
+      1120,
+      548,
+      1996,
+      2472
+    ]
+  },
+  "Adventures of Yogi Bear": {
+    "slug": "0d47c58e65f3a36271d513d8286b5e07a8b50c56",
+    "sha1": "0d47c58e65f3a36271d513d8286b5e07a8b50c56",
+    "size": [
+      3282,
+      3274
+    ],
+    "crop": [
+      1124,
+      532,
+      1980,
+      2456
+    ]
+  },
+  "Aero Fighters": {
+    "slug": "59abe8b042000d20b03b6e1b8422167056a37efa",
+    "sha1": "59abe8b042000d20b03b6e1b8422167056a37efa",
+    "size": [
+      3610,
+      3249
+    ],
+    "crop": [
+      1108,
+      536,
+      1984,
+      2460
+    ]
+  },
+  "Aero the Acro-bat": {
+    "slug": "79b23b0705bbf720b4dbecc2387deb8e952708e4",
+    "sha1": "79b23b0705bbf720b4dbecc2387deb8e952708e4",
+    "size": [
+      3206,
+      3299
+    ],
+    "crop": [
+      1136,
+      548,
+      1992,
+      2472
+    ]
+  },
+  "Aero the Acro-bat 2": {
+    "slug": "a35efce67d782b5c5ec3a406cde77fcc62443e68",
+    "sha1": "a35efce67d782b5c5ec3a406cde77fcc62443e68",
+    "size": [
+      3206,
+      3299
+    ],
+    "crop": [
+      1124,
+      516,
+      2000,
+      2460
+    ]
+  },
+  "Aerobiz": {
+    "slug": "c780bc2a71ccb68714628b5d483b8a036e6327d7",
+    "sha1": "c780bc2a71ccb68714628b5d483b8a036e6327d7",
+    "size": [
+      3686,
+      3299
+    ],
+    "crop": [
+      1136,
+      540,
+      1992,
+      2464
+    ]
+  },
+  "Aerobiz Supersonic": {
+    "slug": "c6b7666bf1f1d767349be4b9f6b254557080891e",
+    "sha1": "c6b7666bf1f1d767349be4b9f6b254557080891e",
+    "size": [
+      3686,
+      3299
+    ],
+    "crop": [
+      1136,
+      536,
+      1992,
+      2460
+    ]
+  },
+  "Air Cavalry": {
+    "slug": "3abc2d66f95fea805c6e2f2671458dbd6c12f029",
+    "sha1": "3abc2d66f95fea805c6e2f2671458dbd6c12f029",
+    "size": [
+      3256,
+      3274
+    ],
+    "crop": [
+      1136,
+      540,
+      1952,
+      2464
+    ]
+  },
+  "Al Unser Jr._s Road to the Top": {
+    "slug": "404ed4521828ae88bea90201fee68e2fb69988c6",
+    "sha1": "404ed4521828ae88bea90201fee68e2fb69988c6",
+    "size": [
+      3231,
+      3299
+    ],
+    "crop": [
+      1140,
+      540,
+      1996,
+      2464
+    ]
+  },
+  "Aladdin": {
+    "slug": "192dd546cfb1300410c14aeb6b6b2dcf6c600465",
+    "sha1": "192dd546cfb1300410c14aeb6b6b2dcf6c600465",
+    "size": [
+      3206,
+      3324
+    ],
+    "crop": [
+      1120,
+      556,
+      1936,
+      2480
+    ]
+  },
+  "Alien 3": {
+    "slug": "53aeb796f1886352498b87fb72e42453211b42dc",
+    "sha1": "53aeb796f1886352498b87fb72e42453211b42dc",
+    "size": [
+      3206,
+      3299
+    ],
+    "crop": [
+      1136,
+      544,
+      1992,
+      2468
+    ]
+  },
+  "Alien vs. Predator": {
+    "slug": "aa02a05d87b56ebcfea6c8ae71a5efa55068fb9f",
+    "sha1": "aa02a05d87b56ebcfea6c8ae71a5efa55068fb9f",
+    "size": [
+      3534,
+      3274
+    ],
+    "crop": [
+      1120,
+      540,
+      1996,
+      2464
+    ]
+  },
+  "American Gladiators": {
+    "slug": "eb3e680f76d511a8bd8459d25ea594def94c2482",
+    "sha1": "eb3e680f76d511a8bd8459d25ea594def94c2482",
+    "size": [
+      3231,
+      3274
+    ],
+    "crop": [
+      1136,
+      544,
+      1992,
+      2468
+    ]
+  },
+  "An American Tail - Fievel Goes West": {
+    "slug": "05a5d3afe4cbfcf4bd9ccd4c0dd911c744035d58",
+    "sha1": "05a5d3afe4cbfcf4bd9ccd4c0dd911c744035d58",
+    "size": [
+      3206,
+      3274
+    ],
+    "crop": [
+      1124,
+      536,
+      1940,
+      2460
+    ]
+  },
+  "Andre Agassi Tennis": {
+    "slug": "9fcc893dc66cc9002552713220cfc31edb0d92db",
+    "sha1": "9fcc893dc66cc9002552713220cfc31edb0d92db",
+    "size": [
+      3206,
+      3299
+    ],
+    "crop": [
+      1132,
+      528,
+      1988,
+      2452
+    ]
+  },
+  "Animaniacs": {
+    "slug": "9b03c5d0f9fb06bcf17ab395eec460576ea3fd8d",
+    "sha1": "9b03c5d0f9fb06bcf17ab395eec460576ea3fd8d",
+    "size": [
+      3231,
+      3249
+    ],
+    "crop": [
+      1124,
+      508,
+      1980,
+      2432
+    ]
+  },
+  "Arcade_s Greatest Hits - The Atari Collection 1": {
+    "slug": "36e9df43c4d0c2a0b6d50fbf4459379857429b1e",
+    "sha1": "36e9df43c4d0c2a0b6d50fbf4459379857429b1e",
+    "size": [
+      3181,
+      3299
+    ],
+    "crop": [
+      1164,
+      540,
+      2000,
+      2464
+    ]
+  },
+  "Arcana": {
+    "slug": "0e5c18863d1dea4e39a101b3e243bddcaa2d213b",
+    "sha1": "0e5c18863d1dea4e39a101b3e243bddcaa2d213b",
+    "size": [
+      3660,
+      3274
+    ],
+    "crop": [
+      1124,
+      540,
+      2000,
+      2464
+    ]
+  },
+  "Ardy Light Foot": {
+    "slug": "583315e1d8b0a1a1537e9355fd48dc42f5c84dc4",
+    "sha1": "583315e1d8b0a1a1537e9355fd48dc42f5c84dc4",
+    "size": [
+      3256,
+      3299
+    ],
+    "crop": [
+      1128,
+      536,
+      1984,
+      2460
+    ]
+  },
+  "Art of Fighting": {
+    "slug": "d79ffd899e0e784cf58f9930948f1b3f78998a69",
+    "sha1": "d79ffd899e0e784cf58f9930948f1b3f78998a69",
+    "size": [
+      3181,
+      3223
+    ],
+    "crop": [
+      1132,
+      532,
+      1988,
+      2456
+    ]
+  },
+  "Axelay": {
+    "slug": "4dc90b4554d3851ca9678c6caa35adcf4e31b6c3",
+    "sha1": "4dc90b4554d3851ca9678c6caa35adcf4e31b6c3",
+    "size": [
+      3181,
+      3324
+    ],
+    "crop": [
+      1116,
+      540,
+      1992,
+      2464
+    ]
+  },
+  "BOB": {
+    "slug": "6a2af84540afe9ddb26bd4f5aeb1f1dc29b9a2a5",
+    "sha1": "6a2af84540afe9ddb26bd4f5aeb1f1dc29b9a2a5",
+    "size": [
+      3206,
+      3249
+    ],
+    "crop": [
+      1124,
+      544,
+      2000,
+      2468
+    ]
+  },
+  "Ballz 3D": {
+    "slug": "9e2694d390b00a83090d5a2afa5d3010559bd89d",
+    "sha1": "9e2694d390b00a83090d5a2afa5d3010559bd89d",
+    "size": [
+      3610,
+      3274
+    ],
+    "crop": [
+      1108,
+      536,
+      2004,
+      2460
+    ]
+  },
+  "Barbie Super Model": {
+    "slug": "515e246d5607a8306e0ec022974c2a895911faeb",
+    "sha1": "515e246d5607a8306e0ec022974c2a895911faeb",
+    "size": [
+      3635,
+      3274
+    ],
+    "crop": [
+      1128,
+      536,
+      2004,
+      2460
+    ]
+  },
+  "Barkley Shut Up and Jam": {
+    "slug": "01abaa182bc56640d4b48772ce434582154a54eb",
+    "sha1": "01abaa182bc56640d4b48772ce434582154a54eb",
+    "size": [
+      3610,
+      3249
+    ],
+    "crop": [
+      1128,
+      552,
+      2004,
+      2476
+    ]
+  },
+  "Bass Masters Classic": {
+    "slug": "cbf80ae26021cea33ca64a39b2584b3b2f8a3719",
+    "sha1": "cbf80ae26021cea33ca64a39b2584b3b2f8a3719",
+    "size": [
+      3534,
+      3223
+    ],
+    "crop": [
+      1132,
+      528,
+      1988,
+      2452
+    ]
+  },
+  "Bass Masters Classic - Pro Edition": {
+    "slug": "651dab65fad5c48466bfedfa076c063aee48a456",
+    "sha1": "651dab65fad5c48466bfedfa076c063aee48a456",
+    "size": [
+      3206,
+      3299
+    ],
+    "crop": [
+      1136,
+      532,
+      1952,
+      2456
+    ]
+  },
+  "Bassin_s Black Bass with Hank Parker": {
+    "slug": "93198b68c88b897cc6d8b6c67b3c99e4c0873d54",
+    "sha1": "93198b68c88b897cc6d8b6c67b3c99e4c0873d54",
+    "size": [
+      3610,
+      3249
+    ],
+    "crop": [
+      1124,
+      536,
+      2000,
+      2460
+    ]
+  },
+  "Batman Forever": {
+    "slug": "025844f57d72c17415a0f73097d2fedfe781b1cd",
+    "sha1": "025844f57d72c17415a0f73097d2fedfe781b1cd",
+    "size": [
+      3206,
+      3274
+    ],
+    "crop": [
+      1128,
+      532,
+      2004,
+      2456
+    ]
+  },
+  "Batman Returns": {
+    "slug": "fe7fde77794125bf25a16c4a8c4ddd075b2889b4",
+    "sha1": "fe7fde77794125bf25a16c4a8c4ddd075b2889b4",
+    "size": [
+      3206,
+      3223
+    ],
+    "crop": [
+      1132,
+      540,
+      1988,
+      2464
+    ]
+  },
+  "Battle Blaze": {
+    "slug": "05c46c18aa57f2866063813197707f7034b4e6f9",
+    "sha1": "05c46c18aa57f2866063813197707f7034b4e6f9",
+    "size": [
+      3559,
+      3274
+    ],
+    "crop": [
+      1132,
+      520,
+      2008,
+      2444
+    ]
+  },
+  "Battle Cars": {
+    "slug": "f5ca0ab5b1a8e406b95a0bad69d8eda49a55f3f8",
+    "sha1": "f5ca0ab5b1a8e406b95a0bad69d8eda49a55f3f8",
+    "size": [
+      3509,
+      3274
+    ],
+    "crop": [
+      1140,
+      536,
+      1996,
+      2460
+    ]
+  },
+  "Battle Clash": {
+    "slug": "8f77d0b6ab9284409b88819101a697b2cd2e96e3",
+    "sha1": "8f77d0b6ab9284409b88819101a697b2cd2e96e3",
+    "size": [
+      3231,
+      3299
+    ],
+    "crop": [
+      1104,
+      544,
+      1980,
+      2468
+    ]
+  },
+  "Battle Grand Prix": {
+    "slug": "c66a357ab805aa846419a12f5b6062821fba7d07",
+    "sha1": "c66a357ab805aa846419a12f5b6062821fba7d07",
+    "size": [
+      3231,
+      3274
+    ],
+    "crop": [
+      1112,
+      544,
+      2008,
+      2468
+    ]
+  },
+  "Battletoads _ Double Dragon - The Ultimate Team": {
+    "slug": "eae08c499c856400dc31ce26f17086ed77d2d83a",
+    "sha1": "eae08c499c856400dc31ce26f17086ed77d2d83a",
+    "size": [
+      3181,
+      3249
+    ],
+    "crop": [
+      1124,
+      532,
+      1960,
+      2456
+    ]
+  },
+  "Battletoads in Battlemaniacs": {
+    "slug": "9ec5063107eafe338ce8d87db8840bb6b55f6587",
+    "sha1": "9ec5063107eafe338ce8d87db8840bb6b55f6587",
+    "size": [
+      3282,
+      3349
+    ],
+    "crop": [
+      1132,
+      532,
+      1988,
+      2456
+    ]
+  },
+  "Bazooka Blitzkrieg": {
+    "slug": "94e0212632a3780d93ddba129b70e6cdb774635f",
+    "sha1": "94e0212632a3780d93ddba129b70e6cdb774635f",
+    "size": [
+      3206,
+      3274
+    ],
+    "crop": [
+      1136,
+      540,
+      1952,
+      2464
+    ]
+  },
+  "Beauty and the Beast": {
+    "slug": "fbbbdeed6aa34335666ca7f3bf8239dc2f5cb800",
+    "sha1": "fbbbdeed6aa34335666ca7f3bf8239dc2f5cb800",
+    "size": [
+      3206,
+      3274
+    ],
+    "crop": [
+      1136,
+      536,
+      1992,
+      2460
+    ]
+  },
+  "Beavis and Butt-Head": {
+    "slug": "8a0d19eb0f6fe1f1e072a6a603fa2cb5a3b91860",
+    "sha1": "8a0d19eb0f6fe1f1e072a6a603fa2cb5a3b91860",
+    "size": [
+      3282,
+      3324
+    ],
+    "crop": [
+      1104,
+      528,
+      1920,
+      2452
+    ]
+  },
+  "Bebe_s Kids": {
+    "slug": "bf5b0073fa004dd17ba8a8eba82ce84941a64291",
+    "sha1": "bf5b0073fa004dd17ba8a8eba82ce84941a64291",
+    "size": [
+      3282,
+      3299
+    ],
+    "crop": [
+      1136,
+      532,
+      1992,
+      2456
+    ]
+  },
+  "Best of the Best - Championship Karate": {
+    "slug": "5bd596936da8fa63a07c0a5165c400682acb9702",
+    "sha1": "5bd596936da8fa63a07c0a5165c400682acb9702",
+    "size": [
+      3206,
+      3249
+    ],
+    "crop": [
+      1128,
+      544,
+      2004,
+      2468
+    ]
+  },
+  "Big Sky Trooper": {
+    "slug": "f06c2c14693c8260f9461eb59ebdefbb087f288a",
+    "sha1": "f06c2c14693c8260f9461eb59ebdefbb087f288a",
+    "size": [
+      3711,
+      3274
+    ],
+    "crop": [
+      1124,
+      544,
+      2000,
+      2468
+    ]
+  },
+  "Biker Mice from Mars": {
+    "slug": "1771b7ba3ec19447c0b2171fe6be3bdff2e031d8",
+    "sha1": "1771b7ba3ec19447c0b2171fe6be3bdff2e031d8",
+    "size": [
+      3231,
+      3249
+    ],
+    "crop": [
+      1124,
+      540,
+      2000,
+      2464
+    ]
+  },
+  "Bill Laimbeer_s Combat Basketball": {
+    "slug": "b8004aea3602c006ba43619bc932583bec609f00",
+    "sha1": "b8004aea3602c006ba43619bc932583bec609f00",
+    "size": [
+      3686,
+      3274
+    ],
+    "crop": [
+      1104,
+      548,
+      2000,
+      2472
+    ]
+  },
+  "Bill Walsh College Football": {
+    "slug": "af9ad32fa81ba7a27fb11a5d96f667f5f09a9b5e",
+    "sha1": "af9ad32fa81ba7a27fb11a5d96f667f5f09a9b5e",
+    "size": [
+      3181,
+      3249
+    ],
+    "crop": [
+      1140,
+      544,
+      1996,
+      2468
+    ]
+  },
+  "BioMetal": {
+    "slug": "d861c0228c8833254727a909fccd4d37c7816407",
+    "sha1": "d861c0228c8833254727a909fccd4d37c7816407",
+    "size": [
+      3231,
+      3198
+    ],
+    "crop": [
+      1136,
+      552,
+      1992,
+      2476
+    ]
+  },
+  "BlaZeon - The Bio-Cyborg Challenge": {
+    "slug": "34ac691a8165ab7489aba5c869796526e862424d",
+    "sha1": "34ac691a8165ab7489aba5c869796526e862424d",
+    "size": [
+      3231,
+      3324
+    ],
+    "crop": [
+      1128,
+      536,
+      1984,
+      2460
+    ]
+  },
+  "Blackthorne": {
+    "slug": "525b6e6209ddc178a316bcc3c2e4bde92b3d0694",
+    "sha1": "525b6e6209ddc178a316bcc3c2e4bde92b3d0694",
+    "size": [
+      3256,
+      3299
+    ],
+    "crop": [
+      1140,
+      540,
+      1996,
+      2464
+    ]
+  },
+  "Blues Brothers, The": {
+    "slug": "04daa3e263d87e36c51d41bfaf0bbcdfa792687d",
+    "sha1": "04daa3e263d87e36c51d41bfaf0bbcdfa792687d",
+    "size": [
+      3231,
+      3274
+    ],
+    "crop": [
+      1136,
+      536,
+      1992,
+      2460
+    ]
+  },
+  "Bonkers": {
+    "slug": "a783a0b090ebfff87d61c05fc3a99e1499efd54e",
+    "sha1": "a783a0b090ebfff87d61c05fc3a99e1499efd54e",
+    "size": [
+      3206,
+      3274
+    ],
+    "crop": [
+      1132,
+      548,
+      1948,
+      2472
+    ]
+  },
+  "Boogerman - A Pick and Flick Adventure": {
+    "slug": "ebe19ef4ab5aa37a1bf1d3a388668d7365522a8a",
+    "sha1": "ebe19ef4ab5aa37a1bf1d3a388668d7365522a8a",
+    "size": [
+      3231,
+      3223
+    ],
+    "crop": [
+      1140,
+      536,
+      1996,
+      2460
+    ]
+  },
+  "Boxing Legends of the Ring": {
+    "slug": "0b55176383f15d15227ab1f2502b03ff5dfc4f41",
+    "sha1": "0b55176383f15d15227ab1f2502b03ff5dfc4f41",
+    "size": [
+      3206,
+      3249
+    ],
+    "crop": [
+      1136,
+      540,
+      1992,
+      2464
+    ]
+  },
+  "Brain Lord": {
+    "slug": "203d266d34cdba60c7c879ad6dcadc8c816f81b8",
+    "sha1": "203d266d34cdba60c7c879ad6dcadc8c816f81b8",
+    "size": [
+      3888,
+      3223
+    ],
+    "crop": [
+      1144,
+      496,
+      1960,
+      2420
+    ]
+  },
+  "Brainies, The": {
+    "slug": "0d2515d25ad82c0850ed9904426c69259613149d",
+    "sha1": "0d2515d25ad82c0850ed9904426c69259613149d",
+    "size": [
+      3181,
+      3299
+    ],
+    "crop": [
+      1120,
+      540,
+      1996,
+      2464
+    ]
+  },
+  "Bram Stoker_s Dracula": {
+    "slug": "eee9470dcacec55cf8d5f121817611cc56b49e76",
+    "sha1": "eee9470dcacec55cf8d5f121817611cc56b49e76",
+    "size": [
+      3155,
+      3223
+    ],
+    "crop": [
+      1132,
+      540,
+      1948,
+      2464
+    ]
+  },
+  "Brandish": {
+    "slug": "11195ee82ab7ca228bb4e66ad93d323f8368d731",
+    "sha1": "11195ee82ab7ca228bb4e66ad93d323f8368d731",
+    "size": [
+      4014,
+      3324
+    ],
+    "crop": [
+      1116,
+      540,
+      2012,
+      2464
+    ]
+  },
+  "Brawl Brothers": {
+    "slug": "93eaa549db74f4d4f2d36bc99dc8728065a4ad8f",
+    "sha1": "93eaa549db74f4d4f2d36bc99dc8728065a4ad8f",
+    "size": [
+      3585,
+      3249
+    ],
+    "crop": [
+      1120,
+      540,
+      1996,
+      2464
+    ]
+  },
+  "BreakThru!": {
+    "slug": "584c407e99a4e03c1ab16a4b5580a087c4b97e36",
+    "sha1": "584c407e99a4e03c1ab16a4b5580a087c4b97e36",
+    "size": [
+      3256,
+      3299
+    ],
+    "crop": [
+      1120,
+      544,
+      1936,
+      2468
+    ]
+  },
+  "Breath of Fire": {
+    "slug": "3d84d5f2d70b7b2c75a44c9c8214ead7e803e728",
+    "sha1": "3d84d5f2d70b7b2c75a44c9c8214ead7e803e728",
+    "size": [
+      3963,
+      3324
+    ],
+    "crop": [
+      1120,
+      540,
+      1996,
+      2464
+    ]
+  },
+  "Breath of Fire II": {
+    "slug": "044913d9bb3cc87b818f4979f134bb76d167b44f",
+    "sha1": "044913d9bb3cc87b818f4979f134bb76d167b44f",
+    "size": [
+      3635,
+      3274
+    ],
+    "crop": [
+      1144,
+      540,
+      2000,
+      2464
+    ]
+  },
+  "Brett Hull Hockey": {
+    "slug": "08a963358df56ccf212a98bc36aea0b1068f1fbc",
+    "sha1": "08a963358df56ccf212a98bc36aea0b1068f1fbc",
+    "size": [
+      3534,
+      3324
+    ],
+    "crop": [
+      1128,
+      548,
+      2004,
+      2472
+    ]
+  },
+  "Brett Hull Hockey _95": {
+    "slug": "943d37393f962a6bfb90bbb433a58e1ef0995c53",
+    "sha1": "943d37393f962a6bfb90bbb433a58e1ef0995c53",
+    "size": [
+      3206,
+      3249
+    ],
+    "crop": [
+      1112,
+      544,
+      2008,
+      2468
+    ]
+  },
+  "Bronkie the Bronchiasaurus": {
+    "slug": "c439c98604d0e91e3025886a834018a29089c767",
+    "sha1": "c439c98604d0e91e3025886a834018a29089c767",
+    "size": [
+      3181,
+      3223
+    ],
+    "crop": [
+      1128,
+      540,
+      1984,
+      2464
+    ]
+  },
+  "Brunswick_s World Tournament of Champions": {
+    "slug": "15a0bee16171f2d185656fe1dcffc14f10d8e28f",
+    "sha1": "15a0bee16171f2d185656fe1dcffc14f10d8e28f",
+    "size": [
+      3231,
+      3299
+    ],
+    "crop": [
+      1132,
+      536,
+      1988,
+      2460
+    ]
+  },
+  "Brutal - Paws of Fury": {
+    "slug": "afdad0850a8e4e0888c45dca14ad3acc6bc011b5",
+    "sha1": "afdad0850a8e4e0888c45dca14ad3acc6bc011b5",
+    "size": [
+      3181,
+      3249
+    ],
+    "crop": [
+      1136,
+      516,
+      1992,
+      2440
+    ]
+  },
+  "Bubsy - Claws Encounters of the Furred Kind": {
+    "slug": "9bcbaf82797f07f6ff01b7d2223fbe14ccc54adf",
+    "sha1": "9bcbaf82797f07f6ff01b7d2223fbe14ccc54adf",
+    "size": [
+      3256,
+      3349
+    ],
+    "crop": [
+      1136,
+      548,
+      2012,
+      2472
+    ]
+  },
+  "Bubsy II": {
+    "slug": "f4aee614096a3b5ce95d1b0c15ca0fb18443b3d9",
+    "sha1": "f4aee614096a3b5ce95d1b0c15ca0fb18443b3d9",
+    "size": [
+      3206,
+      3198
+    ],
+    "crop": [
+      1140,
+      552,
+      1996,
+      2476
+    ]
+  },
+  "Bugs Bunny - Rabbit Rampage": {
+    "slug": "56289cdce24b33aa100f89d0d8d9c08be01f39fc",
+    "sha1": "56289cdce24b33aa100f89d0d8d9c08be01f39fc",
+    "size": [
+      3559,
+      3274
+    ],
+    "crop": [
+      1124,
+      548,
+      2000,
+      2472
+    ]
+  },
+  "Bust-A-Move": {
+    "slug": "8afa0bbe668c97bc9a25ff6bdcf7900c04c30254",
+    "sha1": "8afa0bbe668c97bc9a25ff6bdcf7900c04c30254",
+    "size": [
+      3231,
+      3223
+    ],
+    "crop": [
+      1124,
+      532,
+      2000,
+      2456
+    ]
+  },
+  "Cacoma Knight in Bizyland": {
+    "slug": "ec225ee7b4cce51ff729968662368e819515e77b",
+    "sha1": "ec225ee7b4cce51ff729968662368e819515e77b",
+    "size": [
+      3181,
+      3249
+    ],
+    "crop": [
+      1124,
+      548,
+      2000,
+      2472
+    ]
+  },
+  "Cal Ripken Jr. Baseball": {
+    "slug": "a66b1b17b39cd22ec696e6dd3640c616df7103ea",
+    "sha1": "a66b1b17b39cd22ec696e6dd3640c616df7103ea",
+    "size": [
+      3282,
+      3324
+    ],
+    "crop": [
+      1112,
+      544,
+      2008,
+      2468
+    ]
+  },
+  "California Games II": {
+    "slug": "5faffa7f82112948548e92110fd44c59577dd114",
+    "sha1": "5faffa7f82112948548e92110fd44c59577dd114",
+    "size": [
+      3231,
+      3299
+    ],
+    "crop": [
+      1124,
+      540,
+      1980,
+      2464
+    ]
+  },
+  "Cannondale Cup": {
+    "slug": "0f781ed14f5acd0ab601653555df46eece06091b",
+    "sha1": "0f781ed14f5acd0ab601653555df46eece06091b",
+    "size": [
+      3913,
+      3299
+    ],
+    "crop": [
+      1124,
+      540,
+      2000,
+      2464
+    ]
+  },
+  "Capcom_s MVP Football": {
+    "slug": "5f5b31102d210bc581922685981c0578012781ac",
+    "sha1": "5f5b31102d210bc581922685981c0578012781ac",
+    "size": [
+      3231,
+      3274
+    ],
+    "crop": [
+      1128,
+      544,
+      1964,
+      2468
+    ]
+  },
+  "Capcom_s Soccer Shootout": {
+    "slug": "28c34305e8e51c22706d755744e6c715c562bab9",
+    "sha1": "28c34305e8e51c22706d755744e6c715c562bab9",
+    "size": [
+      3610,
+      3324
+    ],
+    "crop": [
+      1136,
+      544,
+      1992,
+      2468
+    ]
+  },
+  "Captain America and the Avengers": {
+    "slug": "3706e2187769b2d172d12d24f9c9a637b3a0562d",
+    "sha1": "3706e2187769b2d172d12d24f9c9a637b3a0562d",
+    "size": [
+      3256,
+      3324
+    ],
+    "crop": [
+      1120,
+      544,
+      1976,
+      2468
+    ]
+  },
+  "Captain Commando": {
+    "slug": "c391461a9320b1767060ebb723adad90ad38983b",
+    "sha1": "c391461a9320b1767060ebb723adad90ad38983b",
+    "size": [
+      3206,
+      3249
+    ],
+    "crop": [
+      1112,
+      536,
+      1988,
+      2460
+    ]
+  },
+  "Captain Novolin": {
+    "slug": "08a91e546f134b13ef74942a5c098a426205949d",
+    "sha1": "08a91e546f134b13ef74942a5c098a426205949d",
+    "size": [
+      3181,
+      3249
+    ],
+    "crop": [
+      1136,
+      552,
+      2012,
+      2476
+    ]
+  },
+  "Carrier Aces": {
+    "slug": "3e8d5354e21d397c8b56b6b40dc367a7edbc9ddd",
+    "sha1": "3e8d5354e21d397c8b56b6b40dc367a7edbc9ddd",
+    "size": [
+      3155,
+      3249
+    ],
+    "crop": [
+      1140,
+      540,
+      1996,
+      2464
+    ]
+  },
+  "Casper": {
+    "slug": "9d690ee0e699021d264f5afdfca64955b8fa5803",
+    "sha1": "9d690ee0e699021d264f5afdfca64955b8fa5803",
+    "size": [
+      3155,
+      3223
+    ],
+    "crop": [
+      1116,
+      540,
+      1992,
+      2464
+    ]
+  },
+  "Castlevania - Dracula X": {
+    "slug": "bf286d65895395c581fb4dc81234b1bb96ca42b6",
+    "sha1": "bf286d65895395c581fb4dc81234b1bb96ca42b6",
+    "size": [
+      3181,
+      3274
+    ],
+    "crop": [
+      1128,
+      532,
+      1984,
+      2456
+    ]
+  },
+  "Champions World Class Soccer": {
+    "slug": "c100c0a4d5d847cfa8dcbe77b0e0214b5c722622",
+    "sha1": "c100c0a4d5d847cfa8dcbe77b0e0214b5c722622",
+    "size": [
+      3282,
+      3349
+    ],
+    "crop": [
+      1136,
+      536,
+      2012,
+      2460
+    ]
+  },
+  "Championship Pool": {
+    "slug": "f77b5a56fa7ffde487affc6eebe792e9cfea134d",
+    "sha1": "f77b5a56fa7ffde487affc6eebe792e9cfea134d",
+    "size": [
+      3206,
+      3299
+    ],
+    "crop": [
+      1124,
+      520,
+      1960,
+      2444
+    ]
+  },
+  "Championship Soccer _94": {
+    "slug": "dd716fc88082bc2b3cd8ea2682c3cfe6cf17dd27",
+    "sha1": "dd716fc88082bc2b3cd8ea2682c3cfe6cf17dd27",
+    "size": [
+      3686,
+      3274
+    ],
+    "crop": [
+      1136,
+      536,
+      1952,
+      2460
+    ]
+  },
+  "Chavez": {
+    "slug": "20f3c49855b562a45ae88e94997bc5f89e2545fd",
+    "sha1": "20f3c49855b562a45ae88e94997bc5f89e2545fd",
+    "size": [
+      3660,
+      3274
+    ],
+    "crop": [
+      1136,
+      540,
+      2012,
+      2464
+    ]
+  },
+  "Chavez II": {
+    "slug": "b3c321d5860eb19ff1026cff93081ea5e4885bee",
+    "sha1": "b3c321d5860eb19ff1026cff93081ea5e4885bee",
+    "size": [
+      3155,
+      3299
+    ],
+    "crop": [
+      1112,
+      544,
+      1988,
+      2468
+    ]
+  },
+  "Chessmaster, The": {
+    "slug": "9a1a548f95b73d9d0de148074551b30ec8af1e30",
+    "sha1": "9a1a548f95b73d9d0de148074551b30ec8af1e30",
+    "size": [
+      3256,
+      3249
+    ],
+    "crop": [
+      1116,
+      540,
+      1932,
+      2464
+    ]
+  },
+  "Chester Cheetah - Too Cool to Fool": {
+    "slug": "c98cb9845440c92d640d944a13a19932be89f4d4",
+    "sha1": "c98cb9845440c92d640d944a13a19932be89f4d4",
+    "size": [
+      3181,
+      3299
+    ],
+    "crop": [
+      1132,
+      540,
+      1948,
+      2464
+    ]
+  },
+  "Chester Cheetah - Wild, Wild Quest": {
+    "slug": "637172e6206c59f5e0b7488eba4324d65fbee39a",
+    "sha1": "637172e6206c59f5e0b7488eba4324d65fbee39a",
+    "size": [
+      3509,
+      3249
+    ],
+    "crop": [
+      1128,
+      536,
+      1944,
+      2460
+    ]
+  },
+  "Choplifter III": {
+    "slug": "2b3c198b57fd376399da947a2eac8110961fb21e",
+    "sha1": "2b3c198b57fd376399da947a2eac8110961fb21e",
+    "size": [
+      3282,
+      3349
+    ],
+    "crop": [
+      1112,
+      528,
+      1988,
+      2452
+    ]
+  },
+  "Chrono Trigger": {
+    "slug": "chrono-trigger",
+    "sha1": "a5be53ab45dea41643b85b0dff84c17c02a0eb40",
+    "size": [
+      3635,
+      3274
+    ],
+    "crop": [
+      1125,
+      536,
+      2005,
+      2465
+    ]
+  },
+  "Chuck Rock": {
+    "slug": "475b2ca33ad3bc6714f7ff787854f76a3a6196da",
+    "sha1": "475b2ca33ad3bc6714f7ff787854f76a3a6196da",
+    "size": [
+      3155,
+      3249
+    ],
+    "crop": [
+      1132,
+      536,
+      2008,
+      2460
+    ]
+  },
+  "Clay Fighter": {
+    "slug": "7da2ccc65b0b5f721a765d685149cf8074cf0eb2",
+    "sha1": "7da2ccc65b0b5f721a765d685149cf8074cf0eb2",
+    "size": [
+      3181,
+      3274
+    ],
+    "crop": [
+      1136,
+      536,
+      1992,
+      2460
+    ]
+  },
+  "Clay Fighter - Tournament Edition": {
+    "slug": "1bf0300fed79f510d26f41805e37600d79f2c6bd",
+    "sha1": "1bf0300fed79f510d26f41805e37600d79f2c6bd",
+    "size": [
+      3610,
+      3274
+    ],
+    "crop": [
+      1120,
+      540,
+      1956,
+      2464
+    ]
+  },
+  "Clay Fighter 2 - Judgment Clay": {
+    "slug": "4ecc1a6712f674f872993753c97a71dc92529891",
+    "sha1": "4ecc1a6712f674f872993753c97a71dc92529891",
+    "size": [
+      3711,
+      3249
+    ],
+    "crop": [
+      1116,
+      536,
+      2012,
+      2460
+    ]
+  },
+  "Claymates": {
+    "slug": "153cda22fc4d802b0ae53ffca577b158c94175b3",
+    "sha1": "153cda22fc4d802b0ae53ffca577b158c94175b3",
+    "size": [
+      3181,
+      3274
+    ],
+    "crop": [
+      1136,
+      540,
+      1992,
+      2464
+    ]
+  },
+  "Cliffhanger": {
+    "slug": "021e1be3dd098d0624aef7fae11c9cef20806e5f",
+    "sha1": "021e1be3dd098d0624aef7fae11c9cef20806e5f",
+    "size": [
+      3231,
+      3249
+    ],
+    "crop": [
+      1140,
+      532,
+      1996,
+      2456
+    ]
+  },
+  "Clue": {
+    "slug": "db060db812e53aecfb8472c118d0d0974388b5e8",
+    "sha1": "db060db812e53aecfb8472c118d0d0974388b5e8",
+    "size": [
+      3181,
+      3249
+    ],
+    "crop": [
+      1136,
+      532,
+      1992,
+      2456
+    ]
+  },
+  "College Football USA _97 - The Road to New Orleans": {
+    "slug": "03ce4e4c1686990475dc9a46535d0b3197732649",
+    "sha1": "03ce4e4c1686990475dc9a46535d0b3197732649",
+    "size": [
+      3736,
+      3274
+    ],
+    "crop": [
+      1128,
+      536,
+      1984,
+      2460
+    ]
+  },
+  "College Slam": {
+    "slug": "f47f8c45f0f736e6cbcc8e9e0a7911132eed56a8",
+    "sha1": "f47f8c45f0f736e6cbcc8e9e0a7911132eed56a8",
+    "size": [
+      3660,
+      3299
+    ],
+    "crop": [
+      1116,
+      528,
+      2012,
+      2452
+    ]
+  },
+  "Combatribes, The": {
+    "slug": "5220a8022a10ac820cdd2787f8f791d01f0f4ad6",
+    "sha1": "5220a8022a10ac820cdd2787f8f791d01f0f4ad6",
+    "size": [
+      3559,
+      3274
+    ],
+    "crop": [
+      1124,
+      532,
+      2000,
+      2456
+    ]
+  },
+  "Congo_s Caper": {
+    "slug": "80ddcfa7cb37346122d9ccc4a5a455b4f9d268fd",
+    "sha1": "80ddcfa7cb37346122d9ccc4a5a455b4f9d268fd",
+    "size": [
+      3155,
+      3299
+    ],
+    "crop": [
+      1124,
+      548,
+      2000,
+      2472
+    ]
+  },
+  "Contra III - The Alien Wars": {
+    "slug": "c027d60baf286553268b8def25fb9a21470cf4fc",
+    "sha1": "c027d60baf286553268b8def25fb9a21470cf4fc",
+    "size": [
+      3155,
+      3299
+    ],
+    "crop": [
+      1140,
+      548,
+      1996,
+      2472
+    ]
+  },
+  "Cool Spot": {
+    "slug": "bdc64ebf0d3b084adc1d45dcc65272706b0fe1f9",
+    "sha1": "bdc64ebf0d3b084adc1d45dcc65272706b0fe1f9",
+    "size": [
+      3206,
+      3223
+    ],
+    "crop": [
+      1128,
+      528,
+      2004,
+      2452
+    ]
+  },
+  "Cool World": {
+    "slug": "418b194f14e2a84bc4d70a863243b92b3eb3060d",
+    "sha1": "418b194f14e2a84bc4d70a863243b92b3eb3060d",
+    "size": [
+      3181,
+      3324
+    ],
+    "crop": [
+      1144,
+      544,
+      2000,
+      2468
+    ]
+  },
+  "CutThroat Island": {
+    "slug": "a55dbf169c703a5314305793227e08507bdfa92c",
+    "sha1": "a55dbf169c703a5314305793227e08507bdfa92c",
+    "size": [
+      3155,
+      3198
+    ],
+    "crop": [
+      1128,
+      528,
+      1944,
+      2452
+    ]
+  },
+  "Cyber Spin": {
+    "slug": "314f956196129cbbd4380ff5eaf32ab67e2b8057",
+    "sha1": "314f956196129cbbd4380ff5eaf32ab67e2b8057",
+    "size": [
+      3231,
+      3299
+    ],
+    "crop": [
+      1112,
+      540,
+      2008,
+      2464
+    ]
+  },
+  "Cybernator": {
+    "slug": "1b4155b9fe7363ab1a5df7418582fe8dedbd6cf9",
+    "sha1": "1b4155b9fe7363ab1a5df7418582fe8dedbd6cf9",
+    "size": [
+      3155,
+      3223
+    ],
+    "crop": [
+      1116,
+      540,
+      1992,
+      2464
+    ]
+  },
+  "D-Force": {
+    "slug": "a2b51b8a51591d9cd083ff8ced7ac75ec2753248",
+    "sha1": "a2b51b8a51591d9cd083ff8ced7ac75ec2753248",
+    "size": [
+      3206,
+      3274
+    ],
+    "crop": [
+      1116,
+      524,
+      1992,
+      2448
+    ]
+  },
+  "Daffy Duck - The Marvin Missions": {
+    "slug": "50c2572dd87a4a035e0aa7888f18badae9704cb8",
+    "sha1": "50c2572dd87a4a035e0aa7888f18badae9704cb8",
+    "size": [
+      3231,
+      3324
+    ],
+    "crop": [
+      1120,
+      548,
+      1936,
+      2472
+    ]
+  },
+  "Darius Twin": {
+    "slug": "ece91662002305b221a95e6fa0bf87a38424e6a3",
+    "sha1": "ece91662002305b221a95e6fa0bf87a38424e6a3",
+    "size": [
+      3155,
+      3249
+    ],
+    "crop": [
+      1128,
+      524,
+      2004,
+      2448
+    ]
+  },
+  "David Crane_s Amazing Tennis": {
+    "slug": "b48ecc1f0656e04f67ae07b9b26665dd9b3d0dc2",
+    "sha1": "b48ecc1f0656e04f67ae07b9b26665dd9b3d0dc2",
+    "size": [
+      3155,
+      3274
+    ],
+    "crop": [
+      1136,
+      544,
+      1992,
+      2468
+    ]
+  },
+  "Death and Return of Superman, The": {
+    "slug": "0e7c912a86a9e9d18e146fa6b0677a05b7f4cf4c",
+    "sha1": "0e7c912a86a9e9d18e146fa6b0677a05b7f4cf4c",
+    "size": [
+      3155,
+      3249
+    ],
+    "crop": [
+      1140,
+      532,
+      1996,
+      2456
+    ]
+  },
+  "Demolition Man": {
+    "slug": "523f96e723f162fc4f5e1ceb9d538706761fb173",
+    "sha1": "523f96e723f162fc4f5e1ceb9d538706761fb173",
+    "size": [
+      3155,
+      3249
+    ],
+    "crop": [
+      1132,
+      540,
+      2008,
+      2464
+    ]
+  },
+  "Demon_s Crest": {
+    "slug": "0484ba3f99fb2b2663106e326da087558d3d483a",
+    "sha1": "0484ba3f99fb2b2663106e326da087558d3d483a",
+    "size": [
+      3181,
+      3249
+    ],
+    "crop": [
+      1124,
+      540,
+      2000,
+      2464
+    ]
+  },
+  "Dennis the Menace": {
+    "slug": "3f2e6c8522d3f4d2c85d016de113d55f86beebe6",
+    "sha1": "3f2e6c8522d3f4d2c85d016de113d55f86beebe6",
+    "size": [
+      3534,
+      3299
+    ],
+    "crop": [
+      1128,
+      544,
+      1944,
+      2468
+    ]
+  },
+  "Desert Strike - Return to the Gulf": {
+    "slug": "670c348fff8b20eb8284fd114142e0744cc89ac0",
+    "sha1": "670c348fff8b20eb8284fd114142e0744cc89ac0",
+    "size": [
+      3181,
+      3249
+    ],
+    "crop": [
+      1136,
+      544,
+      1992,
+      2468
+    ]
+  },
+  "Dig _ Spike Volleyball": {
+    "slug": "2a78b94f51bc048dcda0a090368dd7cd88cd5fe6",
+    "sha1": "2a78b94f51bc048dcda0a090368dd7cd88cd5fe6",
+    "size": [
+      3711,
+      3249
+    ],
+    "crop": [
+      1124,
+      536,
+      1980,
+      2460
+    ]
+  },
+  "DinoCity": {
+    "slug": "f83401b3c4d2ee1af39a26fbcca4df41cf10e0ef",
+    "sha1": "f83401b3c4d2ee1af39a26fbcca4df41cf10e0ef",
+    "size": [
+      3155,
+      3223
+    ],
+    "crop": [
+      1124,
+      540,
+      2000,
+      2464
+    ]
+  },
+  "Dirt Trax FX": {
+    "slug": "506cc247e717201792ffe210defb5f97860dc89f",
+    "sha1": "506cc247e717201792ffe210defb5f97860dc89f",
+    "size": [
+      3989,
+      3299
+    ],
+    "crop": [
+      1124,
+      532,
+      1940,
+      2456
+    ]
+  },
+  "Donkey Kong Country": {
+    "slug": "donkey-kong-country",
+    "sha1": "a4473525f575a35b9407ab3c08d5f539d7d6e58b",
+    "size": [
+      3711,
+      3249
+    ],
+    "crop": [
+      1115,
+      523,
+      1986,
+      2460
+    ]
+  },
+  "Donkey Kong Country 2 - Diddy_s Kong Quest": {
+    "slug": "9d65048155478bad787a695390d40d97c88aed74",
+    "sha1": "9d65048155478bad787a695390d40d97c88aed74",
+    "size": [
+      3686,
+      3324
+    ],
+    "crop": [
+      1120,
+      528,
+      1996,
+      2452
+    ]
+  },
+  "Donkey Kong Country 3 - Dixie Kong_s Double Trouble": {
+    "slug": "11b9bc054bd1f05e906b8eb9ff35a5ef606eb792",
+    "sha1": "11b9bc054bd1f05e906b8eb9ff35a5ef606eb792",
+    "size": [
+      3660,
+      3274
+    ],
+    "crop": [
+      1132,
+      532,
+      1948,
+      2456
+    ]
+  },
+  "Doom": {
+    "slug": "0b4f2a19f3cd48d2202ae4bea27c6833116fbcbe",
+    "sha1": "0b4f2a19f3cd48d2202ae4bea27c6833116fbcbe",
+    "size": [
+      3963,
+      3299
+    ],
+    "crop": [
+      1148,
+      536,
+      1984,
+      2460
+    ]
+  },
+  "Doomsday Warrior": {
+    "slug": "4632c5d172fe502c02dfd53b3d8aba6e721ead6a",
+    "sha1": "4632c5d172fe502c02dfd53b3d8aba6e721ead6a",
+    "size": [
+      3155,
+      3198
+    ],
+    "crop": [
+      1112,
+      540,
+      1948,
+      2464
+    ]
+  },
+  "Double Dragon V - The Shadow Falls": {
+    "slug": "112baef82359620a6441e3282e18c33ac2f24219",
+    "sha1": "112baef82359620a6441e3282e18c33ac2f24219",
+    "size": [
+      3635,
+      3223
+    ],
+    "crop": [
+      1120,
+      552,
+      1996,
+      2476
+    ]
+  },
+  "Dragon - The Bruce Lee Story": {
+    "slug": "7d1ea6b0060d30d3ed83b906cf53b9c9821dfc6d",
+    "sha1": "7d1ea6b0060d30d3ed83b906cf53b9c9821dfc6d",
+    "size": [
+      3206,
+      3274
+    ],
+    "crop": [
+      1116,
+      532,
+      1992,
+      2456
+    ]
+  },
+  "Dragon View": {
+    "slug": "175536975a63dafe72e3882262ba545e553d7d5e",
+    "sha1": "175536975a63dafe72e3882262ba545e553d7d5e",
+    "size": [
+      3635,
+      3249
+    ],
+    "crop": [
+      1124,
+      544,
+      2000,
+      2468
+    ]
+  },
+  "Dragon_s Lair": {
+    "slug": "a13f33692eb4265cb10274fe56264bb371a276c7",
+    "sha1": "a13f33692eb4265cb10274fe56264bb371a276c7",
+    "size": [
+      3155,
+      3249
+    ],
+    "crop": [
+      1128,
+      544,
+      1964,
+      2468
+    ]
+  },
+  "Drakkhen": {
+    "slug": "ac3c5b248f80b47b95f291b004ab5b9447a2c64e",
+    "sha1": "ac3c5b248f80b47b95f291b004ab5b9447a2c64e",
+    "size": [
+      3686,
+      3299
+    ],
+    "crop": [
+      1120,
+      540,
+      1996,
+      2464
+    ]
+  },
+  "Dream TV": {
+    "slug": "b1188d976fe0848a90984ef95282a7f74d0ca0ed",
+    "sha1": "b1188d976fe0848a90984ef95282a7f74d0ca0ed",
+    "size": [
+      3231,
+      3299
+    ],
+    "crop": [
+      1120,
+      536,
+      1976,
+      2460
+    ]
+  },
+  "Duel - Test Drive II, The": {
+    "slug": "b5a511e878f071b110eac32451b548700ec6385e",
+    "sha1": "b5a511e878f071b110eac32451b548700ec6385e",
+    "size": [
+      3181,
+      3223
+    ],
+    "crop": [
+      1120,
+      544,
+      1996,
+      2468
+    ]
+  },
+  "Dungeon Master": {
+    "slug": "983aa473c09f13e6b77d948b61fc8e0b6eb171e1",
+    "sha1": "983aa473c09f13e6b77d948b61fc8e0b6eb171e1",
+    "size": [
+      3963,
+      3249
+    ],
+    "crop": [
+      1120,
+      532,
+      1996,
+      2456
+    ]
+  },
+  "ESPN Baseball Tonight": {
+    "slug": "d8c780298b5009b349a84d79e5f23ccb1ac72379",
+    "sha1": "d8c780298b5009b349a84d79e5f23ccb1ac72379",
+    "size": [
+      3206,
+      3349
+    ],
+    "crop": [
+      1128,
+      536,
+      1984,
+      2460
+    ]
+  },
+  "ESPN National Hockey Night": {
+    "slug": "09a787243f97a95a7530e78f6998e8608c85b950",
+    "sha1": "09a787243f97a95a7530e78f6998e8608c85b950",
+    "size": [
+      3660,
+      3274
+    ],
+    "crop": [
+      1132,
+      544,
+      1988,
+      2468
+    ]
+  },
+  "ESPN Speedworld": {
+    "slug": "abc0b4680d771aadedd668ef401cc11e7b7b332b",
+    "sha1": "abc0b4680d771aadedd668ef401cc11e7b7b332b",
+    "size": [
+      3711,
+      3274
+    ],
+    "crop": [
+      1128,
+      540,
+      1984,
+      2464
+    ]
+  },
+  "ESPN Sunday Night NFL": {
+    "slug": "c1512c77303e13c3ab005c869ce1ab212943b9e7",
+    "sha1": "c1512c77303e13c3ab005c869ce1ab212943b9e7",
+    "size": [
+      3686,
+      3299
+    ],
+    "crop": [
+      1140,
+      540,
+      1956,
+      2464
+    ]
+  },
+  "EVO - Search for Eden": {
+    "slug": "bfbb723273d70684fd9df331793d3b81854a46be",
+    "sha1": "bfbb723273d70684fd9df331793d3b81854a46be",
+    "size": [
+      3913,
+      3274
+    ],
+    "crop": [
+      1136,
+      536,
+      1992,
+      2460
+    ]
+  },
+  "Earth Defense Force": {
+    "slug": "c86b54f0402a91f10b1b2d1f4ef91f6054cdb451",
+    "sha1": "c86b54f0402a91f10b1b2d1f4ef91f6054cdb451",
+    "size": [
+      3181,
+      3249
+    ],
+    "crop": [
+      1132,
+      544,
+      2008,
+      2468
+    ]
+  },
+  "EarthBound": {
+    "slug": "7fc2ade88e7344b2762375b2a6a768f3e231e84c",
+    "sha1": "7fc2ade88e7344b2762375b2a6a768f3e231e84c",
+    "size": [
+      3686,
+      3299
+    ],
+    "crop": [
+      1124,
+      532,
+      1980,
+      2456
+    ]
+  },
+  "Earthworm Jim": {
+    "slug": "a1b1667bbfde88a50e8349f1b890baefe3d9cc01",
+    "sha1": "a1b1667bbfde88a50e8349f1b890baefe3d9cc01",
+    "size": [
+      3635,
+      3299
+    ],
+    "crop": [
+      1120,
+      540,
+      1996,
+      2464
+    ]
+  },
+  "Earthworm Jim 2": {
+    "slug": "b9c6126f982b867d891a29480acca194952b495a",
+    "sha1": "b9c6126f982b867d891a29480acca194952b495a",
+    "size": [
+      3206,
+      3324
+    ],
+    "crop": [
+      1160,
+      540,
+      1996,
+      2464
+    ]
+  },
+  "Eek! The Cat": {
+    "slug": "e9d3b734208d3d5405718efec74f2d710ced6bfa",
+    "sha1": "e9d3b734208d3d5405718efec74f2d710ced6bfa",
+    "size": [
+      3181,
+      3249
+    ],
+    "crop": [
+      1132,
+      524,
+      2008,
+      2448
+    ]
+  },
+  "Elite Soccer": {
+    "slug": "3d3d651b8d4a8d640bd965395cda9321c3d3adf3",
+    "sha1": "3d3d651b8d4a8d640bd965395cda9321c3d3adf3",
+    "size": [
+      3206,
+      3324
+    ],
+    "crop": [
+      1132,
+      540,
+      1988,
+      2464
+    ]
+  },
+  "Emmitt Smith Football": {
+    "slug": "cf27803467f8c79d5e204dc9a37b0b75e4a35585",
+    "sha1": "cf27803467f8c79d5e204dc9a37b0b75e4a35585",
+    "size": [
+      3761,
+      3274
+    ],
+    "crop": [
+      1136,
+      544,
+      1992,
+      2468
+    ]
+  },
+  "Equinox": {
+    "slug": "bcc8db32f85c737fe82f9ba888e987c9119b2d80",
+    "sha1": "bcc8db32f85c737fe82f9ba888e987c9119b2d80",
+    "size": [
+      3660,
+      3274
+    ],
+    "crop": [
+      1136,
+      540,
+      1992,
+      2464
+    ]
+  },
+  "Extra Innings": {
+    "slug": "d4eae59ac9911ae850eb2e93263cce33949806d8",
+    "sha1": "d4eae59ac9911ae850eb2e93263cce33949806d8",
+    "size": [
+      3660,
+      3299
+    ],
+    "crop": [
+      1132,
+      548,
+      2008,
+      2472
+    ]
+  },
+  "Eye of the Beholder": {
+    "slug": "87cab08e080a0170d7097a969f841f04e82868aa",
+    "sha1": "87cab08e080a0170d7097a969f841f04e82868aa",
+    "size": [
+      3635,
+      3299
+    ],
+    "crop": [
+      1132,
+      544,
+      1988,
+      2468
+    ]
+  },
+  "F-Zero": {
+    "slug": "5b3d6ce8e8a3cf700a524824622bd712a2594860",
+    "sha1": "5b3d6ce8e8a3cf700a524824622bd712a2594860",
+    "size": [
+      3635,
+      3198
+    ],
+    "crop": [
+      1128,
+      524,
+      1984,
+      2448
+    ]
+  },
+  "F1 Pole Position": {
+    "slug": "cc761e7123d6553ca5dd8eea0a2568f25298845b",
+    "sha1": "cc761e7123d6553ca5dd8eea0a2568f25298845b",
+    "size": [
+      3660,
+      3223
+    ],
+    "crop": [
+      1116,
+      536,
+      1992,
+      2460
+    ]
+  },
+  "F1 ROC - Race of Champions": {
+    "slug": "017bfc638d6f4c07aedad11292bd537eff8d0bcf",
+    "sha1": "017bfc638d6f4c07aedad11292bd537eff8d0bcf",
+    "size": [
+      3635,
+      3249
+    ],
+    "crop": [
+      1132,
+      552,
+      1988,
+      2476
+    ]
+  },
+  "F1 ROC II - Race of Champions": {
+    "slug": "6863a5ce0240a3a57de4d7e3670f14cb4635a98a",
+    "sha1": "6863a5ce0240a3a57de4d7e3670f14cb4635a98a",
+    "size": [
+      4064,
+      3249
+    ],
+    "crop": [
+      1124,
+      540,
+      2000,
+      2464
+    ]
+  },
+  "FIFA International Soccer": {
+    "slug": "e1847b00e8797014dabe83db37f8ae12f66b8e36",
+    "sha1": "e1847b00e8797014dabe83db37f8ae12f66b8e36",
+    "size": [
+      3181,
+      3249
+    ],
+    "crop": [
+      1128,
+      544,
+      2004,
+      2468
+    ]
+  },
+  "FIFA Soccer _96": {
+    "slug": "7d5728603b5e00c06e50fe2e27f6de8a82ae9c52",
+    "sha1": "7d5728603b5e00c06e50fe2e27f6de8a82ae9c52",
+    "size": [
+      3635,
+      3274
+    ],
+    "crop": [
+      1140,
+      540,
+      1996,
+      2464
+    ]
+  },
+  "FIFA Soccer _97": {
+    "slug": "d73eb6f335cb83c1df3280e52480db9e2bc0b82c",
+    "sha1": "d73eb6f335cb83c1df3280e52480db9e2bc0b82c",
+    "size": [
+      3686,
+      3299
+    ],
+    "crop": [
+      1132,
+      524,
+      1988,
+      2448
+    ]
+  },
+  "Faceball 2000": {
+    "slug": "5b64ab1e4aa69eb1d3403146908a7bde66f7efef",
+    "sha1": "5b64ab1e4aa69eb1d3403146908a7bde66f7efef",
+    "size": [
+      3231,
+      3299
+    ],
+    "crop": [
+      1136,
+      544,
+      1992,
+      2468
+    ]
+  },
+  "Family Dog": {
+    "slug": "44343bbfcf32f0ae1f341b9579c6507e1f1522b8",
+    "sha1": "44343bbfcf32f0ae1f341b9579c6507e1f1522b8",
+    "size": [
+      3206,
+      3249
+    ],
+    "crop": [
+      1120,
+      540,
+      1996,
+      2464
+    ]
+  },
+  "Family Feud": {
+    "slug": "1b60e1cd7b3e430e30957a6cbda1f5db69df6738",
+    "sha1": "1b60e1cd7b3e430e30957a6cbda1f5db69df6738",
+    "size": [
+      3256,
+      3324
+    ],
+    "crop": [
+      1120,
+      544,
+      1956,
+      2468
+    ]
+  },
+  "Fatal Fury": {
+    "slug": "32394fde868d166bc5ace81c13d07cbdc2578cea",
+    "sha1": "32394fde868d166bc5ace81c13d07cbdc2578cea",
+    "size": [
+      3585,
+      3274
+    ],
+    "crop": [
+      1128,
+      544,
+      2004,
+      2468
+    ]
+  },
+  "Fatal Fury 2": {
+    "slug": "5fbf9a10b72f3bc6e2f97caed962b310d627ba9c",
+    "sha1": "5fbf9a10b72f3bc6e2f97caed962b310d627ba9c",
+    "size": [
+      3635,
+      3249
+    ],
+    "crop": [
+      1120,
+      544,
+      1996,
+      2468
+    ]
+  },
+  "Fatal Fury Special": {
+    "slug": "5ebe9b0710b525e6527b0b0ff64ffc98b091388a",
+    "sha1": "5ebe9b0710b525e6527b0b0ff64ffc98b091388a",
+    "size": [
+      3206,
+      3299
+    ],
+    "crop": [
+      1128,
+      524,
+      2004,
+      2448
+    ]
+  },
+  "Fighter_s History": {
+    "slug": "a9909f4bae06bb5fc0f0b862c877396affa16242",
+    "sha1": "a9909f4bae06bb5fc0f0b862c877396affa16242",
+    "size": [
+      3635,
+      3274
+    ],
+    "crop": [
+      1116,
+      540,
+      1952,
+      2464
+    ]
+  },
+  "Final Fantasy - Mystic Quest": {
+    "slug": "5d13791d19118c2498ea9e3a3c76faea2a790b42",
+    "sha1": "5d13791d19118c2498ea9e3a3c76faea2a790b42",
+    "size": [
+      3711,
+      3274
+    ],
+    "crop": [
+      1140,
+      536,
+      1996,
+      2460
+    ]
+  },
+  "Final Fantasy II": {
+    "slug": "b7725c340f9c653b0536ff0f110c1821a615a0ce",
+    "sha1": "b7725c340f9c653b0536ff0f110c1821a615a0ce",
+    "size": [
+      3660,
+      3249
+    ],
+    "crop": [
+      1120,
+      536,
+      1996,
+      2460
+    ]
+  },
+  "Final Fantasy III": {
+    "slug": "69bd3d0c3611eff383ae84507015cd6de864cf6a",
+    "sha1": "69bd3d0c3611eff383ae84507015cd6de864cf6a",
+    "size": [
+      4115,
+      3274
+    ],
+    "crop": [
+      1136,
+      540,
+      1992,
+      2464
+    ]
+  },
+  "Final Fight": {
+    "slug": "802c7774fce0d49c168ad8a66fbeb9bee39e81c7",
+    "sha1": "802c7774fce0d49c168ad8a66fbeb9bee39e81c7",
+    "size": [
+      3206,
+      3249
+    ],
+    "crop": [
+      1136,
+      540,
+      1992,
+      2464
+    ]
+  },
+  "Final Fight 2": {
+    "slug": "b31d9543bbe448461478b89ccf4df500f39d19e3",
+    "sha1": "b31d9543bbe448461478b89ccf4df500f39d19e3",
+    "size": [
+      3534,
+      3274
+    ],
+    "crop": [
+      1140,
+      540,
+      1996,
+      2464
+    ]
+  },
+  "Final Fight 3": {
+    "slug": "25b4e9ceb3d9de0ed90dc5407f58448fec0b0f93",
+    "sha1": "25b4e9ceb3d9de0ed90dc5407f58448fec0b0f93",
+    "size": [
+      3155,
+      3198
+    ],
+    "crop": [
+      1136,
+      540,
+      1992,
+      2464
+    ]
+  },
+  "Final Fight Guy": {
+    "slug": "d60c31c573069a184ad1b6d7433cce3a7fe5f89c",
+    "sha1": "d60c31c573069a184ad1b6d7433cce3a7fe5f89c",
+    "size": [
+      3231,
+      3299
+    ],
+    "crop": [
+      1128,
+      540,
+      1984,
+      2464
+    ]
+  },
+  "Firepower 2000": {
+    "slug": "829467c2ecd4ec3d660632fe62adda8d78436274",
+    "sha1": "829467c2ecd4ec3d660632fe62adda8d78436274",
+    "size": [
+      3206,
+      3249
+    ],
+    "crop": [
+      1128,
+      540,
+      2004,
+      2464
+    ]
+  },
+  "Firestriker": {
+    "slug": "57e36ffd76b2821b9294b97bf62a49f5a3168972",
+    "sha1": "57e36ffd76b2821b9294b97bf62a49f5a3168972",
+    "size": [
+      3206,
+      3249
+    ],
+    "crop": [
+      1136,
+      544,
+      1992,
+      2468
+    ]
+  },
+  "First Samurai": {
+    "slug": "00285258f464eeec52c0afdefd045bd0906b774c",
+    "sha1": "00285258f464eeec52c0afdefd045bd0906b774c",
+    "size": [
+      3231,
+      3249
+    ],
+    "crop": [
+      1132,
+      536,
+      1988,
+      2460
+    ]
+  },
+  "Flashback - The Quest for Identity": {
+    "slug": "41748679b017b43a5b5c247ec641dbbd7c7eec19",
+    "sha1": "41748679b017b43a5b5c247ec641dbbd7c7eec19",
+    "size": [
+      3231,
+      3324
+    ],
+    "crop": [
+      1132,
+      544,
+      1948,
+      2468
+    ]
+  },
+  "Flintstones - The Movie, The": {
+    "slug": "aa99d72f4f7e2bce1ba651bb0ceaff0e99de5e24",
+    "sha1": "aa99d72f4f7e2bce1ba651bb0ceaff0e99de5e24",
+    "size": [
+      3181,
+      3274
+    ],
+    "crop": [
+      1132,
+      548,
+      1948,
+      2472
+    ]
+  },
+  "Flintstones - The Treasure of Sierra Madrock, The": {
+    "slug": "17936d09bca2eaf035ff33429802b8822919e471",
+    "sha1": "17936d09bca2eaf035ff33429802b8822919e471",
+    "size": [
+      3206,
+      3299
+    ],
+    "crop": [
+      1144,
+      548,
+      1980,
+      2472
+    ]
+  },
+  "Football Fury": {
+    "slug": "5772acf9db6382c3b630c512abfdaae16e754f25",
+    "sha1": "5772acf9db6382c3b630c512abfdaae16e754f25",
+    "size": [
+      3206,
+      3223
+    ],
+    "crop": [
+      1128,
+      532,
+      2004,
+      2456
+    ]
+  },
+  "Foreman For Real": {
+    "slug": "38a4fe69dd1d0aeb974a5961f7c9e65fef3b855d",
+    "sha1": "38a4fe69dd1d0aeb974a5961f7c9e65fef3b855d",
+    "size": [
+      3256,
+      3274
+    ],
+    "crop": [
+      1128,
+      544,
+      1984,
+      2468
+    ]
+  },
+  "Frank Thomas Big Hurt Baseball": {
+    "slug": "15541a14000a3b796e012c31fd023fd6f0864300",
+    "sha1": "15541a14000a3b796e012c31fd023fd6f0864300",
+    "size": [
+      3660,
+      3274
+    ],
+    "crop": [
+      1120,
+      540,
+      1936,
+      2464
+    ]
+  },
+  "Frantic Flea": {
+    "slug": "a293ff9f10e8e34b8558d27ab01ef80b042b19e9",
+    "sha1": "a293ff9f10e8e34b8558d27ab01ef80b042b19e9",
+    "size": [
+      3206,
+      3299
+    ],
+    "crop": [
+      1132,
+      524,
+      1948,
+      2448
+    ]
+  },
+  "Frogger": {
+    "slug": "cce090d2ea0edb4feddabd414314493283db3282",
+    "sha1": "cce090d2ea0edb4feddabd414314493283db3282",
+    "size": [
+      3130,
+      3223
+    ],
+    "crop": [
+      1140,
+      524,
+      1956,
+      2448
+    ]
+  },
+  "Full Throttle - All-American Racing": {
+    "slug": "f8caed20576bebdbb3052b3112bff0582adf37b7",
+    "sha1": "f8caed20576bebdbb3052b3112bff0582adf37b7",
+    "size": [
+      3206,
+      3299
+    ],
+    "crop": [
+      1124,
+      528,
+      1960,
+      2452
+    ]
+  },
+  "Fun _ Games": {
+    "slug": "60e3e722e9b78b4cc45d40ea5dbf55fb23d73c4d",
+    "sha1": "60e3e722e9b78b4cc45d40ea5dbf55fb23d73c4d",
+    "size": [
+      3181,
+      3249
+    ],
+    "crop": [
+      1148,
+      536,
+      2004,
+      2460
+    ]
+  },
+  "GP-1": {
+    "slug": "d8d571b1637513b27ce7bc400f25e98b0b899490",
+    "sha1": "d8d571b1637513b27ce7bc400f25e98b0b899490",
+    "size": [
+      3155,
+      3299
+    ],
+    "crop": [
+      1136,
+      536,
+      1992,
+      2460
+    ]
+  },
+  "GP-1 - Part II": {
+    "slug": "f2e3bad992f776a2c7c9269ea0da1318fe2b5449",
+    "sha1": "f2e3bad992f776a2c7c9269ea0da1318fe2b5449",
+    "size": [
+      3559,
+      3249
+    ],
+    "crop": [
+      1120,
+      544,
+      1936,
+      2468
+    ]
+  },
+  "Gemfire": {
+    "slug": "3fb9e9de881a31bf561a099c787379fffaabe4e8",
+    "sha1": "3fb9e9de881a31bf561a099c787379fffaabe4e8",
+    "size": [
+      3711,
+      3274
+    ],
+    "crop": [
+      1124,
+      536,
+      2000,
+      2460
+    ]
+  },
+  "Genghis Khan II - Clan of the Grey Wolf": {
+    "slug": "31a273c13905a276fd77317fd89f4afde31a8574",
+    "sha1": "31a273c13905a276fd77317fd89f4afde31a8574",
+    "size": [
+      3585,
+      3249
+    ],
+    "crop": [
+      1120,
+      540,
+      1996,
+      2464
+    ]
+  },
+  "George Foreman_s KO Boxing": {
+    "slug": "df46684ad292c1d697393042718fcfe165608d57",
+    "sha1": "df46684ad292c1d697393042718fcfe165608d57",
+    "size": [
+      3181,
+      3249
+    ],
+    "crop": [
+      1132,
+      540,
+      2008,
+      2464
+    ]
+  },
+  "Ghoul Patrol": {
+    "slug": "2f2b7a185be616da509dfd5335205bca72861ddc",
+    "sha1": "2f2b7a185be616da509dfd5335205bca72861ddc",
+    "size": [
+      3231,
+      3274
+    ],
+    "crop": [
+      1128,
+      540,
+      1944,
+      2464
+    ]
+  },
+  "Goal!": {
+    "slug": "1b35529bc4730aaebc6ed25a5937a1241454eb23",
+    "sha1": "1b35529bc4730aaebc6ed25a5937a1241454eb23",
+    "size": [
+      3660,
+      3249
+    ],
+    "crop": [
+      1124,
+      544,
+      2000,
+      2468
+    ]
+  },
+  "Gods": {
+    "slug": "0ad9e4d6250c05e8043dc358062e3f3cda1b19b9",
+    "sha1": "0ad9e4d6250c05e8043dc358062e3f3cda1b19b9",
+    "size": [
+      3155,
+      3223
+    ],
+    "crop": [
+      1112,
+      540,
+      1928,
+      2464
+    ]
+  },
+  "Goof Troop": {
+    "slug": "b1deb566ee5fc6809d4c65b4e42322b111c2c7e1",
+    "sha1": "b1deb566ee5fc6809d4c65b4e42322b111c2c7e1",
+    "size": [
+      3206,
+      3249
+    ],
+    "crop": [
+      1124,
+      528,
+      1980,
+      2452
+    ]
+  },
+  "Gradius III": {
+    "slug": "9909e94ce1f856ab58c950e04105b8df248a0877",
+    "sha1": "9909e94ce1f856ab58c950e04105b8df248a0877",
+    "size": [
+      3155,
+      3274
+    ],
+    "crop": [
+      1144,
+      524,
+      2000,
+      2468
+    ]
+  },
+  "Great Circus Mystery - Starring Mickey and Minnie, The": {
+    "slug": "cebc85bd0f34f4cfdb681579babb8bf9a352acbc",
+    "sha1": "cebc85bd0f34f4cfdb681579babb8bf9a352acbc",
+    "size": [
+      3534,
+      3274
+    ],
+    "crop": [
+      1116,
+      536,
+      1992,
+      2460
+    ]
+  },
+  "Great Waldo Search, The": {
+    "slug": "3b59dd38d391db3574ec58b81f85677d713bdd5e",
+    "sha1": "3b59dd38d391db3574ec58b81f85677d713bdd5e",
+    "size": [
+      3181,
+      3274
+    ],
+    "crop": [
+      1104,
+      540,
+      1920,
+      2464
+    ]
+  },
+  "GunForce": {
+    "slug": "50c4a09b56c1750db0f135da0bad364542c8d5d5",
+    "sha1": "50c4a09b56c1750db0f135da0bad364542c8d5d5",
+    "size": [
+      3206,
+      3324
+    ],
+    "crop": [
+      1140,
+      548,
+      1996,
+      2472
+    ]
+  },
+  "Hagane": {
+    "slug": "d4da600bac598f259c39c228625f82b955059f2c",
+    "sha1": "d4da600bac598f259c39c228625f82b955059f2c",
+    "size": [
+      3231,
+      3299
+    ],
+    "crop": [
+      1136,
+      548,
+      1992,
+      2472
+    ]
+  },
+  "HammerLock Wrestling": {
+    "slug": "39d70525a7b891c9e77896334c19dbdeb23c3449",
+    "sha1": "39d70525a7b891c9e77896334c19dbdeb23c3449",
+    "size": [
+      3206,
+      3274
+    ],
+    "crop": [
+      1124,
+      536,
+      2000,
+      2460
+    ]
+  },
+  "Hardball III": {
+    "slug": "bdcda280e3e86b16bfdb8a393c90597d2f703515",
+    "sha1": "bdcda280e3e86b16bfdb8a393c90597d2f703515",
+    "size": [
+      3206,
+      3324
+    ],
+    "crop": [
+      1136,
+      548,
+      1992,
+      2472
+    ]
+  },
+  "Harley_s Humungous Adventure": {
+    "slug": "f18425c818620f51508bb8b2789a824d4bfc22fe",
+    "sha1": "f18425c818620f51508bb8b2789a824d4bfc22fe",
+    "size": [
+      3231,
+      3299
+    ],
+    "crop": [
+      1124,
+      544,
+      2000,
+      2468
+    ]
+  },
+  "Harvest Moon": {
+    "slug": "bd030a0880b6fb66630a994ee4a6dbd33f519d86",
+    "sha1": "bd030a0880b6fb66630a994ee4a6dbd33f519d86",
+    "size": [
+      3686,
+      3249
+    ],
+    "crop": [
+      1128,
+      536,
+      2004,
+      2460
+    ]
+  },
+  "Head-On Soccer": {
+    "slug": "e284a5d236c8485c7c1b49037f32840f488da0c1",
+    "sha1": "e284a5d236c8485c7c1b49037f32840f488da0c1",
+    "size": [
+      3181,
+      3274
+    ],
+    "crop": [
+      1128,
+      540,
+      2004,
+      2464
+    ]
+  },
+  "Hey Punk! Are You Tuff E Nuff": {
+    "slug": "8fcba3e807961988fc44e8a0cbf9bb0542f38953",
+    "sha1": "8fcba3e807961988fc44e8a0cbf9bb0542f38953",
+    "size": [
+      3585,
+      3299
+    ],
+    "crop": [
+      1128,
+      536,
+      1984,
+      2460
+    ]
+  },
+  "Hit the Ice": {
+    "slug": "d6b491f94d191bd92a3bbfd1477d956dabea5801",
+    "sha1": "d6b491f94d191bd92a3bbfd1477d956dabea5801",
+    "size": [
+      3155,
+      3249
+    ],
+    "crop": [
+      1124,
+      544,
+      2000,
+      2468
+    ]
+  },
+  "Hole in One Golf": {
+    "slug": "d7dfc09ca295807da0e1d3a3a2bdcf2ec0c734b4",
+    "sha1": "d7dfc09ca295807da0e1d3a3a2bdcf2ec0c734b4",
+    "size": [
+      3206,
+      3223
+    ],
+    "crop": [
+      1120,
+      544,
+      1996,
+      2468
+    ]
+  },
+  "Home Alone": {
+    "slug": "a0a766f992b2a92b67e5eedd28a111d8ff13126f",
+    "sha1": "a0a766f992b2a92b67e5eedd28a111d8ff13126f",
+    "size": [
+      3181,
+      3299
+    ],
+    "crop": [
+      1124,
+      544,
+      2000,
+      2468
+    ]
+  },
+  "Home Alone 2 - Lost in New York": {
+    "slug": "05371b6068a70f229c9f6aa139c72f1b650cda8c",
+    "sha1": "05371b6068a70f229c9f6aa139c72f1b650cda8c",
+    "size": [
+      3206,
+      3223
+    ],
+    "crop": [
+      1128,
+      548,
+      2004,
+      2472
+    ]
+  },
+  "Home Improvement": {
+    "slug": "058581cd6b5bcc42855f3f960a04ef4a219d5f20",
+    "sha1": "058581cd6b5bcc42855f3f960a04ef4a219d5f20",
+    "size": [
+      3509,
+      3249
+    ],
+    "crop": [
+      1116,
+      528,
+      1932,
+      2452
+    ]
+  },
+  "Hook": {
+    "slug": "ef6bb59d68360ccc4c560fdb72fe6b93739d0e76",
+    "sha1": "ef6bb59d68360ccc4c560fdb72fe6b93739d0e76",
+    "size": [
+      3206,
+      3249
+    ],
+    "crop": [
+      1128,
+      532,
+      2004,
+      2456
+    ]
+  },
+  "Hunt for Red October, The": {
+    "slug": "5cae14962cbf932e79c7f6a7116eb6fcd1fd4ddd",
+    "sha1": "5cae14962cbf932e79c7f6a7116eb6fcd1fd4ddd",
+    "size": [
+      3155,
+      3299
+    ],
+    "crop": [
+      1120,
+      540,
+      1996,
+      2464
+    ]
+  },
+  "Hurricanes": {
+    "slug": "b54db9e04edc9ef842a0578e7d3a71124fc234d0",
+    "sha1": "b54db9e04edc9ef842a0578e7d3a71124fc234d0",
+    "size": [
+      3282,
+      3299
+    ],
+    "crop": [
+      1128,
+      544,
+      2004,
+      2468
+    ]
+  },
+  "Hyper V-Ball": {
+    "slug": "d9647f0639dcd881dd847ff06350a7fbefa282dd",
+    "sha1": "d9647f0639dcd881dd847ff06350a7fbefa282dd",
+    "size": [
+      3181,
+      3249
+    ],
+    "crop": [
+      1136,
+      540,
+      1992,
+      2464
+    ]
+  },
+  "HyperZone": {
+    "slug": "f227bd08457cbe9fc92525d68ecc8c30ff539f1b",
+    "sha1": "f227bd08457cbe9fc92525d68ecc8c30ff539f1b",
+    "size": [
+      3231,
+      3249
+    ],
+    "crop": [
+      1120,
+      540,
+      1996,
+      2464
+    ]
+  },
+  "Ignition Factor, The": {
+    "slug": "f4f01107ff89383baa4731e04834d5aaed3bef36",
+    "sha1": "f4f01107ff89383baa4731e04834d5aaed3bef36",
+    "size": [
+      3206,
+      3299
+    ],
+    "crop": [
+      1132,
+      532,
+      1988,
+      2456
+    ]
+  },
+  "Illusion of Gaia": {
+    "slug": "a680d92cb8fa657f091189f308c7a90a2561722a",
+    "sha1": "a680d92cb8fa657f091189f308c7a90a2561722a",
+    "size": [
+      3660,
+      3249
+    ],
+    "crop": [
+      1116,
+      540,
+      1992,
+      2464
+    ]
+  },
+  "Imperium": {
+    "slug": "bcd38f0768b219e9b7c915903b28bbf138d1da66",
+    "sha1": "bcd38f0768b219e9b7c915903b28bbf138d1da66",
+    "size": [
+      3181,
+      3223
+    ],
+    "crop": [
+      1128,
+      544,
+      1944,
+      2468
+    ]
+  },
+  "Incantation": {
+    "slug": "2fc04a961168f256991ac096ba7d10d9ddaecf17",
+    "sha1": "2fc04a961168f256991ac096ba7d10d9ddaecf17",
+    "size": [
+      3256,
+      3249
+    ],
+    "crop": [
+      1112,
+      536,
+      1948,
+      2460
+    ]
+  },
+  "Incredible Crash Dummies, The": {
+    "slug": "29dc985de619b967ddb0b0e34172241b9dcb72c1",
+    "sha1": "29dc985de619b967ddb0b0e34172241b9dcb72c1",
+    "size": [
+      3155,
+      3249
+    ],
+    "crop": [
+      1124,
+      548,
+      2000,
+      2472
+    ]
+  },
+  "Incredible Hulk, The": {
+    "slug": "9a6b1773ffe7de1720345b2910c773c5ae06c59e",
+    "sha1": "9a6b1773ffe7de1720345b2910c773c5ae06c59e",
+    "size": [
+      3231,
+      3223
+    ],
+    "crop": [
+      1140,
+      532,
+      1996,
+      2456
+    ]
+  },
+  "Indiana Jones_ Greatest Adventures": {
+    "slug": "040d3ac3e1ae5a48db6e35192cdc3a4970c8c1f2",
+    "sha1": "040d3ac3e1ae5a48db6e35192cdc3a4970c8c1f2",
+    "size": [
+      3231,
+      3274
+    ],
+    "crop": [
+      1128,
+      536,
+      2004,
+      2460
+    ]
+  },
+  "Inindo - Way of the Ninja": {
+    "slug": "8247b0e380f54a84766069e51574dfb31308905b",
+    "sha1": "8247b0e380f54a84766069e51574dfb31308905b",
+    "size": [
+      3711,
+      3249
+    ],
+    "crop": [
+      1124,
+      532,
+      2000,
+      2456
+    ]
+  },
+  "Inspector Gadget": {
+    "slug": "d5a7da501e93de0b1535e499fce88007d253a8e3",
+    "sha1": "d5a7da501e93de0b1535e499fce88007d253a8e3",
+    "size": [
+      3585,
+      3249
+    ],
+    "crop": [
+      1128,
+      540,
+      2004,
+      2464
+    ]
+  },
+  "International Superstar Soccer": {
+    "slug": "ad0949d4a17764c8d5d32dac51263b5ebf034e2b",
+    "sha1": "ad0949d4a17764c8d5d32dac51263b5ebf034e2b",
+    "size": [
+      3181,
+      3274
+    ],
+    "crop": [
+      1128,
+      520,
+      1944,
+      2464
+    ]
+  },
+  "International Superstar Soccer Deluxe": {
+    "slug": "95cd85deebdaf54bf1938da033e75437bc63dd73",
+    "sha1": "95cd85deebdaf54bf1938da033e75437bc63dd73",
+    "size": [
+      3231,
+      3299
+    ],
+    "crop": [
+      1124,
+      540,
+      1940,
+      2464
+    ]
+  },
+  "International Tennis Tour": {
+    "slug": "22d66c4462df69f7456943e9bc97ba4be1d0809b",
+    "sha1": "22d66c4462df69f7456943e9bc97ba4be1d0809b",
+    "size": [
+      3206,
+      3249
+    ],
+    "crop": [
+      1124,
+      540,
+      2000,
+      2464
+    ]
+  },
+  "Irem Skins Game, The": {
+    "slug": "e60d2b22591f0b02fb20d2b4e482da3b19ee527f",
+    "sha1": "e60d2b22591f0b02fb20d2b4e482da3b19ee527f",
+    "size": [
+      3181,
+      3223
+    ],
+    "crop": [
+      1108,
+      552,
+      1924,
+      2476
+    ]
+  },
+  "Itchy _ Scratchy Game, The": {
+    "slug": "6ada09275ecb51a320f75d62b2059cca0249cb12",
+    "sha1": "6ada09275ecb51a320f75d62b2059cca0249cb12",
+    "size": [
+      3206,
+      3274
+    ],
+    "crop": [
+      1104,
+      540,
+      1920,
+      2464
+    ]
+  },
+  "Izzy_s Quest for the Olympic Rings": {
+    "slug": "8f83fb229acf381ae4d59a7c72c2be976ad2affd",
+    "sha1": "8f83fb229acf381ae4d59a7c72c2be976ad2affd",
+    "size": [
+      3181,
+      3299
+    ],
+    "crop": [
+      1124,
+      548,
+      1960,
+      2472
+    ]
+  },
+  "Jack Nicklaus Golf": {
+    "slug": "a2ecb91661deb8a7da25284ea917c4cc60dc1df0",
+    "sha1": "a2ecb91661deb8a7da25284ea917c4cc60dc1df0",
+    "size": [
+      3206,
+      3324
+    ],
+    "crop": [
+      1116,
+      528,
+      1992,
+      2452
+    ]
+  },
+  "James Bond Jr": {
+    "slug": "75c0e394c316b0681607baae7989bbb9659124bc",
+    "sha1": "75c0e394c316b0681607baae7989bbb9659124bc",
+    "size": [
+      3130,
+      3198
+    ],
+    "crop": [
+      1124,
+      532,
+      1980,
+      2456
+    ]
+  },
+  "Jammit!": {
+    "slug": "d694a97af4a2281df659769d45f54fcb80d60bce",
+    "sha1": "d694a97af4a2281df659769d45f54fcb80d60bce",
+    "size": [
+      3206,
+      3299
+    ],
+    "crop": [
+      1124,
+      524,
+      1980,
+      2448
+    ]
+  },
+  "Jeopardy! Deluxe Edition": {
+    "slug": "289029b6ad98ae7ea83cc62f637755d6ba0c919f",
+    "sha1": "289029b6ad98ae7ea83cc62f637755d6ba0c919f",
+    "size": [
+      3231,
+      3249
+    ],
+    "crop": [
+      1112,
+      524,
+      1988,
+      2448
+    ]
+  },
+  "Jeopardy! Featuring Alex Trebek": {
+    "slug": "55807f448c2f59d0f1fba20bbffc2dfcce588850",
+    "sha1": "55807f448c2f59d0f1fba20bbffc2dfcce588850",
+    "size": [
+      3282,
+      3349
+    ],
+    "crop": [
+      1112,
+      524,
+      1988,
+      2448
+    ]
+  },
+  "Jeopardy! Sports Edition": {
+    "slug": "07951d5e492b9aa30f1630d4e09309165ee05965",
+    "sha1": "07951d5e492b9aa30f1630d4e09309165ee05965",
+    "size": [
+      3307,
+      3349
+    ],
+    "crop": [
+      1132,
+      536,
+      1988,
+      2460
+    ]
+  },
+  "Jetsons - Invasion of the Planet Pirates, The": {
+    "slug": "2cdf088480f8a8a2c792fd5a495a68752814929f",
+    "sha1": "2cdf088480f8a8a2c792fd5a495a68752814929f",
+    "size": [
+      3206,
+      3299
+    ],
+    "crop": [
+      1116,
+      536,
+      1952,
+      2460
+    ]
+  },
+  "Jim Power - The Lost Dimension in 3D": {
+    "slug": "a8955a1b5c7febe6ce4814a396e87bf27371b925",
+    "sha1": "a8955a1b5c7febe6ce4814a396e87bf27371b925",
+    "size": [
+      3206,
+      3324
+    ],
+    "crop": [
+      1128,
+      528,
+      1984,
+      2452
+    ]
+  },
+  "Jimmy Connors Pro Tennis Tour": {
+    "slug": "ae049f065de51c17d30dc270f5f67c1ce9df1cd8",
+    "sha1": "ae049f065de51c17d30dc270f5f67c1ce9df1cd8",
+    "size": [
+      3155,
+      3223
+    ],
+    "crop": [
+      1112,
+      540,
+      1928,
+      2464
+    ]
+  },
+  "Jimmy Houston_s Bass Tournament USA": {
+    "slug": "21f8307a64bc370aec863c498e6e0ea0cd1f2551",
+    "sha1": "21f8307a64bc370aec863c498e6e0ea0cd1f2551",
+    "size": [
+      3711,
+      3274
+    ],
+    "crop": [
+      1116,
+      532,
+      1932,
+      2456
+    ]
+  },
+  "Joe _ Mac 1 - Caveman Ninjas": {
+    "slug": "52ba2454d53e5a50d4f071844a4cc393f5f403cb",
+    "sha1": "52ba2454d53e5a50d4f071844a4cc393f5f403cb",
+    "size": [
+      3206,
+      3274
+    ],
+    "crop": [
+      1128,
+      536,
+      1984,
+      2460
+    ]
+  },
+  "Joe _ Mac 2 - Lost in the Tropics": {
+    "slug": "38759327f4c07840ac85d88b2b79d1540677ffb9",
+    "sha1": "38759327f4c07840ac85d88b2b79d1540677ffb9",
+    "size": [
+      3231,
+      3324
+    ],
+    "crop": [
+      1108,
+      536,
+      1944,
+      2460
+    ]
+  },
+  "John Madden Football": {
+    "slug": "fc45573e8b9f908e1be94f3999f8616e413edd19",
+    "sha1": "fc45573e8b9f908e1be94f3999f8616e413edd19",
+    "size": [
+      3206,
+      3274
+    ],
+    "crop": [
+      1136,
+      544,
+      1952,
+      2468
+    ]
+  },
+  "John Madden Football _93": {
+    "slug": "9af637012146b0e8dd2bec7c4980ba75975e5d72",
+    "sha1": "9af637012146b0e8dd2bec7c4980ba75975e5d72",
+    "size": [
+      3155,
+      3274
+    ],
+    "crop": [
+      1120,
+      532,
+      1976,
+      2456
+    ]
+  },
+  "Judge Dredd": {
+    "slug": "994a2ce7e5a740686917abba737561bb266d27e1",
+    "sha1": "994a2ce7e5a740686917abba737561bb266d27e1",
+    "size": [
+      3181,
+      3249
+    ],
+    "crop": [
+      1132,
+      532,
+      1988,
+      2456
+    ]
+  },
+  "Jungle Book, The": {
+    "slug": "8bc689e50b7ceb5c7a64c2737b6fb1fc964bc5a8",
+    "sha1": "8bc689e50b7ceb5c7a64c2737b6fb1fc964bc5a8",
+    "size": [
+      3155,
+      3249
+    ],
+    "crop": [
+      1144,
+      528,
+      1980,
+      2452
+    ]
+  },
+  "Jungle Strike": {
+    "slug": "9ae4d2d0c2c758a2e5674e08f35df9e7edfa9a41",
+    "sha1": "9ae4d2d0c2c758a2e5674e08f35df9e7edfa9a41",
+    "size": [
+      3155,
+      3324
+    ],
+    "crop": [
+      1128,
+      536,
+      1984,
+      2460
+    ]
+  },
+  "Jurassic Park": {
+    "slug": "7cd863590e7e334ee211b50150f6b77ffa6874b7",
+    "sha1": "7cd863590e7e334ee211b50150f6b77ffa6874b7",
+    "size": [
+      3231,
+      3249
+    ],
+    "crop": [
+      1128,
+      552,
+      1944,
+      2476
+    ]
+  },
+  "Jurassic Park 2 - The Chaos Continues": {
+    "slug": "0fb053dffba5fda1c3acf7099772ccb561d01c23",
+    "sha1": "0fb053dffba5fda1c3acf7099772ccb561d01c23",
+    "size": [
+      3206,
+      3274
+    ],
+    "crop": [
+      1108,
+      540,
+      1984,
+      2464
+    ]
+  },
+  "Justice League Task Force": {
+    "slug": "0d0a6ced8d46dbca28a4ddf80bd8dd73e7b53384",
+    "sha1": "0d0a6ced8d46dbca28a4ddf80bd8dd73e7b53384",
+    "size": [
+      3635,
+      3249
+    ],
+    "crop": [
+      1144,
+      540,
+      2000,
+      2464
+    ]
+  },
+  "Ka-blooey": {
+    "slug": "b0daceef9b464dfcc6c5e0940a7a86a251d16959",
+    "sha1": "b0daceef9b464dfcc6c5e0940a7a86a251d16959",
+    "size": [
+      3231,
+      3223
+    ],
+    "crop": [
+      1124,
+      528,
+      1980,
+      2452
+    ]
+  },
+  "Kawasaki Caribbean Challenge": {
+    "slug": "059235fdd1bdd41e96b6470af75e9898eb5d31bc",
+    "sha1": "059235fdd1bdd41e96b6470af75e9898eb5d31bc",
+    "size": [
+      3559,
+      3299
+    ],
+    "crop": [
+      1128,
+      536,
+      1984,
+      2460
+    ]
+  },
+  "Kawasaki Superbike Challenge": {
+    "slug": "120b480ccd2327f439b8da3325718c6cf7c507d4",
+    "sha1": "120b480ccd2327f439b8da3325718c6cf7c507d4",
+    "size": [
+      3231,
+      3274
+    ],
+    "crop": [
+      1112,
+      524,
+      1948,
+      2448
+    ]
+  },
+  "Ken Griffey Jr. Presents - Major League Baseball": {
+    "slug": "9fdf4e3b53a9be5f19052b6fc47a86b1cf6bf628",
+    "sha1": "9fdf4e3b53a9be5f19052b6fc47a86b1cf6bf628",
+    "size": [
+      3660,
+      3223
+    ],
+    "crop": [
+      1132,
+      532,
+      1988,
+      2456
+    ]
+  },
+  "Ken Griffey Jr._s Winning Run": {
+    "slug": "4a6fa66489ea462646e9782340c8d286f9e7c7b0",
+    "sha1": "4a6fa66489ea462646e9782340c8d286f9e7c7b0",
+    "size": [
+      3686,
+      3324
+    ],
+    "crop": [
+      1120,
+      544,
+      1996,
+      2468
+    ]
+  },
+  "Kendo Rage": {
+    "slug": "167c01a170e54277b5f9c45a2a4618bc3bc4b996",
+    "sha1": "167c01a170e54277b5f9c45a2a4618bc3bc4b996",
+    "size": [
+      3256,
+      3375
+    ],
+    "crop": [
+      1132,
+      536,
+      1988,
+      2460
+    ]
+  },
+  "Kid Klown in Crazy Chase": {
+    "slug": "a51d1d9b4f058a9454c6f779b497b0d232a841a7",
+    "sha1": "a51d1d9b4f058a9454c6f779b497b0d232a841a7",
+    "size": [
+      3282,
+      3299
+    ],
+    "crop": [
+      1124,
+      536,
+      1980,
+      2460
+    ]
+  },
+  "Killer Instinct": {
+    "slug": "4dafd91f4304024ebe545dd0c29c7198a54b5d45",
+    "sha1": "4dafd91f4304024ebe545dd0c29c7198a54b5d45",
+    "size": [
+      3256,
+      3375
+    ],
+    "crop": [
+      1024,
+      536,
+      1880,
+      2480
+    ]
+  },
+  "King Arthur _ the Knights of Justice": {
+    "slug": "b9dfc3bd86141dc60519dae400dcfcaa5983650b",
+    "sha1": "b9dfc3bd86141dc60519dae400dcfcaa5983650b",
+    "size": [
+      3686,
+      3299
+    ],
+    "crop": [
+      1120,
+      540,
+      1996,
+      2464
+    ]
+  },
+  "King Arthur_s World": {
+    "slug": "87f0d166d26ec979d1b5d3ad0294ab3a9fe5386e",
+    "sha1": "87f0d166d26ec979d1b5d3ad0294ab3a9fe5386e",
+    "size": [
+      3206,
+      3223
+    ],
+    "crop": [
+      1144,
+      532,
+      2000,
+      2456
+    ]
+  },
+  "King of Dragons": {
+    "slug": "81ae486ea9502b227c17aad477ce04cbbb28010c",
+    "sha1": "81ae486ea9502b227c17aad477ce04cbbb28010c",
+    "size": [
+      3181,
+      3223
+    ],
+    "crop": [
+      1128,
+      544,
+      1984,
+      2468
+    ]
+  },
+  "King of the Monsters": {
+    "slug": "e836df09675eb35f7208abbcbacbd3b630c9fb56",
+    "sha1": "e836df09675eb35f7208abbcbacbd3b630c9fb56",
+    "size": [
+      3256,
+      3274
+    ],
+    "crop": [
+      1108,
+      532,
+      1984,
+      2456
+    ]
+  },
+  "King of the Monsters II": {
+    "slug": "322cec35dff398db912f5c01218f075446a8d660",
+    "sha1": "322cec35dff398db912f5c01218f075446a8d660",
+    "size": [
+      3181,
+      3223
+    ],
+    "crop": [
+      1144,
+      540,
+      2000,
+      2464
+    ]
+  },
+  "Kirby Super Star": {
+    "slug": "d2146aa26fc2f40fd79bf9b141698c16cae2858c",
+    "sha1": "d2146aa26fc2f40fd79bf9b141698c16cae2858c",
+    "size": [
+      3888,
+      3274
+    ],
+    "crop": [
+      1128,
+      532,
+      2004,
+      2456
+    ]
+  },
+  "Kirby_s Avalanche": {
+    "slug": "53322adf5ee2539652561f3ac30d6b040122b9b0",
+    "sha1": "53322adf5ee2539652561f3ac30d6b040122b9b0",
+    "size": [
+      3181,
+      3324
+    ],
+    "crop": [
+      1116,
+      540,
+      2012,
+      2464
+    ]
+  },
+  "Kirby_s Dream Course": {
+    "slug": "e506b6de06891dd7fad9481b23e17bb08de09a97",
+    "sha1": "e506b6de06891dd7fad9481b23e17bb08de09a97",
+    "size": [
+      3711,
+      3249
+    ],
+    "crop": [
+      1112,
+      528,
+      1988,
+      2452
+    ]
+  },
+  "Kirby_s Dream Land 3": {
+    "slug": "25068c43530367d6f677a0613d6db30902850e11",
+    "sha1": "25068c43530367d6f677a0613d6db30902850e11",
+    "size": [
+      3989,
+      3274
+    ],
+    "crop": [
+      1116,
+      528,
+      1932,
+      2452
+    ]
+  },
+  "Knights of the Round": {
+    "slug": "170889033ba3d69cdd0fe51cb5f2f8b2da73ae69",
+    "sha1": "170889033ba3d69cdd0fe51cb5f2f8b2da73ae69",
+    "size": [
+      3585,
+      3324
+    ],
+    "crop": [
+      1128,
+      536,
+      1984,
+      2460
+    ]
+  },
+  "Krusty_s Super Fun House": {
+    "slug": "c5c0b6a08fe08d88db3f8607a11f68ce18ca676e",
+    "sha1": "c5c0b6a08fe08d88db3f8607a11f68ce18ca676e",
+    "size": [
+      3231,
+      3274
+    ],
+    "crop": [
+      1108,
+      532,
+      1984,
+      2456
+    ]
+  },
+  "Kyle Petty_s No Fear Racing": {
+    "slug": "e55bd5e90617ddeb40fbef08b331839caa57d8aa",
+    "sha1": "e55bd5e90617ddeb40fbef08b331839caa57d8aa",
+    "size": [
+      3130,
+      3274
+    ],
+    "crop": [
+      1108,
+      524,
+      1984,
+      2448
+    ]
+  },
+  "Lagoon": {
+    "slug": "a0d3df2ae631a05f72546e45df27fbe93fee9ce3",
+    "sha1": "a0d3df2ae631a05f72546e45df27fbe93fee9ce3",
+    "size": [
+      3711,
+      3324
+    ],
+    "crop": [
+      1120,
+      560,
+      1996,
+      2484
+    ]
+  },
+  "Lamborghini American Challenge": {
+    "slug": "49a605efc55c6566be97822ceb632ba128337366",
+    "sha1": "49a605efc55c6566be97822ceb632ba128337366",
+    "size": [
+      3181,
+      3223
+    ],
+    "crop": [
+      1120,
+      548,
+      1996,
+      2472
+    ]
+  },
+  "Last Action Hero": {
+    "slug": "6d57ba3fbf5e4dcefdbae58bcd88a8f966855fb6",
+    "sha1": "6d57ba3fbf5e4dcefdbae58bcd88a8f966855fb6",
+    "size": [
+      3206,
+      3249
+    ],
+    "crop": [
+      1128,
+      544,
+      1944,
+      2468
+    ]
+  },
+  "Lawnmower Man, The": {
+    "slug": "341b0076bcd02d4950f6634801f062b3d8403936",
+    "sha1": "341b0076bcd02d4950f6634801f062b3d8403936",
+    "size": [
+      3130,
+      3274
+    ],
+    "crop": [
+      1136,
+      544,
+      1992,
+      2468
+    ]
+  },
+  "Legend": {
+    "slug": "788592a73b428312722527934e3bc0211c70f779",
+    "sha1": "788592a73b428312722527934e3bc0211c70f779",
+    "size": [
+      3181,
+      3274
+    ],
+    "crop": [
+      1120,
+      540,
+      1996,
+      2464
+    ]
+  },
+  "Legend of Zelda - A Link to the Past, The": {
+    "slug": "beec2359ae6f77e9e4c6738c67ae6a3b28112d75",
+    "sha1": "beec2359ae6f77e9e4c6738c67ae6a3b28112d75",
+    "size": [
+      3660,
+      3249
+    ],
+    "crop": [
+      1140,
+      548,
+      1996,
+      2472
+    ]
+  },
+  "Legend of the Mystical Ninja, The": {
+    "slug": "8b6a5d5ad0dda02840164d30633083114d0ab9e9",
+    "sha1": "8b6a5d5ad0dda02840164d30633083114d0ab9e9",
+    "size": [
+      3155,
+      3274
+    ],
+    "crop": [
+      1128,
+      544,
+      2004,
+      2468
+    ]
+  },
+  "Lemmings": {
+    "slug": "0eb507544099d897be4d248e32ad4aba1e33e693",
+    "sha1": "0eb507544099d897be4d248e32ad4aba1e33e693",
+    "size": [
+      3206,
+      3274
+    ],
+    "crop": [
+      1128,
+      544,
+      2004,
+      2468
+    ]
+  },
+  "Lemmings 2 - The Tribes": {
+    "slug": "7bc42bdbcff20ee13a71221d276b8e8c817e73ba",
+    "sha1": "7bc42bdbcff20ee13a71221d276b8e8c817e73ba",
+    "size": [
+      3686,
+      3299
+    ],
+    "crop": [
+      1132,
+      528,
+      1988,
+      2452
+    ]
+  },
+  "Lester the Unlikely": {
+    "slug": "1804adfaee3101757a50a463c723c14ace87e122",
+    "sha1": "1804adfaee3101757a50a463c723c14ace87e122",
+    "size": [
+      3155,
+      3274
+    ],
+    "crop": [
+      1144,
+      536,
+      2000,
+      2460
+    ]
+  },
+  "Lethal Enforcers": {
+    "slug": "3db2bcff31b83661d5841125c1086199d6d0951b",
+    "sha1": "3db2bcff31b83661d5841125c1086199d6d0951b",
+    "size": [
+      3231,
+      3299
+    ],
+    "crop": [
+      1128,
+      540,
+      1984,
+      2464
+    ]
+  },
+  "Lethal Weapon": {
+    "slug": "8b607b70716cf3837fe689aa017b77238a880cc3",
+    "sha1": "8b607b70716cf3837fe689aa017b77238a880cc3",
+    "size": [
+      3206,
+      3249
+    ],
+    "crop": [
+      1112,
+      548,
+      1928,
+      2472
+    ]
+  },
+  "Liberty or Death": {
+    "slug": "40379214643c806248bbe2e6830d2fa179e73b01",
+    "sha1": "40379214643c806248bbe2e6830d2fa179e73b01",
+    "size": [
+      3938,
+      3299
+    ],
+    "crop": [
+      1116,
+      536,
+      1992,
+      2460
+    ]
+  },
+  "Lion King, The": {
+    "slug": "4a43cad2f65c226a4ad1c6f8a85c245431edeb51",
+    "sha1": "4a43cad2f65c226a4ad1c6f8a85c245431edeb51",
+    "size": [
+      3206,
+      3324
+    ],
+    "crop": [
+      1140,
+      548,
+      1996,
+      2472
+    ]
+  },
+  "Lock On": {
+    "slug": "b912a49954452ef116a816dc980baaffc4436876",
+    "sha1": "b912a49954452ef116a816dc980baaffc4436876",
+    "size": [
+      3660,
+      3249
+    ],
+    "crop": [
+      1128,
+      536,
+      2004,
+      2460
+    ]
+  },
+  "Looney Tunes B-Ball": {
+    "slug": "873ba7a27ba1bcdbd5ee685b310b29283b5bef97",
+    "sha1": "873ba7a27ba1bcdbd5ee685b310b29283b5bef97",
+    "size": [
+      3181,
+      3299
+    ],
+    "crop": [
+      1112,
+      528,
+      1928,
+      2452
+    ]
+  },
+  "Lord of the Rings - Volume 1, The": {
+    "slug": "e12702c1a342c4ed455f6f380f154b500bb223e7",
+    "sha1": "e12702c1a342c4ed455f6f380f154b500bb223e7",
+    "size": [
+      3206,
+      3274
+    ],
+    "crop": [
+      1116,
+      536,
+      1952,
+      2460
+    ]
+  },
+  "Lost Vikings 1, The": {
+    "slug": "17ff59d1e1cf6e70ecdf8b1580f0d473bf1cc195",
+    "sha1": "17ff59d1e1cf6e70ecdf8b1580f0d473bf1cc195",
+    "size": [
+      3231,
+      3299
+    ],
+    "crop": [
+      1120,
+      540,
+      1996,
+      2464
+    ]
+  },
+  "Lost Vikings 2, The": {
+    "slug": "f7a4c669f830c778f3b63878ec91261374efd3c5",
+    "sha1": "f7a4c669f830c778f3b63878ec91261374efd3c5",
+    "size": [
+      3206,
+      3299
+    ],
+    "crop": [
+      1132,
+      536,
+      1948,
+      2460
+    ]
+  },
+  "Lufia 1 - The Fortress of Doom": {
+    "slug": "c08091aaefe542430a7c0ceb90a0e7f1d49503c4",
+    "sha1": "c08091aaefe542430a7c0ceb90a0e7f1d49503c4",
+    "size": [
+      3610,
+      3299
+    ],
+    "crop": [
+      1124,
+      544,
+      2000,
+      2468
+    ]
+  },
+  "Lufia 2 - Rise of the Sinistrals": {
+    "slug": "3614c811ece8acd3acd0baeaa2322e5c9ec1ab52",
+    "sha1": "3614c811ece8acd3acd0baeaa2322e5c9ec1ab52",
+    "size": [
+      3660,
+      3299
+    ],
+    "crop": [
+      1140,
+      532,
+      1996,
+      2456
+    ]
+  },
+  "MLBPA Baseball": {
+    "slug": "b816238c8fe33be56ba6e3935bf2eebe5fce7039",
+    "sha1": "b816238c8fe33be56ba6e3935bf2eebe5fce7039",
+    "size": [
+      3130,
+      3249
+    ],
+    "crop": [
+      1124,
+      536,
+      2000,
+      2460
+    ]
+  },
+  "Madden NFL _94": {
+    "slug": "1a071bdf8b2979aaf53fe097f84625326b1279f0",
+    "sha1": "1a071bdf8b2979aaf53fe097f84625326b1279f0",
+    "size": [
+      3206,
+      3274
+    ],
+    "crop": [
+      1128,
+      560,
+      2004,
+      2484
+    ]
+  },
+  "Madden NFL _95": {
+    "slug": "7ce246b4184a9a6f267630ba57545ec5081280be",
+    "sha1": "7ce246b4184a9a6f267630ba57545ec5081280be",
+    "size": [
+      3660,
+      3274
+    ],
+    "crop": [
+      1140,
+      520,
+      1996,
+      2444
+    ]
+  },
+  "Madden NFL _96": {
+    "slug": "5c58a6594b0521a7b758dcc0c075c571a567b94a",
+    "sha1": "5c58a6594b0521a7b758dcc0c075c571a567b94a",
+    "size": [
+      3635,
+      3249
+    ],
+    "crop": [
+      1124,
+      524,
+      2000,
+      2448
+    ]
+  },
+  "Madden NFL _97": {
+    "slug": "9353312d9fc6b1782fbf4f12c89dd2c100bbff02",
+    "sha1": "9353312d9fc6b1782fbf4f12c89dd2c100bbff02",
+    "size": [
+      3635,
+      3274
+    ],
+    "crop": [
+      1124,
+      544,
+      2000,
+      2468
+    ]
+  },
+  "Madden NFL _98": {
+    "slug": "7fe04f1f50f61fe6466d50b528443a979c0fc4f8",
+    "sha1": "7fe04f1f50f61fe6466d50b528443a979c0fc4f8",
+    "size": [
+      3686,
+      3324
+    ],
+    "crop": [
+      1136,
+      560,
+      1992,
+      2564
+    ]
+  },
+  "Magic Boy": {
+    "slug": "6c401b1c41daecea4cf386d00b40f5345bd50877",
+    "sha1": "6c401b1c41daecea4cf386d00b40f5345bd50877",
+    "size": [
+      3155,
+      3274
+    ],
+    "crop": [
+      1132,
+      532,
+      2008,
+      2456
+    ]
+  },
+  "Magic Sword": {
+    "slug": "0a1c31b960ddd24561f0282a360b2d642c31b30e",
+    "sha1": "0a1c31b960ddd24561f0282a360b2d642c31b30e",
+    "size": [
+      3256,
+      3249
+    ],
+    "crop": [
+      1128,
+      536,
+      2004,
+      2460
+    ]
+  },
+  "Magical Quest Starring Mickey Mouse, The": {
+    "slug": "422d94f0fd0a82d96770917a4c08281cad0ca900",
+    "sha1": "422d94f0fd0a82d96770917a4c08281cad0ca900",
+    "size": [
+      3206,
+      3249
+    ],
+    "crop": [
+      1136,
+      536,
+      1972,
+      2460
+    ]
+  },
+  "Mario Paint": {
+    "slug": "251f54e95df82752299a6fa6faa1772ae5dde8ab",
+    "sha1": "251f54e95df82752299a6fa6faa1772ae5dde8ab",
+    "size": [
+      3686,
+      3249
+    ],
+    "crop": [
+      1108,
+      528,
+      1924,
+      2452
+    ]
+  },
+  "Mario is Missing!": {
+    "slug": "90c184b76bfac321aabd8de60ce61bb250221176",
+    "sha1": "90c184b76bfac321aabd8de60ce61bb250221176",
+    "size": [
+      3130,
+      3223
+    ],
+    "crop": [
+      1120,
+      540,
+      1996,
+      2464
+    ]
+  },
+  "Mario_s Early Years - Fun with Letters": {
+    "slug": "31f78d3194a2ce917ff55544830564ba8aad59c9",
+    "sha1": "31f78d3194a2ce917ff55544830564ba8aad59c9",
+    "size": [
+      3181,
+      3223
+    ],
+    "crop": [
+      1112,
+      544,
+      1928,
+      2468
+    ]
+  },
+  "Mario_s Early Years - Fun with Numbers": {
+    "slug": "29dc33561fe153072c1547b4287c6c1cffc5bc51",
+    "sha1": "29dc33561fe153072c1547b4287c6c1cffc5bc51",
+    "size": [
+      3206,
+      3274
+    ],
+    "crop": [
+      1116,
+      540,
+      1952,
+      2464
+    ]
+  },
+  "Mario_s Early Years - Pre-School Fun": {
+    "slug": "b2a4920f0db50608e69f0a061806abfe470d0d6a",
+    "sha1": "b2a4920f0db50608e69f0a061806abfe470d0d6a",
+    "size": [
+      3231,
+      3400
+    ],
+    "crop": [
+      1132,
+      604,
+      1948,
+      2528
+    ]
+  },
+  "Mario_s Time Machine": {
+    "slug": "803209250c7cde69045cb3744d23ab5614c51ec5",
+    "sha1": "803209250c7cde69045cb3744d23ab5614c51ec5",
+    "size": [
+      3206,
+      3274
+    ],
+    "crop": [
+      1136,
+      548,
+      1992,
+      2472
+    ]
+  },
+  "Mark Davis_ - The Fishing Master": {
+    "slug": "d369b8fc4b166d40dae5161e95b8d52cc7cf6fb8",
+    "sha1": "d369b8fc4b166d40dae5161e95b8d52cc7cf6fb8",
+    "size": [
+      3660,
+      3223
+    ],
+    "crop": [
+      1120,
+      532,
+      1996,
+      2456
+    ]
+  },
+  "Marvel Super Heroes in War of the Gems": {
+    "slug": "d9a36a4a1559fba41fdf2113b1e15fad91322911",
+    "sha1": "d9a36a4a1559fba41fdf2113b1e15fad91322911",
+    "size": [
+      3181,
+      3249
+    ],
+    "crop": [
+      1128,
+      548,
+      2004,
+      2452
+    ]
+  },
+  "Mary Shelley_s Frankenstein": {
+    "slug": "c02da02e11ec67be8088b5b2397bdfd29d8b32b6",
+    "sha1": "c02da02e11ec67be8088b5b2397bdfd29d8b32b6",
+    "size": [
+      3130,
+      3349
+    ],
+    "crop": [
+      1144,
+      540,
+      2000,
+      2464
+    ]
+  },
+  "Mask, The": {
+    "slug": "2ffbc8e86c782edb9e438ddf1870262b32d6c1ec",
+    "sha1": "2ffbc8e86c782edb9e438ddf1870262b32d6c1ec",
+    "size": [
+      3181,
+      3249
+    ],
+    "crop": [
+      1112,
+      536,
+      1988,
+      2460
+    ]
+  },
+  "Math Blaster - Episode 1": {
+    "slug": "6559f8e980633a462e9ff2e47a9acbd8a509a814",
+    "sha1": "6559f8e980633a462e9ff2e47a9acbd8a509a814",
+    "size": [
+      3231,
+      3299
+    ],
+    "crop": [
+      1136,
+      548,
+      1952,
+      2472
+    ]
+  },
+  "Maui Mallard in Cold Shadow": {
+    "slug": "538cd0a0ebe40e167fd907748701e3f6189667e2",
+    "sha1": "538cd0a0ebe40e167fd907748701e3f6189667e2",
+    "size": [
+      3181,
+      3249
+    ],
+    "crop": [
+      1104,
+      508,
+      1940,
+      2432
+    ]
+  },
+  "Mecarobot Golf": {
+    "slug": "a76e9604ea2ead19764179dca4ae208916ad8b65",
+    "sha1": "a76e9604ea2ead19764179dca4ae208916ad8b65",
+    "size": [
+      3660,
+      3249
+    ],
+    "crop": [
+      1124,
+      552,
+      1960,
+      2476
+    ]
+  },
+  "MechWarrior": {
+    "slug": "2263975c5ac690c146cbfd64d6433be4818a013f",
+    "sha1": "2263975c5ac690c146cbfd64d6433be4818a013f",
+    "size": [
+      3711,
+      3274
+    ],
+    "crop": [
+      1116,
+      540,
+      1992,
+      2464
+    ]
+  },
+  "MechWarrior 3050": {
+    "slug": "c3017e2aa6fea3f51a633ce137858dc131bf0ce3",
+    "sha1": "c3017e2aa6fea3f51a633ce137858dc131bf0ce3",
+    "size": [
+      3256,
+      3299
+    ],
+    "crop": [
+      1132,
+      544,
+      1948,
+      2468
+    ]
+  },
+  "Mega Man 7": {
+    "slug": "83c8270e55fa1502bd834d6423408cc485b109e2",
+    "sha1": "83c8270e55fa1502bd834d6423408cc485b109e2",
+    "size": [
+      3206,
+      3249
+    ],
+    "crop": [
+      1124,
+      536,
+      2000,
+      2460
+    ]
+  },
+  "Mega Man Soccer": {
+    "slug": "40f6738ac8a8f375aa2da9d1a5d8abf36abc172b",
+    "sha1": "40f6738ac8a8f375aa2da9d1a5d8abf36abc172b",
+    "size": [
+      3585,
+      3249
+    ],
+    "crop": [
+      1124,
+      540,
+      2000,
+      2464
+    ]
+  },
+  "Mega Man X": {
+    "slug": "86434271768a79523d8265ee92a86b75816699e8",
+    "sha1": "86434271768a79523d8265ee92a86b75816699e8",
+    "size": [
+      3610,
+      3249
+    ],
+    "crop": [
+      1108,
+      528,
+      1984,
+      2452
+    ]
+  },
+  "Mega Man X2": {
+    "slug": "686faa90980c048235109599d9db88a8dde7abbd",
+    "sha1": "686faa90980c048235109599d9db88a8dde7abbd",
+    "size": [
+      4064,
+      3299
+    ],
+    "crop": [
+      1136,
+      536,
+      1992,
+      2460
+    ]
+  },
+  "Mega Man X3": {
+    "slug": "1bbd6d459763bf495187b234a9d83dc4d9f813c6",
+    "sha1": "1bbd6d459763bf495187b234a9d83dc4d9f813c6",
+    "size": [
+      3686,
+      3198
+    ],
+    "crop": [
+      1132,
+      540,
+      1948,
+      2464
+    ]
+  },
+  "Metal Combat - Falcon_s Revenge": {
+    "slug": "1b8a298ea3216b723a9587d30cb1fc2a6bfec0b7",
+    "sha1": "1b8a298ea3216b723a9587d30cb1fc2a6bfec0b7",
+    "size": [
+      4064,
+      3274
+    ],
+    "crop": [
+      1124,
+      540,
+      2000,
+      2464
+    ]
+  },
+  "Metal Marines": {
+    "slug": "4b85fb1f875e8da98adb7e8237622be0eafcb132",
+    "sha1": "4b85fb1f875e8da98adb7e8237622be0eafcb132",
+    "size": [
+      3610,
+      3274
+    ],
+    "crop": [
+      1136,
+      532,
+      1992,
+      2456
+    ]
+  },
+  "Metal Morph": {
+    "slug": "f17ab286f8efbe45f2a6dabec4922ed378d87e37",
+    "sha1": "f17ab286f8efbe45f2a6dabec4922ed378d87e37",
+    "size": [
+      3534,
+      3274
+    ],
+    "crop": [
+      1124,
+      548,
+      2000,
+      2472
+    ]
+  },
+  "Metal Warriors": {
+    "slug": "0cd9994af81eb260b587d8d74a593b00d428aebc",
+    "sha1": "0cd9994af81eb260b587d8d74a593b00d428aebc",
+    "size": [
+      3256,
+      3324
+    ],
+    "crop": [
+      1120,
+      528,
+      1996,
+      2452
+    ]
+  },
+  "Michael Andretti_s Indy Car Challenge": {
+    "slug": "ea7cc449e5e1cf1f2320838b68df3b8ae9e9d20c",
+    "sha1": "ea7cc449e5e1cf1f2320838b68df3b8ae9e9d20c",
+    "size": [
+      3660,
+      3299
+    ],
+    "crop": [
+      1140,
+      532,
+      1976,
+      2456
+    ]
+  },
+  "Michael Jordan - Chaos in the Windy City": {
+    "slug": "4abc51defbb973877e5ffc649c43e3cb06fb60d1",
+    "sha1": "4abc51defbb973877e5ffc649c43e3cb06fb60d1",
+    "size": [
+      3585,
+      3249
+    ],
+    "crop": [
+      1140,
+      544,
+      1996,
+      2468
+    ]
+  },
+  "Mickey Mania - The Timeless Adventures of Mickey Mouse": {
+    "slug": "6896ff80435cd4a5d3aa614919b4e00d4f373d62",
+    "sha1": "6896ff80435cd4a5d3aa614919b4e00d4f373d62",
+    "size": [
+      3206,
+      3299
+    ],
+    "crop": [
+      1136,
+      540,
+      1992,
+      2464
+    ]
+  },
+  "Mickey_s Ultimate Challenge": {
+    "slug": "cbeb00cf19592d051b4bd6f9d1816ca7c1983c2b",
+    "sha1": "cbeb00cf19592d051b4bd6f9d1816ca7c1983c2b",
+    "size": [
+      3130,
+      3223
+    ],
+    "crop": [
+      1116,
+      548,
+      1952,
+      2472
+    ]
+  },
+  "Micro Machines": {
+    "slug": "8d1cfb69bcfc4f03afd3a74e2ac8365b85f63b73",
+    "sha1": "8d1cfb69bcfc4f03afd3a74e2ac8365b85f63b73",
+    "size": [
+      3231,
+      3173
+    ],
+    "crop": [
+      1116,
+      480,
+      1932,
+      2404
+    ]
+  },
+  "Might _ Magic III - Isles of Terra": {
+    "slug": "7f2de3bb7ee7da219db565fb50325e0b76be6fac",
+    "sha1": "7f2de3bb7ee7da219db565fb50325e0b76be6fac",
+    "size": [
+      3963,
+      3249
+    ],
+    "crop": [
+      1136,
+      536,
+      1992,
+      2460
+    ]
+  },
+  "Mighty Morphin Power Rangers": {
+    "slug": "5bc1e74e672a9eb9ae59889e163bc66ae92627fc",
+    "sha1": "5bc1e74e672a9eb9ae59889e163bc66ae92627fc",
+    "size": [
+      3231,
+      3249
+    ],
+    "crop": [
+      1132,
+      536,
+      1988,
+      2460
+    ]
+  },
+  "Mighty Morphin Power Rangers - The Fighting Edition": {
+    "slug": "1fc1899747d4f84cac6c4f239ac913d00382e54c",
+    "sha1": "1fc1899747d4f84cac6c4f239ac913d00382e54c",
+    "size": [
+      3206,
+      3223
+    ],
+    "crop": [
+      1116,
+      520,
+      1952,
+      2444
+    ]
+  },
+  "Mighty Morphin Power Rangers - The Movie": {
+    "slug": "c6473d70854685ba8636a8bc95e97491d0caf6af",
+    "sha1": "c6473d70854685ba8636a8bc95e97491d0caf6af",
+    "size": [
+      3585,
+      3324
+    ],
+    "crop": [
+      1116,
+      532,
+      1952,
+      2456
+    ]
+  },
+  "Mohawk and Headphone Jack": {
+    "slug": "382d39abd121d554dd6ce6835f0bfae61978c900",
+    "sha1": "382d39abd121d554dd6ce6835f0bfae61978c900",
+    "size": [
+      3206,
+      3249
+    ],
+    "crop": [
+      1128,
+      528,
+      1984,
+      2452
+    ]
+  },
+  "Monopoly": {
+    "slug": "155d365dca997c82239cacc9846b38f710b198bc",
+    "sha1": "155d365dca997c82239cacc9846b38f710b198bc",
+    "size": [
+      3181,
+      3349
+    ],
+    "crop": [
+      1128,
+      544,
+      1984,
+      2468
+    ]
+  },
+  "Mortal Kombat": {
+    "slug": "b26264cfbfb1e803abd7ed705a6f91d51fd432c5",
+    "sha1": "b26264cfbfb1e803abd7ed705a6f91d51fd432c5",
+    "size": [
+      3610,
+      3249
+    ],
+    "crop": [
+      1132,
+      524,
+      1988,
+      2448
+    ]
+  },
+  "Mortal Kombat 2": {
+    "slug": "b6596d143eac61938c0241686c8475bd059fd75b",
+    "sha1": "b6596d143eac61938c0241686c8475bd059fd75b",
+    "size": [
+      3610,
+      3223
+    ],
+    "crop": [
+      1104,
+      540,
+      2000,
+      2464
+    ]
+  },
+  "Mortal Kombat 3": {
+    "slug": "ff814aafa98f415582f91dbb59bb93123e2087ca",
+    "sha1": "ff814aafa98f415582f91dbb59bb93123e2087ca",
+    "size": [
+      3181,
+      3249
+    ],
+    "crop": [
+      1120,
+      532,
+      1936,
+      2456
+    ]
+  },
+  "Mountain Bike Rally": {
+    "slug": "cfbc0ca00a83cf4cfb19f6820ef60dc02a63ba16",
+    "sha1": "cfbc0ca00a83cf4cfb19f6820ef60dc02a63ba16",
+    "size": [
+      3660,
+      3249
+    ],
+    "crop": [
+      1124,
+      528,
+      1980,
+      2452
+    ]
+  },
+  "Mr. Do!": {
+    "slug": "c3b11dd5e79d53449ecd56fa4f8d84104adabb5f",
+    "sha1": "c3b11dd5e79d53449ecd56fa4f8d84104adabb5f",
+    "size": [
+      3155,
+      3274
+    ],
+    "crop": [
+      1116,
+      536,
+      1932,
+      2460
+    ]
+  },
+  "Mr. Nutz": {
+    "slug": "a835eec47793612a9041223629dc88e2d438a508",
+    "sha1": "a835eec47793612a9041223629dc88e2d438a508",
+    "size": [
+      3181,
+      3249
+    ],
+    "crop": [
+      1128,
+      540,
+      1944,
+      2464
+    ]
+  },
+  "Ms. Pac Man": {
+    "slug": "66e51412d02c3945bfa50224920f6b8e187f6100",
+    "sha1": "66e51412d02c3945bfa50224920f6b8e187f6100",
+    "size": [
+      3155,
+      3274
+    ],
+    "crop": [
+      1132,
+      536,
+      1988,
+      2460
+    ]
+  },
+  "Musya - The Classic Japanese Tale of Horror": {
+    "slug": "d01fbc34900e252ad84a03818b444536dd52ebd4",
+    "sha1": "d01fbc34900e252ad84a03818b444536dd52ebd4",
+    "size": [
+      3282,
+      3299
+    ],
+    "crop": [
+      1136,
+      544,
+      1992,
+      2468
+    ]
+  },
+  "Mutant Chronicles - Doomtroopers": {
+    "slug": "eb17ba0c946a844cc9a479100e5fac83c0594617",
+    "sha1": "eb17ba0c946a844cc9a479100e5fac83c0594617",
+    "size": [
+      3181,
+      3249
+    ],
+    "crop": [
+      1120,
+      532,
+      1996,
+      2456
+    ]
+  },
+  "NBA All-Star Challenge": {
+    "slug": "b03dc3e3373bbe5f389202d27fbf69d46a17ba8e",
+    "sha1": "b03dc3e3373bbe5f389202d27fbf69d46a17ba8e",
+    "size": [
+      3231,
+      3299
+    ],
+    "crop": [
+      1124,
+      536,
+      1980,
+      2460
+    ]
+  },
+  "NBA Give _ Go": {
+    "slug": "5625b94a2037856dcaf39fc27fd93aec3adbbe67",
+    "sha1": "5625b94a2037856dcaf39fc27fd93aec3adbbe67",
+    "size": [
+      3206,
+      3198
+    ],
+    "crop": [
+      1136,
+      476,
+      1992,
+      2400
+    ]
+  },
+  "NBA Hang Time": {
+    "slug": "0b578ff7c775f0b87d9cd3a9a325c0bdd60c9095",
+    "sha1": "0b578ff7c775f0b87d9cd3a9a325c0bdd60c9095",
+    "size": [
+      3711,
+      3249
+    ],
+    "crop": [
+      1144,
+      536,
+      2000,
+      2460
+    ]
+  },
+  "NBA Jam": {
+    "slug": "3a1b8335ab0aac22fa50445cd22dd420c89e3315",
+    "sha1": "3a1b8335ab0aac22fa50445cd22dd420c89e3315",
+    "size": [
+      3181,
+      3324
+    ],
+    "crop": [
+      1120,
+      528,
+      1996,
+      2452
+    ]
+  },
+  "NBA Jam Tournament Edition": {
+    "slug": "fb3c89db1de6705bda8ca1c2724dcee5f09c57a0",
+    "sha1": "fb3c89db1de6705bda8ca1c2724dcee5f09c57a0",
+    "size": [
+      3989,
+      3299
+    ],
+    "crop": [
+      1128,
+      528,
+      1984,
+      2452
+    ]
+  },
+  "NBA Live _95": {
+    "slug": "17dbfe6a92520b37aa3ce9d80abd3d991b949225",
+    "sha1": "17dbfe6a92520b37aa3ce9d80abd3d991b949225",
+    "size": [
+      3938,
+      3274
+    ],
+    "crop": [
+      1124,
+      536,
+      1980,
+      2460
+    ]
+  },
+  "NBA Live _96": {
+    "slug": "34d03ce5bf39812b74da7ccc639e2f426d25316b",
+    "sha1": "34d03ce5bf39812b74da7ccc639e2f426d25316b",
+    "size": [
+      3989,
+      3274
+    ],
+    "crop": [
+      1104,
+      536,
+      1980,
+      2460
+    ]
+  },
+  "NBA Live _97": {
+    "slug": "826bef6a41b210226f39be579e507d376732346d",
+    "sha1": "826bef6a41b210226f39be579e507d376732346d",
+    "size": [
+      3711,
+      3299
+    ],
+    "crop": [
+      1120,
+      532,
+      1996,
+      2456
+    ]
+  },
+  "NBA Live _98": {
+    "slug": "8eded2b0544d1ae0d321c4ff2f7a4d039d77d95c",
+    "sha1": "8eded2b0544d1ae0d321c4ff2f7a4d039d77d95c",
+    "size": [
+      3736,
+      3274
+    ],
+    "crop": [
+      1136,
+      528,
+      1992,
+      2452
+    ]
+  },
+  "NBA Showdown": {
+    "slug": "5a2fcecdbb6844763cec4309767211fb65d07474",
+    "sha1": "5a2fcecdbb6844763cec4309767211fb65d07474",
+    "size": [
+      3711,
+      3274
+    ],
+    "crop": [
+      1104,
+      532,
+      1980,
+      2456
+    ]
+  },
+  "NCAA Basketball": {
+    "slug": "dca7bd3371cc55d6ae27765581c0a32a85617f9e",
+    "sha1": "dca7bd3371cc55d6ae27765581c0a32a85617f9e",
+    "size": [
+      3635,
+      3249
+    ],
+    "crop": [
+      1120,
+      544,
+      1996,
+      2468
+    ]
+  },
+  "NCAA Final Four Basketball": {
+    "slug": "c809009fb6c3a9d4bfd8ecde398792b953b67bdc",
+    "sha1": "c809009fb6c3a9d4bfd8ecde398792b953b67bdc",
+    "size": [
+      3913,
+      3223
+    ],
+    "crop": [
+      1128,
+      536,
+      1944,
+      2460
+    ]
+  },
+  "NCAA Football": {
+    "slug": "09a2223229537d066b21e13486252302da7d4bf9",
+    "sha1": "09a2223229537d066b21e13486252302da7d4bf9",
+    "size": [
+      3686,
+      3223
+    ],
+    "crop": [
+      1136,
+      548,
+      1992,
+      2472
+    ]
+  },
+  "NFL Football": {
+    "slug": "615e4fb1d1236384499811cc4744e53a2476c92f",
+    "sha1": "615e4fb1d1236384499811cc4744e53a2476c92f",
+    "size": [
+      3181,
+      3249
+    ],
+    "crop": [
+      1132,
+      536,
+      1988,
+      2460
+    ]
+  },
+  "NFL Quarterback Club": {
+    "slug": "aa05e5d71005a488a649d295f755c6056ad85842",
+    "sha1": "aa05e5d71005a488a649d295f755c6056ad85842",
+    "size": [
+      3711,
+      3249
+    ],
+    "crop": [
+      1120,
+      540,
+      1996,
+      2464
+    ]
+  },
+  "NFL Quarterback Club _96": {
+    "slug": "b13a7bf3db1b8b5caa07c9f3f35f50c4a94f8d51",
+    "sha1": "b13a7bf3db1b8b5caa07c9f3f35f50c4a94f8d51",
+    "size": [
+      3635,
+      3274
+    ],
+    "crop": [
+      1136,
+      536,
+      1992,
+      2460
+    ]
+  },
+  "NHL Stanley Cup": {
+    "slug": "b9755541e5486a4dcbce8d485210eacd4ee118f6",
+    "sha1": "b9755541e5486a4dcbce8d485210eacd4ee118f6",
+    "size": [
+      3736,
+      3274
+    ],
+    "crop": [
+      1112,
+      528,
+      1988,
+      2452
+    ]
+  },
+  "NHL _94": {
+    "slug": "d9fe5d547c2ae48442c155c0ede4244b544269eb",
+    "sha1": "d9fe5d547c2ae48442c155c0ede4244b544269eb",
+    "size": [
+      3206,
+      3249
+    ],
+    "crop": [
+      1112,
+      536,
+      1988,
+      2460
+    ]
+  },
+  "NHL _95": {
+    "slug": "7d556284d3eb5197283e0769b1c641dcd89ccbf9",
+    "sha1": "7d556284d3eb5197283e0769b1c641dcd89ccbf9",
+    "size": [
+      3686,
+      3249
+    ],
+    "crop": [
+      1124,
+      532,
+      1980,
+      2456
+    ]
+  },
+  "NHL _96": {
+    "slug": "c624a74a8393d8b46e125a17c9d76fb2bf941bd1",
+    "sha1": "c624a74a8393d8b46e125a17c9d76fb2bf941bd1",
+    "size": [
+      3635,
+      3223
+    ],
+    "crop": [
+      1128,
+      524,
+      1984,
+      2448
+    ]
+  },
+  "NHL _97": {
+    "slug": "bb03978903f14b18038d739650422ab5e93904c8",
+    "sha1": "bb03978903f14b18038d739650422ab5e93904c8",
+    "size": [
+      3711,
+      3249
+    ],
+    "crop": [
+      1168,
+      532,
+      1984,
+      2456
+    ]
+  },
+  "NHL _98": {
+    "slug": "375fbd50d0385f2b1aeccd25ca93c07f1f2dac47",
+    "sha1": "375fbd50d0385f2b1aeccd25ca93c07f1f2dac47",
+    "size": [
+      3686,
+      3274
+    ],
+    "crop": [
+      1112,
+      528,
+      1988,
+      2452
+    ]
+  },
+  "NHLPA Hockey _93": {
+    "slug": "013d070097c2c99112dcdcd8a2dda07b928263bb",
+    "sha1": "013d070097c2c99112dcdcd8a2dda07b928263bb",
+    "size": [
+      3231,
+      3274
+    ],
+    "crop": [
+      1120,
+      532,
+      1996,
+      2456
+    ]
+  },
+  "Natsume Championship Wrestling": {
+    "slug": "ba79110bb846f5773aed550d9cce8525e794b76d",
+    "sha1": "ba79110bb846f5773aed550d9cce8525e794b76d",
+    "size": [
+      3231,
+      3249
+    ],
+    "crop": [
+      1132,
+      536,
+      2008,
+      2460
+    ]
+  },
+  "Newmann Haas Indy Car - Featuring Nigel Mansell": {
+    "slug": "c08ea8a00084064dc5333697953878bf85abe91a",
+    "sha1": "c08ea8a00084064dc5333697953878bf85abe91a",
+    "size": [
+      3181,
+      3274
+    ],
+    "crop": [
+      1132,
+      540,
+      1968,
+      2464
+    ]
+  },
+  "Nickelodeon GUTS": {
+    "slug": "6043d714b9583ada41eaa671361e4a4a0abd4110",
+    "sha1": "6043d714b9583ada41eaa671361e4a4a0abd4110",
+    "size": [
+      3635,
+      3324
+    ],
+    "crop": [
+      1112,
+      544,
+      1988,
+      2468
+    ]
+  },
+  "Nigel Mansell_s World Championship Racing": {
+    "slug": "4b9a4e7b22a7fa4a228f1ab699a1bccfee98f118",
+    "sha1": "4b9a4e7b22a7fa4a228f1ab699a1bccfee98f118",
+    "size": [
+      3206,
+      3223
+    ],
+    "crop": [
+      1136,
+      544,
+      1992,
+      2468
+    ]
+  },
+  "Ninja Gaiden Trilogy": {
+    "slug": "038854928d200e1eb71e7071508ce46b484b5547",
+    "sha1": "038854928d200e1eb71e7071508ce46b484b5547",
+    "size": [
+      3206,
+      3249
+    ],
+    "crop": [
+      1108,
+      516,
+      1924,
+      2460
+    ]
+  },
+  "Ninja Warriors": {
+    "slug": "6c19f0665d6be11b62c98efee642900fcd3b2fa9",
+    "sha1": "6c19f0665d6be11b62c98efee642900fcd3b2fa9",
+    "size": [
+      3559,
+      3223
+    ],
+    "crop": [
+      1136,
+      540,
+      1992,
+      2464
+    ]
+  },
+  "No Escape": {
+    "slug": "1cf7ad371ff1f41d2fd0d8ca3abe5e5e81c8f067",
+    "sha1": "1cf7ad371ff1f41d2fd0d8ca3abe5e5e81c8f067",
+    "size": [
+      3231,
+      3299
+    ],
+    "crop": [
+      1128,
+      544,
+      1984,
+      2468
+    ]
+  },
+  "Nobunga_s Ambition": {
+    "slug": "10f113fc5152d2d3851f94be15d86ce300d40e7f",
+    "sha1": "10f113fc5152d2d3851f94be15d86ce300d40e7f",
+    "size": [
+      3711,
+      3299
+    ],
+    "crop": [
+      1124,
+      536,
+      1980,
+      2460
+    ]
+  },
+  "Nobunga_s Ambition - Lord of Darkness": {
+    "slug": "72a2cc33052301e01fbec7def07e4b5f3a453002",
+    "sha1": "72a2cc33052301e01fbec7def07e4b5f3a453002",
+    "size": [
+      3736,
+      3274
+    ],
+    "crop": [
+      1120,
+      540,
+      1976,
+      2464
+    ]
+  },
+  "Nolan Ryan_s Baseball": {
+    "slug": "bd32811e17ef7fe2977eae02fdacd457da91f2ba",
+    "sha1": "bd32811e17ef7fe2977eae02fdacd457da91f2ba",
+    "size": [
+      3686,
+      3249
+    ],
+    "crop": [
+      1112,
+      544,
+      1988,
+      2468
+    ]
+  },
+  "Nosferatu": {
+    "slug": "4d4e284615f7771a09c89544a6f5bade44429eb1",
+    "sha1": "4d4e284615f7771a09c89544a6f5bade44429eb1",
+    "size": [
+      3181,
+      3249
+    ],
+    "crop": [
+      1124,
+      532,
+      2000,
+      2456
+    ]
+  },
+  "Obitus": {
+    "slug": "13909d7b7bf6a8f18afa852d7dcdf54852747e26",
+    "sha1": "13909d7b7bf6a8f18afa852d7dcdf54852747e26",
+    "size": [
+      3660,
+      3274
+    ],
+    "crop": [
+      1124,
+      528,
+      1980,
+      2452
+    ]
+  },
+  "Ogre Battle - The March of the Black Queen": {
+    "slug": "9d0d3833792bbd3f1c9d0c47bc0c9c940440e160",
+    "sha1": "9d0d3833792bbd3f1c9d0c47bc0c9c940440e160",
+    "size": [
+      3913,
+      3274
+    ],
+    "crop": [
+      1124,
+      532,
+      2000,
+      2456
+    ]
+  },
+  "Olympic Summer Games": {
+    "slug": "5946bb47e7a5d6cf58f3cf4de7abf401d4a0bef5",
+    "sha1": "5946bb47e7a5d6cf58f3cf4de7abf401d4a0bef5",
+    "size": [
+      3206,
+      3274
+    ],
+    "crop": [
+      1124,
+      524,
+      1980,
+      2448
+    ]
+  },
+  "On the Ball": {
+    "slug": "54287cb5cd9255f4d6d2a690608c8dd923eb79a7",
+    "sha1": "54287cb5cd9255f4d6d2a690608c8dd923eb79a7",
+    "size": [
+      3181,
+      3324
+    ],
+    "crop": [
+      1132,
+      548,
+      1948,
+      2472
+    ]
+  },
+  "Operation Europe - Path to Victory 1939-45": {
+    "slug": "f3ed4273969599ac2b42263d7a0cef91bbcb3534",
+    "sha1": "f3ed4273969599ac2b42263d7a0cef91bbcb3534",
+    "size": [
+      3938,
+      3299
+    ],
+    "crop": [
+      1116,
+      536,
+      1992,
+      2460
+    ]
+  },
+  "Operation Logic Bomb": {
+    "slug": "ed070377b10c9b67001f0ce282cf3402078507d1",
+    "sha1": "ed070377b10c9b67001f0ce282cf3402078507d1",
+    "size": [
+      3206,
+      3249
+    ],
+    "crop": [
+      1112,
+      520,
+      1988,
+      2444
+    ]
+  },
+  "Operation Thunderbolt": {
+    "slug": "80d1ad30467d428d0d412dcd13a9b93a0f03faa3",
+    "sha1": "80d1ad30467d428d0d412dcd13a9b93a0f03faa3",
+    "size": [
+      3610,
+      3349
+    ],
+    "crop": [
+      1116,
+      536,
+      1992,
+      2460
+    ]
+  },
+  "Oscar": {
+    "slug": "e4c8f22c8e5e09711415e6c384a3e2eef3890d29",
+    "sha1": "e4c8f22c8e5e09711415e6c384a3e2eef3890d29",
+    "size": [
+      3256,
+      3274
+    ],
+    "crop": [
+      1116,
+      540,
+      1992,
+      2464
+    ]
+  },
+  "Out of This World": {
+    "slug": "dac37fd7a03df341d0affe3f02bd8be6fc1d114a",
+    "sha1": "dac37fd7a03df341d0affe3f02bd8be6fc1d114a",
+    "size": [
+      3155,
+      3223
+    ],
+    "crop": [
+      1116,
+      528,
+      1972,
+      2452
+    ]
+  },
+  "Out to Lunch": {
+    "slug": "ce8b7f5d80f234c90f012421d0d28cf831f90332",
+    "sha1": "ce8b7f5d80f234c90f012421d0d28cf831f90332",
+    "size": [
+      3282,
+      3375
+    ],
+    "crop": [
+      1108,
+      536,
+      1984,
+      2460
+    ]
+  },
+  "Outlander": {
+    "slug": "39a5ca7dd0966c41b3a40e6c00d33d17ea9e42a0",
+    "sha1": "39a5ca7dd0966c41b3a40e6c00d33d17ea9e42a0",
+    "size": [
+      3256,
+      3299
+    ],
+    "crop": [
+      1124,
+      536,
+      1980,
+      2460
+    ]
+  },
+  "PGA European Tour": {
+    "slug": "07296db469b739b14bff0d21c76bd871c63fce2d",
+    "sha1": "07296db469b739b14bff0d21c76bd871c63fce2d",
+    "size": [
+      3963,
+      3274
+    ],
+    "crop": [
+      1124,
+      532,
+      1980,
+      2456
+    ]
+  },
+  "PGA Tour Golf": {
+    "slug": "95351cda78f8f341a24832ad8211deece307ff39",
+    "sha1": "95351cda78f8f341a24832ad8211deece307ff39",
+    "size": [
+      3711,
+      3274
+    ],
+    "crop": [
+      1120,
+      528,
+      1996,
+      2452
+    ]
+  },
+  "PGA Tour _96": {
+    "slug": "2dad52b8ec7d30670a825062918fec31a6c3e0b1",
+    "sha1": "2dad52b8ec7d30670a825062918fec31a6c3e0b1",
+    "size": [
+      4090,
+      3324
+    ],
+    "crop": [
+      1128,
+      544,
+      1984,
+      2468
+    ]
+  },
+  "PTO - Pacific Theater of Operations": {
+    "slug": "9c0fbc3704d39c1febd452fe25211c26aee45178",
+    "sha1": "9c0fbc3704d39c1febd452fe25211c26aee45178",
+    "size": [
+      3862,
+      3249
+    ],
+    "crop": [
+      1120,
+      544,
+      1996,
+      2468
+    ]
+  },
+  "PTO II - Pacific Theater of Operations": {
+    "slug": "3059a6474041a8713037744c580f402dc69e4293",
+    "sha1": "3059a6474041a8713037744c580f402dc69e4293",
+    "size": [
+      3635,
+      3223
+    ],
+    "crop": [
+      1132,
+      536,
+      2008,
+      2460
+    ]
+  },
+  "Pac-Attack": {
+    "slug": "2d42a2afa3f36ebcef4bf63e263dd1868ec94efc",
+    "sha1": "2d42a2afa3f36ebcef4bf63e263dd1868ec94efc",
+    "size": [
+      3307,
+      3299
+    ],
+    "crop": [
+      1128,
+      540,
+      1984,
+      2464
+    ]
+  },
+  "Pac-Man 2 - The New Adventures": {
+    "slug": "85dea58ac06e8e50d9d36b2c1eef2247c975a0f7",
+    "sha1": "85dea58ac06e8e50d9d36b2c1eef2247c975a0f7",
+    "size": [
+      3610,
+      3274
+    ],
+    "crop": [
+      1120,
+      528,
+      1956,
+      2452
+    ]
+  },
+  "Pac-in-Time": {
+    "slug": "3f8d7d31262119f2f80f33a75390211f4ec91220",
+    "sha1": "3f8d7d31262119f2f80f33a75390211f4ec91220",
+    "size": [
+      3231,
+      3249
+    ],
+    "crop": [
+      1128,
+      524,
+      1984,
+      2448
+    ]
+  },
+  "Packy _ Marlon": {
+    "slug": "1c35486190e194b5874a1aa3c9fb59646a68cda5",
+    "sha1": "1c35486190e194b5874a1aa3c9fb59646a68cda5",
+    "size": [
+      3181,
+      3223
+    ],
+    "crop": [
+      1104,
+      524,
+      1940,
+      2448
+    ]
+  },
+  "Pagemaster, The": {
+    "slug": "cf3fae6d7dd206b602f8f879ad2a39e2515c4d71",
+    "sha1": "cf3fae6d7dd206b602f8f879ad2a39e2515c4d71",
+    "size": [
+      3206,
+      3274
+    ],
+    "crop": [
+      1124,
+      532,
+      1980,
+      2456
+    ]
+  },
+  "Paladin_s Quest": {
+    "slug": "6feaff5cda04cd2f854be0580a6ed04bd6995486",
+    "sha1": "6feaff5cda04cd2f854be0580a6ed04bd6995486",
+    "size": [
+      3862,
+      3223
+    ],
+    "crop": [
+      1112,
+      544,
+      1988,
+      2468
+    ]
+  },
+  "Paperboy 2": {
+    "slug": "b44c1100516784fa87b430a1cc30fa9bb83ec541",
+    "sha1": "b44c1100516784fa87b430a1cc30fa9bb83ec541",
+    "size": [
+      3231,
+      3249
+    ],
+    "crop": [
+      1124,
+      544,
+      1980,
+      2468
+    ]
+  },
+  "Peace Keepers, The": {
+    "slug": "9367bd00cd85d0bb42a51a0c2e7b8f4de77096ac",
+    "sha1": "9367bd00cd85d0bb42a51a0c2e7b8f4de77096ac",
+    "size": [
+      3155,
+      3274
+    ],
+    "crop": [
+      1120,
+      540,
+      1936,
+      2464
+    ]
+  },
+  "Phalanx - The Enforce Fighter A-144": {
+    "slug": "8aebc26d2c88e9ddd6526e5569a7deebf1c6e46d",
+    "sha1": "8aebc26d2c88e9ddd6526e5569a7deebf1c6e46d",
+    "size": [
+      3181,
+      3223
+    ],
+    "crop": [
+      1124,
+      528,
+      1980,
+      2452
+    ]
+  },
+  "Phantom 2040": {
+    "slug": "ecdb7ffb7f44d12c98afcbd345bb74e317458230",
+    "sha1": "ecdb7ffb7f44d12c98afcbd345bb74e317458230",
+    "size": [
+      3231,
+      3349
+    ],
+    "crop": [
+      1104,
+      532,
+      1980,
+      2456
+    ]
+  },
+  "Pieces": {
+    "slug": "477694f4e3e1c278de4e674d58938bdd839643e3",
+    "sha1": "477694f4e3e1c278de4e674d58938bdd839643e3",
+    "size": [
+      3181,
+      3198
+    ],
+    "crop": [
+      1140,
+      544,
+      1996,
+      2468
+    ]
+  },
+  "Pilotwings": {
+    "slug": "f1a7e4e7c3911d4af5de25725616dcc6db15d045",
+    "sha1": "f1a7e4e7c3911d4af5de25725616dcc6db15d045",
+    "size": [
+      3585,
+      3299
+    ],
+    "crop": [
+      1128,
+      540,
+      1944,
+      2464
+    ]
+  },
+  "Pinball Dreams": {
+    "slug": "a95025327d62300c18f897865869c1c5495e8d3a",
+    "sha1": "a95025327d62300c18f897865869c1c5495e8d3a",
+    "size": [
+      3206,
+      3299
+    ],
+    "crop": [
+      1120,
+      536,
+      1976,
+      2460
+    ]
+  },
+  "Pinball Fantasies": {
+    "slug": "ace764cc54cbbe39d60ba5044cb17dddb2c820a2",
+    "sha1": "ace764cc54cbbe39d60ba5044cb17dddb2c820a2",
+    "size": [
+      3181,
+      3274
+    ],
+    "crop": [
+      1132,
+      540,
+      1988,
+      2464
+    ]
+  },
+  "Pink Goes to Hollywood": {
+    "slug": "2489e727dbbddc6a9dfa2509a95fefefc94bd98f",
+    "sha1": "2489e727dbbddc6a9dfa2509a95fefefc94bd98f",
+    "size": [
+      3181,
+      3274
+    ],
+    "crop": [
+      1108,
+      532,
+      1984,
+      2456
+    ]
+  },
+  "Pinocchio": {
+    "slug": "d7341122ee9d85cdf004963c8cad12336e59af94",
+    "sha1": "d7341122ee9d85cdf004963c8cad12336e59af94",
+    "size": [
+      3231,
+      3249
+    ],
+    "crop": [
+      1120,
+      532,
+      1996,
+      2456
+    ]
+  },
+  "Pirates of Dark Water, The": {
+    "slug": "4642a4f75770fde4fb01c617aa0f783a4ff6b63e",
+    "sha1": "4642a4f75770fde4fb01c617aa0f783a4ff6b63e",
+    "size": [
+      3256,
+      3299
+    ],
+    "crop": [
+      1124,
+      540,
+      2000,
+      2464
+    ]
+  },
+  "Pit-Fighter": {
+    "slug": "a7efcbbb14ff77a385081ba3bfc3b1b5aabe7f65",
+    "sha1": "a7efcbbb14ff77a385081ba3bfc3b1b5aabe7f65",
+    "size": [
+      3155,
+      3299
+    ],
+    "crop": [
+      1124,
+      524,
+      1980,
+      2448
+    ]
+  },
+  "Pitfall - The Mayan Adventure": {
+    "slug": "9f8811da92901e617313c4a8a0106bc9e4a35438",
+    "sha1": "9f8811da92901e617313c4a8a0106bc9e4a35438",
+    "size": [
+      3231,
+      3274
+    ],
+    "crop": [
+      1128,
+      524,
+      1984,
+      2448
+    ]
+  },
+  "Plok": {
+    "slug": "1f36d7b2b95b5d22d492e69b6cdc6853056cacd6",
+    "sha1": "1f36d7b2b95b5d22d492e69b6cdc6853056cacd6",
+    "size": [
+      3231,
+      3274
+    ],
+    "crop": [
+      1108,
+      540,
+      1984,
+      2464
+    ]
+  },
+  "Pocky _ Rocky": {
+    "slug": "37e3d1858f91f9efe83a3e230b157b98b68d8d94",
+    "sha1": "37e3d1858f91f9efe83a3e230b157b98b68d8d94",
+    "size": [
+      3181,
+      3324
+    ],
+    "crop": [
+      1112,
+      540,
+      1988,
+      2464
+    ]
+  },
+  "Pocky _ Rocky 2": {
+    "slug": "1b5fdaa856bb98275f1291792f921d29dcfa9907",
+    "sha1": "1b5fdaa856bb98275f1291792f921d29dcfa9907",
+    "size": [
+      3585,
+      3249
+    ],
+    "crop": [
+      1124,
+      544,
+      2000,
+      2468
+    ]
+  },
+  "Populous": {
+    "slug": "c26d3137b31803fbbc6e4eebcd8a608fc0aa18dd",
+    "sha1": "c26d3137b31803fbbc6e4eebcd8a608fc0aa18dd",
+    "size": [
+      3231,
+      3299
+    ],
+    "crop": [
+      1124,
+      536,
+      1980,
+      2460
+    ]
+  },
+  "Porky Pig_s Haunted Holiday": {
+    "slug": "c1bff33931e9c649b516d4dda4ece42877b3920b",
+    "sha1": "c1bff33931e9c649b516d4dda4ece42877b3920b",
+    "size": [
+      3206,
+      3274
+    ],
+    "crop": [
+      1140,
+      520,
+      1996,
+      2444
+    ]
+  },
+  "Power Instinct": {
+    "slug": "99bf63e24ce9a77bb593c7652f7693468fb6c043",
+    "sha1": "99bf63e24ce9a77bb593c7652f7693468fb6c043",
+    "size": [
+      3711,
+      3249
+    ],
+    "crop": [
+      1124,
+      532,
+      1980,
+      2456
+    ]
+  },
+  "Power Moves": {
+    "slug": "c558620fba978d84eb95b38b09bcf1d6369f6265",
+    "sha1": "c558620fba978d84eb95b38b09bcf1d6369f6265",
+    "size": [
+      3231,
+      3274
+    ],
+    "crop": [
+      1112,
+      532,
+      1928,
+      2456
+    ]
+  },
+  "Power Piggs of the Dark Age": {
+    "slug": "d3f259fb5cce06b94529fc76fe894399adbdaaa6",
+    "sha1": "d3f259fb5cce06b94529fc76fe894399adbdaaa6",
+    "size": [
+      3206,
+      3274
+    ],
+    "crop": [
+      1120,
+      536,
+      1996,
+      2460
+    ]
+  },
+  "Power Rangers Zeo - Battle Racers": {
+    "slug": "2c45be5a6de64d43daeb63ae2e848f64da0a60c7",
+    "sha1": "2c45be5a6de64d43daeb63ae2e848f64da0a60c7",
+    "size": [
+      3989,
+      3299
+    ],
+    "crop": [
+      1120,
+      532,
+      1956,
+      2456
+    ]
+  },
+  "Prehistorik Man": {
+    "slug": "64181fe0e56b601efb6b60072a207b549d8bbfaf",
+    "sha1": "64181fe0e56b601efb6b60072a207b549d8bbfaf",
+    "size": [
+      3206,
+      3299
+    ],
+    "crop": [
+      1104,
+      532,
+      1980,
+      2456
+    ]
+  },
+  "Primal Rage": {
+    "slug": "8feaf38b32f1a8eeaf9452573123a493877d9d96",
+    "sha1": "8feaf38b32f1a8eeaf9452573123a493877d9d96",
+    "size": [
+      3181,
+      3274
+    ],
+    "crop": [
+      1120,
+      536,
+      1996,
+      2460
+    ]
+  },
+  "Prince of Persia": {
+    "slug": "b6665316ce5857bf3c018bf98c7f1bfadf82b49c",
+    "sha1": "b6665316ce5857bf3c018bf98c7f1bfadf82b49c",
+    "size": [
+      3181,
+      3274
+    ],
+    "crop": [
+      1112,
+      536,
+      2008,
+      2460
+    ]
+  },
+  "Prince of Persia 2 - The Shadow and the Flame": {
+    "slug": "1a328d8ab46e50c05239982a040518929f7a66b2",
+    "sha1": "1a328d8ab46e50c05239982a040518929f7a66b2",
+    "size": [
+      3231,
+      3274
+    ],
+    "crop": [
+      1124,
+      536,
+      1980,
+      2460
+    ]
+  },
+  "Pro Quarterback": {
+    "slug": "9ddf5ab6178a76c9bf10b891571f8130adf68405",
+    "sha1": "9ddf5ab6178a76c9bf10b891571f8130adf68405",
+    "size": [
+      3181,
+      3249
+    ],
+    "crop": [
+      1124,
+      548,
+      2000,
+      2472
+    ]
+  },
+  "Pro Sport Hockey": {
+    "slug": "51e26872e6b522de5825973290cea02b39360114",
+    "sha1": "51e26872e6b522de5825973290cea02b39360114",
+    "size": [
+      3686,
+      3274
+    ],
+    "crop": [
+      1116,
+      524,
+      1992,
+      2448
+    ]
+  },
+  "Push-Over": {
+    "slug": "7f0373303a0cf14d1fa083de133494848ce9ada9",
+    "sha1": "7f0373303a0cf14d1fa083de133494848ce9ada9",
+    "size": [
+      3206,
+      3299
+    ],
+    "crop": [
+      1116,
+      532,
+      1992,
+      2456
+    ]
+  },
+  "Q-Bert 3": {
+    "slug": "9832ab21ca323cfc951db1d99a2a362fce0ebbac",
+    "sha1": "9832ab21ca323cfc951db1d99a2a362fce0ebbac",
+    "size": [
+      3231,
+      3324
+    ],
+    "crop": [
+      1124,
+      548,
+      2000,
+      2472
+    ]
+  },
+  "R-Type III - The Third Lightning": {
+    "slug": "cc70131f4eba0665fb1db77533bff297e6a336ea",
+    "sha1": "cc70131f4eba0665fb1db77533bff297e6a336ea",
+    "size": [
+      3206,
+      3274
+    ],
+    "crop": [
+      1136,
+      540,
+      1992,
+      2464
+    ]
+  },
+  "Race Drivin_": {
+    "slug": "a2aae512c4042e4ef74c79427996b0234fb5f65d",
+    "sha1": "a2aae512c4042e4ef74c79427996b0234fb5f65d",
+    "size": [
+      3206,
+      3324
+    ],
+    "crop": [
+      1128,
+      532,
+      1984,
+      2456
+    ]
+  },
+  "Radical Psycho Machine Racing": {
+    "slug": "36ed60f639fc7279fe1abb91fd34566f8d168c41",
+    "sha1": "36ed60f639fc7279fe1abb91fd34566f8d168c41",
+    "size": [
+      3686,
+      3274
+    ],
+    "crop": [
+      1120,
+      540,
+      1936,
+      2464
+    ]
+  },
+  "Radical Rex": {
+    "slug": "d5e0e383a57d8d2302183cd87af01a0bb5cb86fc",
+    "sha1": "d5e0e383a57d8d2302183cd87af01a0bb5cb86fc",
+    "size": [
+      3231,
+      3274
+    ],
+    "crop": [
+      1128,
+      536,
+      1984,
+      2460
+    ]
+  },
+  "Raiden Trad": {
+    "slug": "12d6b0f29713b9607230420aca037d85acaa486e",
+    "sha1": "12d6b0f29713b9607230420aca037d85acaa486e",
+    "size": [
+      3206,
+      3274
+    ],
+    "crop": [
+      1124,
+      532,
+      1980,
+      2456
+    ]
+  },
+  "Rampart": {
+    "slug": "64ccf4a448d4752127f30acb4186b6a9af0fc9b5",
+    "sha1": "64ccf4a448d4752127f30acb4186b6a9af0fc9b5",
+    "size": [
+      3155,
+      3274
+    ],
+    "crop": [
+      1132,
+      544,
+      1988,
+      2468
+    ]
+  },
+  "Ranma Half - Hard Battle": {
+    "slug": "042dc811a9ee66eb6847e846afe0f30d792b12ff",
+    "sha1": "042dc811a9ee66eb6847e846afe0f30d792b12ff",
+    "size": [
+      3559,
+      3274
+    ],
+    "crop": [
+      1104,
+      540,
+      2000,
+      2464
+    ]
+  },
+  "Rap Jam - Volume One": {
+    "slug": "a2c14e3c4c9638d6058cfc49e074266fb666445d",
+    "sha1": "a2c14e3c4c9638d6058cfc49e074266fb666445d",
+    "size": [
+      3231,
+      3223
+    ],
+    "crop": [
+      1112,
+      540,
+      1988,
+      2464
+    ]
+  },
+  "Realm": {
+    "slug": "8dceb38f2dcc1ef0e9f41dc395e076b499ffa425",
+    "sha1": "8dceb38f2dcc1ef0e9f41dc395e076b499ffa425",
+    "size": [
+      3231,
+      3249
+    ],
+    "crop": [
+      1120,
+      548,
+      1936,
+      2472
+    ]
+  },
+  "Red Line - F-1 Racer": {
+    "slug": "94273646a81fdbf3c30ec9441f2b43498e0479e3",
+    "sha1": "94273646a81fdbf3c30ec9441f2b43498e0479e3",
+    "size": [
+      3155,
+      3223
+    ],
+    "crop": [
+      1124,
+      532,
+      2000,
+      2456
+    ]
+  },
+  "Relief Pitcher": {
+    "slug": "22b7fe1d482ecd16f25e7cc9cb3dc4bb26bd3f2f",
+    "sha1": "22b7fe1d482ecd16f25e7cc9cb3dc4bb26bd3f2f",
+    "size": [
+      3206,
+      3274
+    ],
+    "crop": [
+      1136,
+      540,
+      2012,
+      2464
+    ]
+  },
+  "Ren _ Stimpy Show - Buckeroo$!, The": {
+    "slug": "8e2745c0d940ac074acfaa89112027d0309f604e",
+    "sha1": "8e2745c0d940ac074acfaa89112027d0309f604e",
+    "size": [
+      3155,
+      3299
+    ],
+    "crop": [
+      1116,
+      536,
+      1956,
+      2464
+    ]
+  },
+  "Ren _ Stimpy Show - Fire Dogs, The": {
+    "slug": "dbbc45df030066f5ac12708d586b31a9b15c9d87",
+    "sha1": "dbbc45df030066f5ac12708d586b31a9b15c9d87",
+    "size": [
+      3206,
+      3299
+    ],
+    "crop": [
+      1124,
+      536,
+      1940,
+      2460
+    ]
+  },
+  "Ren _ Stimpy Show - Time Warp, The": {
+    "slug": "d99c99646844475d8a3403b1110e94bf5ba79604",
+    "sha1": "d99c99646844475d8a3403b1110e94bf5ba79604",
+    "size": [
+      3610,
+      3375
+    ],
+    "crop": [
+      1120,
+      596,
+      1996,
+      2520
+    ]
+  },
+  "Ren _ Stimpy Show - Veediots!, The": {
+    "slug": "3dbbacf171989b8def042b5da80b3e687003b4b2",
+    "sha1": "3dbbacf171989b8def042b5da80b3e687003b4b2",
+    "size": [
+      3256,
+      3299
+    ],
+    "crop": [
+      1136,
+      544,
+      1992,
+      2468
+    ]
+  },
+  "Revolution X": {
+    "slug": "c3e1546943513a09974505dbb3b964ead5dab855",
+    "sha1": "c3e1546943513a09974505dbb3b964ead5dab855",
+    "size": [
+      3484,
+      3249
+    ],
+    "crop": [
+      1136,
+      536,
+      1952,
+      2460
+    ]
+  },
+  "Rex Ronan - Experimental Surgeon": {
+    "slug": "df62f271d7618d5e44ef283d73cdbece6d8b72fe",
+    "sha1": "df62f271d7618d5e44ef283d73cdbece6d8b72fe",
+    "size": [
+      3256,
+      3299
+    ],
+    "crop": [
+      1124,
+      540,
+      2000,
+      2464
+    ]
+  },
+  "Riddick Bowe Boxing": {
+    "slug": "2b20b840af6a89c4d5fb1409136b7d5067bdf54b",
+    "sha1": "2b20b840af6a89c4d5fb1409136b7d5067bdf54b",
+    "size": [
+      3660,
+      3274
+    ],
+    "crop": [
+      1128,
+      528,
+      1984,
+      2452
+    ]
+  },
+  "Rise of the Phoenix": {
+    "slug": "abbdd0015c2ec7b498a09b12a77787496293081b",
+    "sha1": "abbdd0015c2ec7b498a09b12a77787496293081b",
+    "size": [
+      3989,
+      3324
+    ],
+    "crop": [
+      1120,
+      540,
+      1996,
+      2464
+    ]
+  },
+  "Rise of the Robots": {
+    "slug": "02b07fbb9368b275cb4428585e64701006fc3551",
+    "sha1": "02b07fbb9368b275cb4428585e64701006fc3551",
+    "size": [
+      3660,
+      3223
+    ],
+    "crop": [
+      1128,
+      540,
+      2004,
+      2464
+    ]
+  },
+  "Rival Turf!": {
+    "slug": "8200a6c51c593e0911ef9353dfe88d57f6b103e2",
+    "sha1": "8200a6c51c593e0911ef9353dfe88d57f6b103e2",
+    "size": [
+      3231,
+      3223
+    ],
+    "crop": [
+      1116,
+      540,
+      1992,
+      2464
+    ]
+  },
+  "Road Riot 4WD": {
+    "slug": "f252421074d90a07d4896fcaa8d81900ef028615",
+    "sha1": "f252421074d90a07d4896fcaa8d81900ef028615",
+    "size": [
+      3231,
+      3274
+    ],
+    "crop": [
+      1124,
+      540,
+      2000,
+      2464
+    ]
+  },
+  "Road Runner_s Death Valley Rally": {
+    "slug": "7e2becb35dde150520ab7023e135bf4470348225",
+    "sha1": "7e2becb35dde150520ab7023e135bf4470348225",
+    "size": [
+      3206,
+      3299
+    ],
+    "crop": [
+      1120,
+      544,
+      1996,
+      2468
+    ]
+  },
+  "RoboCop 3": {
+    "slug": "16ee83d4d1685d0c26736b959d9f9ca2c5012856",
+    "sha1": "16ee83d4d1685d0c26736b959d9f9ca2c5012856",
+    "size": [
+      3181,
+      3274
+    ],
+    "crop": [
+      1120,
+      540,
+      1996,
+      2464
+    ]
+  },
+  "RoboCop versus the Terminator": {
+    "slug": "f4b246ac06e45f5c5be73464519974c06666c0a5",
+    "sha1": "f4b246ac06e45f5c5be73464519974c06666c0a5",
+    "size": [
+      3256,
+      3223
+    ],
+    "crop": [
+      1112,
+      524,
+      1988,
+      2448
+    ]
+  },
+  "Robotrek": {
+    "slug": "fd9270bac14cc81bead8f07c41999851f371562a",
+    "sha1": "fd9270bac14cc81bead8f07c41999851f371562a",
+    "size": [
+      3938,
+      3274
+    ],
+    "crop": [
+      1132,
+      532,
+      1988,
+      2456
+    ]
+  },
+  "Rock _ Roll Racing": {
+    "slug": "f3c048303949dff938d15a7299f254c016de2777",
+    "sha1": "f3c048303949dff938d15a7299f254c016de2777",
+    "size": [
+      3181,
+      3274
+    ],
+    "crop": [
+      1124,
+      548,
+      2000,
+      2472
+    ]
+  },
+  "Rocketeer, The": {
+    "slug": "ddae3ad767f83520afb08842712543ac90b66410",
+    "sha1": "ddae3ad767f83520afb08842712543ac90b66410",
+    "size": [
+      3256,
+      3274
+    ],
+    "crop": [
+      1124,
+      536,
+      1940,
+      2460
+    ]
+  },
+  "Rocko_s Modern Life - Spunky_s Dangerous Day": {
+    "slug": "98e93fc229450ce387a4306e3131fdc06d82b426",
+    "sha1": "98e93fc229450ce387a4306e3131fdc06d82b426",
+    "size": [
+      3660,
+      3249
+    ],
+    "crop": [
+      1128,
+      536,
+      1984,
+      2460
+    ]
+  },
+  "Rocky Rodent": {
+    "slug": "6e0fa8fc21923520aee035054ec5dace91519523",
+    "sha1": "6e0fa8fc21923520aee035054ec5dace91519523",
+    "size": [
+      3282,
+      3324
+    ],
+    "crop": [
+      1116,
+      536,
+      1992,
+      2460
+    ]
+  },
+  "Roger Clemens_ MVP Baseball": {
+    "slug": "5e8e051b1a891df5f3472353d488aab64a512ad2",
+    "sha1": "5e8e051b1a891df5f3472353d488aab64a512ad2",
+    "size": [
+      3181,
+      3274
+    ],
+    "crop": [
+      1128,
+      552,
+      2004,
+      2476
+    ]
+  },
+  "Romance of the Three Kingdoms II": {
+    "slug": "02561b6489473a903f14441421eb7c565c52d2b5",
+    "sha1": "02561b6489473a903f14441421eb7c565c52d2b5",
+    "size": [
+      3635,
+      3249
+    ],
+    "crop": [
+      1124,
+      548,
+      2000,
+      2472
+    ]
+  },
+  "Romance of the Three Kingdoms III - Dragon of Destiny": {
+    "slug": "7f62751d06499b3ae8e77b8a1045d388bd4d9218",
+    "sha1": "7f62751d06499b3ae8e77b8a1045d388bd4d9218",
+    "size": [
+      3938,
+      3299
+    ],
+    "crop": [
+      1124,
+      536,
+      2000,
+      2460
+    ]
+  },
+  "Romance of the Three Kingdoms IV - Wall of Fire": {
+    "slug": "5624b549a01f1101ff3101ce291bd68623c4dff9",
+    "sha1": "5624b549a01f1101ff3101ce291bd68623c4dff9",
+    "size": [
+      3610,
+      3223
+    ],
+    "crop": [
+      1136,
+      504,
+      1972,
+      2428
+    ]
+  },
+  "Run Saber": {
+    "slug": "e5acc3f84636b72ed8c059d7fa024ab5d1772040",
+    "sha1": "e5acc3f84636b72ed8c059d7fa024ab5d1772040",
+    "size": [
+      3585,
+      3249
+    ],
+    "crop": [
+      1124,
+      532,
+      2000,
+      2456
+    ]
+  },
+  "SOS": {
+    "slug": "dc8d2dc87b1bd2f205f1548d681bccbfe825f53b",
+    "sha1": "dc8d2dc87b1bd2f205f1548d681bccbfe825f53b",
+    "size": [
+      3155,
+      3274
+    ],
+    "crop": [
+      1120,
+      536,
+      1976,
+      2460
+    ]
+  },
+  "SOS - Sink or Swim": {
+    "slug": "5d04d72dd6cd728cc9fd3f107ab8661a15ce5065",
+    "sha1": "5d04d72dd6cd728cc9fd3f107ab8661a15ce5065",
+    "size": [
+      3256,
+      3299
+    ],
+    "crop": [
+      1132,
+      528,
+      1988,
+      2452
+    ]
+  },
+  "SWAT Kats - The Radical Squadron": {
+    "slug": "8754c0db00976253a9581116c44f098c030e85be",
+    "sha1": "8754c0db00976253a9581116c44f098c030e85be",
+    "size": [
+      3206,
+      3249
+    ],
+    "crop": [
+      1132,
+      524,
+      1988,
+      2448
+    ]
+  },
+  "Samurai Shodown": {
+    "slug": "690bdf3f69b40f14d2acb29dd5e189d7f521eb35",
+    "sha1": "690bdf3f69b40f14d2acb29dd5e189d7f521eb35",
+    "size": [
+      3736,
+      3324
+    ],
+    "crop": [
+      1124,
+      532,
+      1980,
+      2456
+    ]
+  },
+  "Saturday Night Slam Masters": {
+    "slug": "c64536e5fb92d2cad3300c26a765ebc037a37e8a",
+    "sha1": "c64536e5fb92d2cad3300c26a765ebc037a37e8a",
+    "size": [
+      3635,
+      3274
+    ],
+    "crop": [
+      1136,
+      536,
+      1992,
+      2460
+    ]
+  },
+  "Scooby-Doo Mystery": {
+    "slug": "8c78f2ebea89bcbce92281ae1386f320c4ce09f8",
+    "sha1": "8c78f2ebea89bcbce92281ae1386f320c4ce09f8",
+    "size": [
+      3256,
+      3249
+    ],
+    "crop": [
+      1112,
+      532,
+      1988,
+      2456
+    ]
+  },
+  "SeaQuest DSV": {
+    "slug": "8bd78f462df4b5e5f6136e8eeaa845c3166fc111",
+    "sha1": "8bd78f462df4b5e5f6136e8eeaa845c3166fc111",
+    "size": [
+      3231,
+      3299
+    ],
+    "crop": [
+      1108,
+      536,
+      1984,
+      2460
+    ]
+  },
+  "Secret of Evermore": {
+    "slug": "0cb964da56f0ef24515c324782a42dee799d24e5",
+    "sha1": "0cb964da56f0ef24515c324782a42dee799d24e5",
+    "size": [
+      3686,
+      3299
+    ],
+    "crop": [
+      1128,
+      536,
+      1984,
+      2460
+    ]
+  },
+  "Secret of Mana": {
+    "slug": "0d2cfe3ab340ba017cc649f0797f86642e32675e",
+    "sha1": "0d2cfe3ab340ba017cc649f0797f86642e32675e",
+    "size": [
+      3660,
+      3349
+    ],
+    "crop": [
+      1132,
+      540,
+      1988,
+      2464
+    ]
+  },
+  "Shadowrun": {
+    "slug": "4e9a577b94c93b11fa963492cb9979af53c6e76c",
+    "sha1": "4e9a577b94c93b11fa963492cb9979af53c6e76c",
+    "size": [
+      3660,
+      3299
+    ],
+    "crop": [
+      1128,
+      540,
+      2004,
+      2464
+    ]
+  },
+  "Shanghai II - Dragon_s Eye": {
+    "slug": "bc32cbcaf9a3db8694923552629395bf4175d366",
+    "sha1": "bc32cbcaf9a3db8694923552629395bf4175d366",
+    "size": [
+      3130,
+      3249
+    ],
+    "crop": [
+      1140,
+      544,
+      1996,
+      2468
+    ]
+  },
+  "Shaq-Fu": {
+    "slug": "7157c74cdbb820fb7db3d5b2b70357b9909607cb",
+    "sha1": "7157c74cdbb820fb7db3d5b2b70357b9909607cb",
+    "size": [
+      3231,
+      3249
+    ],
+    "crop": [
+      1140,
+      540,
+      1996,
+      2464
+    ]
+  },
+  "Shien_s Revenge": {
+    "slug": "fe62ea3c80216bc9bd62f7b3ab47290c226ebf29",
+    "sha1": "fe62ea3c80216bc9bd62f7b3ab47290c226ebf29",
+    "size": [
+      3231,
+      3299
+    ],
+    "crop": [
+      1128,
+      536,
+      2004,
+      2460
+    ]
+  },
+  "Sid Meier_s Civilization": {
+    "slug": "9c480015abab7c2eea61bf48d6776a810f16b0ab",
+    "sha1": "9c480015abab7c2eea61bf48d6776a810f16b0ab",
+    "size": [
+      3660,
+      3274
+    ],
+    "crop": [
+      1124,
+      556,
+      2000,
+      2480
+    ]
+  },
+  "Side Pocket": {
+    "slug": "2910a66bec16e4e967647707991a9bbd72594f21",
+    "sha1": "2910a66bec16e4e967647707991a9bbd72594f21",
+    "size": [
+      3206,
+      3274
+    ],
+    "crop": [
+      1128,
+      540,
+      2004,
+      2464
+    ]
+  },
+  "SimAnt - The Electronic Ant Colony": {
+    "slug": "b26e7673349c50bf20307e381f052b9604106fc3",
+    "sha1": "b26e7673349c50bf20307e381f052b9604106fc3",
+    "size": [
+      3660,
+      3249
+    ],
+    "crop": [
+      1120,
+      548,
+      1936,
+      2472
+    ]
+  },
+  "SimCity": {
+    "slug": "81c56e1a8ba688f54b88b55f21d958341beb8c96",
+    "sha1": "81c56e1a8ba688f54b88b55f21d958341beb8c96",
+    "size": [
+      3635,
+      3274
+    ],
+    "crop": [
+      1136,
+      548,
+      1992,
+      2472
+    ]
+  },
+  "SimCity 2000": {
+    "slug": "d3c0c30537a4c787740a0bef2d4ff2419d0c0b76",
+    "sha1": "d3c0c30537a4c787740a0bef2d4ff2419d0c0b76",
+    "size": [
+      3736,
+      3274
+    ],
+    "crop": [
+      1128,
+      532,
+      1944,
+      2456
+    ]
+  },
+  "SimEarth - The Living Planet": {
+    "slug": "0970502ad12b4ea52045f2144a432afcf0b8e186",
+    "sha1": "0970502ad12b4ea52045f2144a432afcf0b8e186",
+    "size": [
+      3686,
+      3223
+    ],
+    "crop": [
+      1136,
+      536,
+      1992,
+      2460
+    ]
+  },
+  "Simpsons - Bart_s Nightmare, The": {
+    "slug": "2a476b79f51310d7e42a723500fa76549aa3f1e1",
+    "sha1": "2a476b79f51310d7e42a723500fa76549aa3f1e1",
+    "size": [
+      3181,
+      3223
+    ],
+    "crop": [
+      1132,
+      540,
+      1968,
+      2464
+    ]
+  },
+  "Simpsons - Virtual Bart, The": {
+    "slug": "4abbf6e28bcf28001c5cdfd27d0cc0e2bc774e66",
+    "sha1": "4abbf6e28bcf28001c5cdfd27d0cc0e2bc774e66",
+    "size": [
+      3181,
+      3274
+    ],
+    "crop": [
+      1132,
+      544,
+      2008,
+      2468
+    ]
+  },
+  "Skuljagger - Revolt of the Westicans": {
+    "slug": "e6851e778fdb515bd6067b310ad800c3d695c1fe",
+    "sha1": "e6851e778fdb515bd6067b310ad800c3d695c1fe",
+    "size": [
+      3256,
+      3299
+    ],
+    "crop": [
+      1132,
+      536,
+      1988,
+      2460
+    ]
+  },
+  "Skyblazer": {
+    "slug": "ccedcceb4efd09643eb8df32e29428bfdf4b573e",
+    "sha1": "ccedcceb4efd09643eb8df32e29428bfdf4b573e",
+    "size": [
+      3231,
+      3249
+    ],
+    "crop": [
+      1128,
+      544,
+      1944,
+      2468
+    ]
+  },
+  "SmartBall": {
+    "slug": "aa07d69496f55afbf1cfb9db36272e4bd0335219",
+    "sha1": "aa07d69496f55afbf1cfb9db36272e4bd0335219",
+    "size": [
+      3231,
+      3274
+    ],
+    "crop": [
+      1132,
+      544,
+      2008,
+      2468
+    ]
+  },
+  "Snow White in Happily Ever After": {
+    "slug": "c7333da88f497020364266570f746f7284b21a0f",
+    "sha1": "c7333da88f497020364266570f746f7284b21a0f",
+    "size": [
+      3206,
+      3349
+    ],
+    "crop": [
+      1128,
+      536,
+      1964,
+      2460
+    ]
+  },
+  "Soldiers of Fortune": {
+    "slug": "b002a977ebae31be3b2ddf815c2772fe14aee4a0",
+    "sha1": "b002a977ebae31be3b2ddf815c2772fe14aee4a0",
+    "size": [
+      3559,
+      3249
+    ],
+    "crop": [
+      1128,
+      540,
+      1984,
+      2464
+    ]
+  },
+  "Sonic Blast Man": {
+    "slug": "1797aa1c197963c1ee101a6e9fc4e196acb2bd32",
+    "sha1": "1797aa1c197963c1ee101a6e9fc4e196acb2bd32",
+    "size": [
+      3231,
+      3249
+    ],
+    "crop": [
+      1136,
+      536,
+      1992,
+      2460
+    ]
+  },
+  "Sonic Blast Man II": {
+    "slug": "3b51c09703c4add8cb6a03f407f7c050db63f2e0",
+    "sha1": "3b51c09703c4add8cb6a03f407f7c050db63f2e0",
+    "size": [
+      3585,
+      3324
+    ],
+    "crop": [
+      1124,
+      536,
+      2000,
+      2460
+    ]
+  },
+  "Soul Blazer": {
+    "slug": "ef9a3ccb1fdb65e7db09e4bb279df50a3d55c222",
+    "sha1": "ef9a3ccb1fdb65e7db09e4bb279df50a3d55c222",
+    "size": [
+      3660,
+      3299
+    ],
+    "crop": [
+      1128,
+      532,
+      2004,
+      2456
+    ]
+  },
+  "Space Ace": {
+    "slug": "d2c829e8ff1c5a3d58d952b055dc68debd5a059c",
+    "sha1": "d2c829e8ff1c5a3d58d952b055dc68debd5a059c",
+    "size": [
+      3206,
+      3223
+    ],
+    "crop": [
+      1132,
+      540,
+      2008,
+      2464
+    ]
+  },
+  "Space Football - One on One": {
+    "slug": "79b2fcdb657a677afbb9941bba3045e668d4fd49",
+    "sha1": "79b2fcdb657a677afbb9941bba3045e668d4fd49",
+    "size": [
+      3206,
+      3249
+    ],
+    "crop": [
+      1132,
+      548,
+      2008,
+      2472
+    ]
+  },
+  "Space Invaders": {
+    "slug": "ddb3c528246aff9821309b7b2909df5a44fea6f8",
+    "sha1": "ddb3c528246aff9821309b7b2909df5a44fea6f8",
+    "size": [
+      3155,
+      3299
+    ],
+    "crop": [
+      1140,
+      540,
+      1996,
+      2464
+    ]
+  },
+  "Space Megaforce": {
+    "slug": "0468b537565f92452596412b9ee11668c0974bee",
+    "sha1": "0468b537565f92452596412b9ee11668c0974bee",
+    "size": [
+      3206,
+      3299
+    ],
+    "crop": [
+      1144,
+      540,
+      2000,
+      2464
+    ]
+  },
+  "Spanky_s Quest": {
+    "slug": "bac1415fb0187d5c207f74c4c0f9be5a900b3b8d",
+    "sha1": "bac1415fb0187d5c207f74c4c0f9be5a900b3b8d",
+    "size": [
+      3206,
+      3274
+    ],
+    "crop": [
+      1124,
+      540,
+      2000,
+      2464
+    ]
+  },
+  "Sparkster": {
+    "slug": "c93960430d5cff9f8d6cd2fabd55aefcdcc23218",
+    "sha1": "c93960430d5cff9f8d6cd2fabd55aefcdcc23218",
+    "size": [
+      3231,
+      3274
+    ],
+    "crop": [
+      1124,
+      544,
+      2000,
+      2468
+    ]
+  },
+  "Spawn": {
+    "slug": "1eb1cda30b75452a3a1867f46c600bf108c04219",
+    "sha1": "1eb1cda30b75452a3a1867f46c600bf108c04219",
+    "size": [
+      3231,
+      3249
+    ],
+    "crop": [
+      1140,
+      532,
+      1996,
+      2456
+    ]
+  },
+  "Spectre": {
+    "slug": "c3fc6239ee34c23f938f47827e793a852ce28f2a",
+    "sha1": "c3fc6239ee34c23f938f47827e793a852ce28f2a",
+    "size": [
+      3206,
+      3223
+    ],
+    "crop": [
+      1132,
+      536,
+      2008,
+      2460
+    ]
+  },
+  "Speed Racer in My Most Dangerous Adventures": {
+    "slug": "a74111cbf3d8a643691cb2e6ade807cd2457f112",
+    "sha1": "a74111cbf3d8a643691cb2e6ade807cd2457f112",
+    "size": [
+      3130,
+      3249
+    ],
+    "crop": [
+      1128,
+      540,
+      1984,
+      2464
+    ]
+  },
+  "Speedy Gonzales - Los Gatos Bandidos": {
+    "slug": "246e3bfe98ef781141d43f7fb497198c8e2420fa",
+    "sha1": "246e3bfe98ef781141d43f7fb497198c8e2420fa",
+    "size": [
+      3206,
+      3274
+    ],
+    "crop": [
+      1116,
+      536,
+      1992,
+      2460
+    ]
+  },
+  "Spider-Man - The Animated Series": {
+    "slug": "916bcaefddb442a45fa49cac4cb2f55f19fc6a72",
+    "sha1": "916bcaefddb442a45fa49cac4cb2f55f19fc6a72",
+    "size": [
+      3181,
+      3274
+    ],
+    "crop": [
+      1128,
+      544,
+      2004,
+      2468
+    ]
+  },
+  "Spider-Man _ Venom - Maximum Carnage": {
+    "slug": "4d6e8f884ddb434723b529e2ecd4663894c7939e",
+    "sha1": "4d6e8f884ddb434723b529e2ecd4663894c7939e",
+    "size": [
+      3206,
+      3249
+    ],
+    "crop": [
+      1144,
+      532,
+      2000,
+      2456
+    ]
+  },
+  "Spider-Man _ Venom - Separation Anxiety": {
+    "slug": "8909f5e6030b7ecd5549541752c4620f26076058",
+    "sha1": "8909f5e6030b7ecd5549541752c4620f26076058",
+    "size": [
+      3181,
+      3299
+    ],
+    "crop": [
+      1132,
+      536,
+      1988,
+      2460
+    ]
+  },
+  "Spider-Man _ X-Men - Arcade_s Revenge": {
+    "slug": "2860e04a2f4fbf0c0507ebeaa7ae9d7f666cc96a",
+    "sha1": "2860e04a2f4fbf0c0507ebeaa7ae9d7f666cc96a",
+    "size": [
+      3181,
+      3223
+    ],
+    "crop": [
+      1120,
+      540,
+      1996,
+      2464
+    ]
+  },
+  "Spindizzy Worlds": {
+    "slug": "1b1c682821af6c888f8b7d8ddf778cc49381d924",
+    "sha1": "1b1c682821af6c888f8b7d8ddf778cc49381d924",
+    "size": [
+      3256,
+      3223
+    ],
+    "crop": [
+      1132,
+      532,
+      1988,
+      2456
+    ]
+  },
+  "Sporting News Baseball, The": {
+    "slug": "ff36a186c1735b9a206fd4a4bb77f621dd0211cd",
+    "sha1": "ff36a186c1735b9a206fd4a4bb77f621dd0211cd",
+    "size": [
+      3736,
+      3274
+    ],
+    "crop": [
+      1120,
+      540,
+      1956,
+      2464
+    ]
+  },
+  "Sports Illustrated - Championship Football _ Baseball": {
+    "slug": "94f8a254aeabdda554313cc185b83b229dd3df6b",
+    "sha1": "94f8a254aeabdda554313cc185b83b229dd3df6b",
+    "size": [
+      3155,
+      3274
+    ],
+    "crop": [
+      1128,
+      544,
+      2004,
+      2468
+    ]
+  },
+  "Star Fox": {
+    "slug": "61de0b780f72ba9f7eeff5c2f80a07c851585b1e",
+    "sha1": "61de0b780f72ba9f7eeff5c2f80a07c851585b1e",
+    "size": [
+      4064,
+      3249
+    ],
+    "crop": [
+      1132,
+      544,
+      2008,
+      2468
+    ]
+  },
+  "Star Trek - Deep Space Nice - Crossroads of Time": {
+    "slug": "21b4ee1f7ea9dbb6e90c59e427a42b9a707d6411",
+    "sha1": "21b4ee1f7ea9dbb6e90c59e427a42b9a707d6411",
+    "size": [
+      3155,
+      3249
+    ],
+    "crop": [
+      1120,
+      548,
+      1996,
+      2472
+    ]
+  },
+  "Star Trek - Starfleet Academy - Starship Bridge Simulator": {
+    "slug": "9af6518026f2250be198edf0b94c01ddc58c3934",
+    "sha1": "9af6518026f2250be198edf0b94c01ddc58c3934",
+    "size": [
+      3181,
+      3349
+    ],
+    "crop": [
+      1116,
+      560,
+      1952,
+      2484
+    ]
+  },
+  "Star Trek - The Next Generation": {
+    "slug": "e0818048b98c57a248fb1ef04a3651af5678086a",
+    "sha1": "e0818048b98c57a248fb1ef04a3651af5678086a",
+    "size": [
+      3231,
+      3223
+    ],
+    "crop": [
+      1136,
+      528,
+      1992,
+      2452
+    ]
+  },
+  "Stargate": {
+    "slug": "908307e309c4523c4f874a8dd31f9488d4b3bfb7",
+    "sha1": "908307e309c4523c4f874a8dd31f9488d4b3bfb7",
+    "size": [
+      3256,
+      3299
+    ],
+    "crop": [
+      1112,
+      532,
+      2008,
+      2456
+    ]
+  },
+  "Steel Talons": {
+    "slug": "db3c2c42ff71c5a661deedc7564571b3a0168bab",
+    "sha1": "db3c2c42ff71c5a661deedc7564571b3a0168bab",
+    "size": [
+      3155,
+      3249
+    ],
+    "crop": [
+      1132,
+      544,
+      1988,
+      2468
+    ]
+  },
+  "Sterling Sharpe - End 2 End": {
+    "slug": "6cd82d24411ba4f6207eaef5b0a4485495bc2281",
+    "sha1": "6cd82d24411ba4f6207eaef5b0a4485495bc2281",
+    "size": [
+      3181,
+      3223
+    ],
+    "crop": [
+      1128,
+      536,
+      1944,
+      2460
+    ]
+  },
+  "Stone Protectors": {
+    "slug": "cc8a7a53a03ae201c2decbb4083acf3af1e9bed0",
+    "sha1": "cc8a7a53a03ae201c2decbb4083acf3af1e9bed0",
+    "size": [
+      3206,
+      3324
+    ],
+    "crop": [
+      1128,
+      540,
+      1984,
+      2464
+    ]
+  },
+  "Street Combat": {
+    "slug": "4acc4b958247fffb4c945563b9d8d5f1ba0cb3d0",
+    "sha1": "4acc4b958247fffb4c945563b9d8d5f1ba0cb3d0",
+    "size": [
+      3256,
+      3299
+    ],
+    "crop": [
+      1128,
+      544,
+      1964,
+      2468
+    ]
+  },
+  "Street Fighter Alpha 2": {
+    "slug": "11e03fd3dbb294ff6c617163b8986c2f73820f24",
+    "sha1": "11e03fd3dbb294ff6c617163b8986c2f73820f24",
+    "size": [
+      3686,
+      3299
+    ],
+    "crop": [
+      1132,
+      536,
+      2008,
+      2460
+    ]
+  },
+  "Street Fighter II - The World Warrior": {
+    "slug": "71342978286559fa5458778a8a6cd16d73241262",
+    "sha1": "71342978286559fa5458778a8a6cd16d73241262",
+    "size": [
+      3231,
+      3324
+    ],
+    "crop": [
+      1148,
+      540,
+      2004,
+      2464
+    ]
+  },
+  "Street Fighter II Turbo - Hyper Fighting": {
+    "slug": "7c7964c310fe024652aafd19f0d6951c72bf4ae8",
+    "sha1": "7c7964c310fe024652aafd19f0d6951c72bf4ae8",
+    "size": [
+      4014,
+      3324
+    ],
+    "crop": [
+      1136,
+      536,
+      1992,
+      2460
+    ]
+  },
+  "Street Hockey _95": {
+    "slug": "6a32c065ba8b5901ae4d3b5db0e520185fe46399",
+    "sha1": "6a32c065ba8b5901ae4d3b5db0e520185fe46399",
+    "size": [
+      3711,
+      3400
+    ],
+    "crop": [
+      1128,
+      540,
+      2004,
+      2464
+    ]
+  },
+  "Street Racer": {
+    "slug": "b0365f0bdf75454ab2b7b6cbf6e531d951065448",
+    "sha1": "b0365f0bdf75454ab2b7b6cbf6e531d951065448",
+    "size": [
+      3256,
+      3274
+    ],
+    "crop": [
+      1124,
+      548,
+      2000,
+      2472
+    ]
+  },
+  "Strike Gunner - STG": {
+    "slug": "6230801e77c980b649f7a38bd861dafed6d21ac9",
+    "sha1": "6230801e77c980b649f7a38bd861dafed6d21ac9",
+    "size": [
+      3206,
+      3249
+    ],
+    "crop": [
+      1136,
+      540,
+      1992,
+      2464
+    ]
+  },
+  "Stunt Race FX": {
+    "slug": "2e5fb7f4171afd129183e0b177890b4c6abc71cc",
+    "sha1": "2e5fb7f4171afd129183e0b177890b4c6abc71cc",
+    "size": [
+      4039,
+      3299
+    ],
+    "crop": [
+      1132,
+      544,
+      1988,
+      2468
+    ]
+  },
+  "Sunset Riders": {
+    "slug": "54c5493adc2f0441902b3379d712714ae658b591",
+    "sha1": "54c5493adc2f0441902b3379d712714ae658b591",
+    "size": [
+      3181,
+      3249
+    ],
+    "crop": [
+      1140,
+      552,
+      1996,
+      2476
+    ]
+  },
+  "Super Adventure Island": {
+    "slug": "45b126bee6bd262cd750ecb0edcea4f3c50ab308",
+    "sha1": "45b126bee6bd262cd750ecb0edcea4f3c50ab308",
+    "size": [
+      3080,
+      3274
+    ],
+    "crop": [
+      1136,
+      548,
+      1992,
+      2472
+    ]
+  },
+  "Super Adventure Island II": {
+    "slug": "1e51a78586face8c304bca82fee4200833a60873",
+    "sha1": "1e51a78586face8c304bca82fee4200833a60873",
+    "size": [
+      3938,
+      3274
+    ],
+    "crop": [
+      1120,
+      544,
+      1976,
+      2468
+    ]
+  },
+  "Super Alfred Chicken": {
+    "slug": "53335c63094c1258055365176ae748c7bdfcf19f",
+    "sha1": "53335c63094c1258055365176ae748c7bdfcf19f",
+    "size": [
+      3181,
+      3299
+    ],
+    "crop": [
+      1124,
+      524,
+      1960,
+      2448
+    ]
+  },
+  "Super Aquatic Games Starring The Aquabats, The": {
+    "slug": "57aa41868b6e475384ba0f9350d92784626eaa30",
+    "sha1": "57aa41868b6e475384ba0f9350d92784626eaa30",
+    "size": [
+      3181,
+      3274
+    ],
+    "crop": [
+      1124,
+      536,
+      2000,
+      2460
+    ]
+  },
+  "Super Baseball 2020": {
+    "slug": "a930df5570800c60ff522f975759b155a137e643",
+    "sha1": "a930df5570800c60ff522f975759b155a137e643",
+    "size": [
+      3559,
+      3274
+    ],
+    "crop": [
+      1108,
+      528,
+      1944,
+      2452
+    ]
+  },
+  "Super Baseball Simulator 1.000": {
+    "slug": "206c23e3226277ef7d184563582c10efaf4bf712",
+    "sha1": "206c23e3226277ef7d184563582c10efaf4bf712",
+    "size": [
+      3610,
+      3274
+    ],
+    "crop": [
+      1124,
+      544,
+      1960,
+      2468
+    ]
+  },
+  "Super Bases Loaded": {
+    "slug": "5eadb54a178d4d95a6d31189d1a28c5164d34fba",
+    "sha1": "5eadb54a178d4d95a6d31189d1a28c5164d34fba",
+    "size": [
+      3206,
+      3349
+    ],
+    "crop": [
+      1108,
+      548,
+      1924,
+      2472
+    ]
+  },
+  "Super Bases Loaded 2": {
+    "slug": "265c3bd4f47bf3e04bc86e72c1adb9fd040ff3f2",
+    "sha1": "265c3bd4f47bf3e04bc86e72c1adb9fd040ff3f2",
+    "size": [
+      4014,
+      3274
+    ],
+    "crop": [
+      1136,
+      536,
+      1992,
+      2460
+    ]
+  },
+  "Super Bases Loaded 3 - License to Steal": {
+    "slug": "733beae2aed9bb538934a08aa1790f0aab902434",
+    "sha1": "733beae2aed9bb538934a08aa1790f0aab902434",
+    "size": [
+      3585,
+      3249
+    ],
+    "crop": [
+      1128,
+      548,
+      2004,
+      2472
+    ]
+  },
+  "Super Batter Up": {
+    "slug": "dddd1249449894878df3020bfe9fc5a72e988141",
+    "sha1": "dddd1249449894878df3020bfe9fc5a72e988141",
+    "size": [
+      3181,
+      3324
+    ],
+    "crop": [
+      1128,
+      540,
+      2004,
+      2464
+    ]
+  },
+  "Super Battleship": {
+    "slug": "36a97f4c712496310122f7d46b10182e2cba4dce",
+    "sha1": "36a97f4c712496310122f7d46b10182e2cba4dce",
+    "size": [
+      3181,
+      3299
+    ],
+    "crop": [
+      1124,
+      548,
+      2000,
+      2472
+    ]
+  },
+  "Super Battletank 1 - War in the Gulf": {
+    "slug": "24ef4385e1d76f3dd9ff866f9f33750f12b0f720",
+    "sha1": "24ef4385e1d76f3dd9ff866f9f33750f12b0f720",
+    "size": [
+      3231,
+      3324
+    ],
+    "crop": [
+      1132,
+      536,
+      1948,
+      2460
+    ]
+  },
+  "Super Battletank 2": {
+    "slug": "09b97b96de09cdcb2736d27d00ae1ed46f3fb3de",
+    "sha1": "09b97b96de09cdcb2736d27d00ae1ed46f3fb3de",
+    "size": [
+      3206,
+      3223
+    ],
+    "crop": [
+      1136,
+      536,
+      1992,
+      2460
+    ]
+  },
+  "Super Black Bass": {
+    "slug": "ae46bf4667300f645b6cc2c99ceb64cc8a857d61",
+    "sha1": "ae46bf4667300f645b6cc2c99ceb64cc8a857d61",
+    "size": [
+      3231,
+      3249
+    ],
+    "crop": [
+      1124,
+      508,
+      1940,
+      2432
+    ]
+  },
+  "Super Bomberman": {
+    "slug": "c210d37257b5d8c339aba268581a2b65503a6fa0",
+    "sha1": "c210d37257b5d8c339aba268581a2b65503a6fa0",
+    "size": [
+      3231,
+      3274
+    ],
+    "crop": [
+      1128,
+      544,
+      1984,
+      2468
+    ]
+  },
+  "Super Bomberman 2": {
+    "slug": "60c00a53df8e3c7236c0274ffa6961b09998df92",
+    "sha1": "60c00a53df8e3c7236c0274ffa6961b09998df92",
+    "size": [
+      3181,
+      3299
+    ],
+    "crop": [
+      1132,
+      548,
+      1988,
+      2472
+    ]
+  },
+  "Super Bonk": {
+    "slug": "8537010d9b31929652cd4ceb27a484ce15762f54",
+    "sha1": "8537010d9b31929652cd4ceb27a484ce15762f54",
+    "size": [
+      3534,
+      3198
+    ],
+    "crop": [
+      1136,
+      540,
+      1992,
+      2464
+    ]
+  },
+  "Super Bowling": {
+    "slug": "9745d9008f5e245dc7c8ae176cd8e848307a6add",
+    "sha1": "9745d9008f5e245dc7c8ae176cd8e848307a6add",
+    "size": [
+      3231,
+      3223
+    ],
+    "crop": [
+      1116,
+      528,
+      1992,
+      2452
+    ]
+  },
+  "Super Buster Bros": {
+    "slug": "5f4761c504b57497c09ce7e4cb332a76985c7d6b",
+    "sha1": "5f4761c504b57497c09ce7e4cb332a76985c7d6b",
+    "size": [
+      3181,
+      3274
+    ],
+    "crop": [
+      1120,
+      540,
+      1996,
+      2464
+    ]
+  },
+  "Super Caesars Palace": {
+    "slug": "39e1d665db9582b8a09d84a9ccdcb7c1e86b77e7",
+    "sha1": "39e1d665db9582b8a09d84a9ccdcb7c1e86b77e7",
+    "size": [
+      3181,
+      3223
+    ],
+    "crop": [
+      1136,
+      536,
+      1992,
+      2460
+    ]
+  },
+  "Super Castlevania IV": {
+    "slug": "3e094a490c5a92b7398e2089305a084699c0eb5f",
+    "sha1": "3e094a490c5a92b7398e2089305a084699c0eb5f",
+    "size": [
+      3206,
+      3223
+    ],
+    "crop": [
+      1136,
+      524,
+      1992,
+      2448
+    ]
+  },
+  "Super Chase HQ": {
+    "slug": "f98c4095b018195dd26a21b2c585825a6516110e",
+    "sha1": "f98c4095b018195dd26a21b2c585825a6516110e",
+    "size": [
+      3181,
+      3299
+    ],
+    "crop": [
+      1124,
+      548,
+      1940,
+      2472
+    ]
+  },
+  "Super Conflict - The Mideast": {
+    "slug": "9e8b44e25ef285128a221df4df76639e45773fec",
+    "sha1": "9e8b44e25ef285128a221df4df76639e45773fec",
+    "size": [
+      3635,
+      3299
+    ],
+    "crop": [
+      1140,
+      544,
+      1996,
+      2468
+    ]
+  },
+  "Super Copa": {
+    "slug": "a9dc9c432747ee1276fbb0b4a44ab66fa4e06c27",
+    "sha1": "a9dc9c432747ee1276fbb0b4a44ab66fa4e06c27",
+    "size": [
+      3155,
+      3299
+    ],
+    "crop": [
+      1132,
+      504,
+      1948,
+      2428
+    ]
+  },
+  "Super Double Dragon": {
+    "slug": "dfe7f20d7f1268ef2b9b2f7ac1f8866b62c4d34a",
+    "sha1": "dfe7f20d7f1268ef2b9b2f7ac1f8866b62c4d34a",
+    "size": [
+      3206,
+      3274
+    ],
+    "crop": [
+      1140,
+      536,
+      1996,
+      2460
+    ]
+  },
+  "Super Ghouls _ Ghosts": {
+    "slug": "d172717d56a2698b28770f8d7b74b128e9cbb7db",
+    "sha1": "d172717d56a2698b28770f8d7b74b128e9cbb7db",
+    "size": [
+      3206,
+      3299
+    ],
+    "crop": [
+      1120,
+      552,
+      1936,
+      2476
+    ]
+  },
+  "Super Goal! Two": {
+    "slug": "21744ff92503d48781bddec76156bd1350850a8c",
+    "sha1": "21744ff92503d48781bddec76156bd1350850a8c",
+    "size": [
+      3181,
+      3223
+    ],
+    "crop": [
+      1120,
+      524,
+      1996,
+      2448
+    ]
+  },
+  "Super Godzilla": {
+    "slug": "bcd48577f3a925c631c04ab4b4302902585fd912",
+    "sha1": "bcd48577f3a925c631c04ab4b4302902585fd912",
+    "size": [
+      3206,
+      3299
+    ],
+    "crop": [
+      1128,
+      540,
+      1944,
+      2464
+    ]
+  },
+  "Super High Impact": {
+    "slug": "00173e4344a5c12686e5776b88b229c3d77ed1dd",
+    "sha1": "00173e4344a5c12686e5776b88b229c3d77ed1dd",
+    "size": [
+      3256,
+      3299
+    ],
+    "crop": [
+      1132,
+      540,
+      2008,
+      2464
+    ]
+  },
+  "Super James Pond": {
+    "slug": "531977b96f1d72242503a138611f5be3a631e1bf",
+    "sha1": "531977b96f1d72242503a138611f5be3a631e1bf",
+    "size": [
+      3155,
+      3223
+    ],
+    "crop": [
+      1124,
+      548,
+      1960,
+      2472
+    ]
+  },
+  "Super Mario All-Stars": {
+    "slug": "e63ad6376e58dc255040b691114e5b2fbae7c62c",
+    "sha1": "e63ad6376e58dc255040b691114e5b2fbae7c62c",
+    "size": [
+      3913,
+      3249
+    ],
+    "crop": [
+      1128,
+      548,
+      2004,
+      2472
+    ]
+  },
+  "Super Mario All-Stars + Super Mario World": {
+    "slug": "d8bd818c68d9784d988f5710c1db56ab627b1a86",
+    "sha1": "d8bd818c68d9784d988f5710c1db56ab627b1a86",
+    "size": [
+      3938,
+      3299
+    ],
+    "crop": [
+      1120,
+      540,
+      1996,
+      2464
+    ]
+  },
+  "Super Mario Kart": {
+    "slug": "f6253a2c88080ccf49da100eb059619a510d7edb",
+    "sha1": "f6253a2c88080ccf49da100eb059619a510d7edb",
+    "size": [
+      4014,
+      3274
+    ],
+    "crop": [
+      1120,
+      540,
+      1996,
+      2464
+    ]
+  },
+  "Super Mario RPG - Legend of the Seven Stars": {
+    "slug": "16572ea4002cd44a159bf3514a58b2a707c977d4",
+    "sha1": "16572ea4002cd44a159bf3514a58b2a707c977d4",
+    "size": [
+      990,
+      830
+    ],
+    "crop": [
+      282,
+      135,
+      501,
+      616
+    ]
+  },
+  "Super Mario World": {
+    "slug": "5191d27696185ce468999f2ae479f9238bdfa239",
+    "sha1": "5191d27696185ce468999f2ae479f9238bdfa239",
+    "size": [
+      3660,
+      3249
+    ],
+    "crop": [
+      1128,
+      536,
+      1984,
+      2460
+    ]
+  },
+  "Super Mario World 2 - Yoshi_s Island": {
+    "slug": "a10f76b413d17e6381a94e12ed4d982508d91bbb",
+    "sha1": "a10f76b413d17e6381a94e12ed4d982508d91bbb",
+    "size": [
+      4039,
+      3299
+    ],
+    "crop": [
+      1136,
+      544,
+      2012,
+      2468
+    ]
+  },
+  "Super Metroid": {
+    "slug": "super-metroid",
+    "sha1": "4e4fd6f77265d1debfccf8706b00385beb15f658",
+    "size": [
+      3913,
+      3274
+    ],
+    "crop": [
+      1118,
+      540,
+      1985,
+      2460
+    ]
+  },
+  "Super Ninja Boy": {
+    "slug": "f7daa364ffdb4d61714a7253cdbf9cf5e2d6b0c4",
+    "sha1": "f7daa364ffdb4d61714a7253cdbf9cf5e2d6b0c4",
+    "size": [
+      3181,
+      3274
+    ],
+    "crop": [
+      1128,
+      544,
+      2004,
+      2468
+    ]
+  },
+  "Super Nova": {
+    "slug": "7ee39bc6225f61048ad0068c0ffd097e3a652268",
+    "sha1": "7ee39bc6225f61048ad0068c0ffd097e3a652268",
+    "size": [
+      3206,
+      3249
+    ],
+    "crop": [
+      1128,
+      536,
+      1984,
+      2460
+    ]
+  },
+  "Super Off Road": {
+    "slug": "0875bcdaf747aede4d7f0aa259c8127ca978e1b3",
+    "sha1": "0875bcdaf747aede4d7f0aa259c8127ca978e1b3",
+    "size": [
+      3181,
+      3274
+    ],
+    "crop": [
+      1128,
+      556,
+      2004,
+      2480
+    ]
+  },
+  "Super Off Road - The Baja": {
+    "slug": "c6bbed054daa736d13ebc2f23de93db53cf78be0",
+    "sha1": "c6bbed054daa736d13ebc2f23de93db53cf78be0",
+    "size": [
+      3155,
+      3223
+    ],
+    "crop": [
+      1124,
+      548,
+      1940,
+      2472
+    ]
+  },
+  "Super Pinball - Behind the Mask": {
+    "slug": "3b4407e5c6fbefcfe34686227dfc2330ac178f86",
+    "sha1": "3b4407e5c6fbefcfe34686227dfc2330ac178f86",
+    "size": [
+      3181,
+      3249
+    ],
+    "crop": [
+      1152,
+      536,
+      2008,
+      2460
+    ]
+  },
+  "Super Play Action Football": {
+    "slug": "39c623dd09a84f10d31f767641fcab0091de9ca2",
+    "sha1": "39c623dd09a84f10d31f767641fcab0091de9ca2",
+    "size": [
+      3686,
+      3249
+    ],
+    "crop": [
+      1124,
+      540,
+      2000,
+      2464
+    ]
+  },
+  "Super Punch-Out!!": {
+    "slug": "ade95d30bee8e2d85e4847299ab11bc704518380",
+    "sha1": "ade95d30bee8e2d85e4847299ab11bc704518380",
+    "size": [
+      3660,
+      3249
+    ],
+    "crop": [
+      1132,
+      536,
+      2008,
+      2460
+    ]
+  },
+  "Super Putty": {
+    "slug": "0a8808b0e5503bb469d354d47ec3526dae1f8765",
+    "sha1": "0a8808b0e5503bb469d354d47ec3526dae1f8765",
+    "size": [
+      3231,
+      3274
+    ],
+    "crop": [
+      1120,
+      540,
+      1996,
+      2464
+    ]
+  },
+  "Super R-Type": {
+    "slug": "adcfcb7a6d549c3f6f3d8f4f8f12752bd89afa1e",
+    "sha1": "adcfcb7a6d549c3f6f3d8f4f8f12752bd89afa1e",
+    "size": [
+      3206,
+      3249
+    ],
+    "crop": [
+      1120,
+      548,
+      1996,
+      2472
+    ]
+  },
+  "Super RBI Baseball": {
+    "slug": "02244b059785496f42917db0f8571e90e405945c",
+    "sha1": "02244b059785496f42917db0f8571e90e405945c",
+    "size": [
+      3206,
+      3249
+    ],
+    "crop": [
+      1136,
+      516,
+      1992,
+      2400
+    ]
+  },
+  "Super Scope 6": {
+    "slug": "a4a014625e6e736cb449da459537615b21f26549",
+    "sha1": "a4a014625e6e736cb449da459537615b21f26549",
+    "size": [
+      3130,
+      3274
+    ],
+    "crop": [
+      1128,
+      548,
+      2004,
+      2472
+    ]
+  },
+  "Super Slam Dunk": {
+    "slug": "c328dd23def094466373c90f992bacaf11ec78d7",
+    "sha1": "c328dd23def094466373c90f992bacaf11ec78d7",
+    "size": [
+      3206,
+      3249
+    ],
+    "crop": [
+      1116,
+      544,
+      1992,
+      2468
+    ]
+  },
+  "Super Slap Shot": {
+    "slug": "972b9c1083fdb635e4cabfc39ad68bb887995428",
+    "sha1": "972b9c1083fdb635e4cabfc39ad68bb887995428",
+    "size": [
+      3155,
+      3299
+    ],
+    "crop": [
+      1132,
+      536,
+      1988,
+      2460
+    ]
+  },
+  "Super Smash TV": {
+    "slug": "7e1bd3d8ced160d25c4d1078443a0d9d6d7bd4cd",
+    "sha1": "7e1bd3d8ced160d25c4d1078443a0d9d6d7bd4cd",
+    "size": [
+      3206,
+      3249
+    ],
+    "crop": [
+      1116,
+      536,
+      1992,
+      2460
+    ]
+  },
+  "Super Soccer": {
+    "slug": "fe90a0e07b6969149a0146bf04daf840c211c237",
+    "sha1": "fe90a0e07b6969149a0146bf04daf840c211c237",
+    "size": [
+      3155,
+      3274
+    ],
+    "crop": [
+      1128,
+      560,
+      2004,
+      2484
+    ]
+  },
+  "Super Soccer Champ": {
+    "slug": "550197cabd380d20d372d305dac1aa3eb3c4df23",
+    "sha1": "550197cabd380d20d372d305dac1aa3eb3c4df23",
+    "size": [
+      3155,
+      3274
+    ],
+    "crop": [
+      1132,
+      552,
+      1988,
+      2476
+    ]
+  },
+  "Super Solitaire": {
+    "slug": "c13dba59328b4f3aaa369f4cf1f300fde0c7b895",
+    "sha1": "c13dba59328b4f3aaa369f4cf1f300fde0c7b895",
+    "size": [
+      3206,
+      3249
+    ],
+    "crop": [
+      1116,
+      536,
+      1992,
+      2460
+    ]
+  },
+  "Super Star Wars": {
+    "slug": "8e63d93531e062922c0ec304a1492b49788f624e",
+    "sha1": "8e63d93531e062922c0ec304a1492b49788f624e",
+    "size": [
+      3181,
+      3198
+    ],
+    "crop": [
+      1124,
+      528,
+      1960,
+      2452
+    ]
+  },
+  "Super Star Wars 2 - The Empire Strikes Back": {
+    "slug": "f4d767185ed489148a44148fc25f00e01130b9d4",
+    "sha1": "f4d767185ed489148a44148fc25f00e01130b9d4",
+    "size": [
+      3635,
+      3249
+    ],
+    "crop": [
+      1140,
+      544,
+      1996,
+      2468
+    ]
+  },
+  "Super Star Wars 3 - Return of the Jedi": {
+    "slug": "99c3982a1100ff4af2340a2a7d7efc536c64ac8a",
+    "sha1": "99c3982a1100ff4af2340a2a7d7efc536c64ac8a",
+    "size": [
+      3282,
+      3274
+    ],
+    "crop": [
+      1128,
+      536,
+      1984,
+      2460
+    ]
+  },
+  "Super Street Fighter II - The New Challengers": {
+    "slug": "9b6847639edc954bcf6bbf5cbadf1263dff2eca6",
+    "sha1": "9b6847639edc954bcf6bbf5cbadf1263dff2eca6",
+    "size": [
+      3686,
+      3274
+    ],
+    "crop": [
+      1128,
+      540,
+      1984,
+      2464
+    ]
+  },
+  "Super Strike Eagle": {
+    "slug": "d74aa561a670f8d1b587c52f1c2810152dbe053e",
+    "sha1": "d74aa561a670f8d1b587c52f1c2810152dbe053e",
+    "size": [
+      3206,
+      3249
+    ],
+    "crop": [
+      1148,
+      556,
+      1964,
+      2480
+    ]
+  },
+  "Super Tennis": {
+    "slug": "1b4d5b1c63cd592351434fbb342e1ba63ac39c19",
+    "sha1": "1b4d5b1c63cd592351434fbb342e1ba63ac39c19",
+    "size": [
+      3155,
+      3274
+    ],
+    "crop": [
+      1116,
+      548,
+      1992,
+      2472
+    ]
+  },
+  "Super Troll Islands": {
+    "slug": "a47dd73e3c558afdde2ee67a691471439c3b3ba5",
+    "sha1": "a47dd73e3c558afdde2ee67a691471439c3b3ba5",
+    "size": [
+      3206,
+      3223
+    ],
+    "crop": [
+      1104,
+      552,
+      1960,
+      2476
+    ]
+  },
+  "Super Turrican": {
+    "slug": "b434fd52b21f460fd3ce7a3725eb92f5c1fca969",
+    "sha1": "b434fd52b21f460fd3ce7a3725eb92f5c1fca969",
+    "size": [
+      3181,
+      3299
+    ],
+    "crop": [
+      1044,
+      520,
+      1940,
+      2464
+    ]
+  },
+  "Super Turrican 2": {
+    "slug": "68c504f319e2337382dcda807e4e0299ee7da403",
+    "sha1": "68c504f319e2337382dcda807e4e0299ee7da403",
+    "size": [
+      3256,
+      3299
+    ],
+    "crop": [
+      1120,
+      544,
+      1996,
+      2468
+    ]
+  },
+  "Super Valis IV": {
+    "slug": "51e232b3eab5a503c2a52677d03dc0cfd904b01b",
+    "sha1": "51e232b3eab5a503c2a52677d03dc0cfd904b01b",
+    "size": [
+      3181,
+      3223
+    ],
+    "crop": [
+      1116,
+      548,
+      1952,
+      2472
+    ]
+  },
+  "Super Widget": {
+    "slug": "92f0f49b91af7fed7d2a1b79d6f1593e61195860",
+    "sha1": "92f0f49b91af7fed7d2a1b79d6f1593e61195860",
+    "size": [
+      3307,
+      3299
+    ],
+    "crop": [
+      1124,
+      544,
+      2000,
+      2468
+    ]
+  },
+  "Suzuka 8 Hours": {
+    "slug": "b3203b65a01245b9066524ecf03e2f3197dacfa7",
+    "sha1": "b3203b65a01245b9066524ecf03e2f3197dacfa7",
+    "size": [
+      3610,
+      3223
+    ],
+    "crop": [
+      1124,
+      540,
+      2000,
+      2464
+    ]
+  },
+  "Syndicate": {
+    "slug": "80aea57fcaaa23ddc4db20934165cc44c47c19e7",
+    "sha1": "80aea57fcaaa23ddc4db20934165cc44c47c19e7",
+    "size": [
+      3231,
+      3299
+    ],
+    "crop": [
+      1120,
+      520,
+      1996,
+      2444
+    ]
+  },
+  "TKO Super Championship Boxing": {
+    "slug": "efaaad9cad3c6af95531242cb1d5fc0a7cd502b2",
+    "sha1": "efaaad9cad3c6af95531242cb1d5fc0a7cd502b2",
+    "size": [
+      3155,
+      3299
+    ],
+    "crop": [
+      1132,
+      544,
+      2008,
+      2468
+    ]
+  },
+  "TNN Bass Tournament of Champions": {
+    "slug": "9a4773acbf55bb91a448e53c47c27a1efc40ca9c",
+    "sha1": "9a4773acbf55bb91a448e53c47c27a1efc40ca9c",
+    "size": [
+      3938,
+      3299
+    ],
+    "crop": [
+      1116,
+      532,
+      1992,
+      2456
+    ]
+  },
+  "Taz-Mania": {
+    "slug": "f9292e6e79e653bbc5be0f61774dfbd125beeadc",
+    "sha1": "f9292e6e79e653bbc5be0f61774dfbd125beeadc",
+    "size": [
+      3130,
+      3223
+    ],
+    "crop": [
+      1128,
+      544,
+      1944,
+      2468
+    ]
+  },
+  "Tecmo Secret of the Stars - A Fantasy": {
+    "slug": "568d6d3720e7e4d1a42b1900709ff46c5c05b42c",
+    "sha1": "568d6d3720e7e4d1a42b1900709ff46c5c05b42c",
+    "size": [
+      3938,
+      3249
+    ],
+    "crop": [
+      1108,
+      544,
+      2004,
+      2468
+    ]
+  },
+  "Tecmo Super Baseball": {
+    "slug": "e389b39f5b6f780081373d6462d7e4c6ae891df3",
+    "sha1": "e389b39f5b6f780081373d6462d7e4c6ae891df3",
+    "size": [
+      3963,
+      3249
+    ],
+    "crop": [
+      1124,
+      532,
+      1980,
+      2456
+    ]
+  },
+  "Tecmo Super Bowl": {
+    "slug": "34c47884dbd5639c106ccfc402dc6c12e6dded16",
+    "sha1": "34c47884dbd5639c106ccfc402dc6c12e6dded16",
+    "size": [
+      3989,
+      3274
+    ],
+    "crop": [
+      1124,
+      536,
+      1980,
+      2460
+    ]
+  },
+  "Tecmo Super Bowl II - Special Edition": {
+    "slug": "dffc83f0b6a64b10cd6bedcab69ede2463b7bcec",
+    "sha1": "dffc83f0b6a64b10cd6bedcab69ede2463b7bcec",
+    "size": [
+      3660,
+      3198
+    ],
+    "crop": [
+      1136,
+      532,
+      1952,
+      2456
+    ]
+  },
+  "Tecmo Super Bowl III - Final Edition": {
+    "slug": "547a7be6df0a7b84f126f81510cda441e7099f19",
+    "sha1": "547a7be6df0a7b84f126f81510cda441e7099f19",
+    "size": [
+      3711,
+      3249
+    ],
+    "crop": [
+      1128,
+      532,
+      1984,
+      2456
+    ]
+  },
+  "Tecmo Super NBA Basketball": {
+    "slug": "8122d56b17b633a2eded50b80b3f0db0fe8bcaae",
+    "sha1": "8122d56b17b633a2eded50b80b3f0db0fe8bcaae",
+    "size": [
+      3686,
+      3274
+    ],
+    "crop": [
+      1124,
+      536,
+      1940,
+      2460
+    ]
+  },
+  "Teenage Mutant Ninja Turtles - Tournament Fighters": {
+    "slug": "eafb0a69a5d2143ad702da59b9886e6a33640ecb",
+    "sha1": "eafb0a69a5d2143ad702da59b9886e6a33640ecb",
+    "size": [
+      3181,
+      3299
+    ],
+    "crop": [
+      1132,
+      540,
+      1988,
+      2464
+    ]
+  },
+  "Teenage Mutant Ninja Turtles IV - Turtles in Time": {
+    "slug": "03c5178806bb7fde313a6d6ad8e3702fe24c0ecb",
+    "sha1": "03c5178806bb7fde313a6d6ad8e3702fe24c0ecb",
+    "size": [
+      3231,
+      3274
+    ],
+    "crop": [
+      1124,
+      540,
+      2000,
+      2464
+    ]
+  },
+  "Terminator 2 - Judgment Day": {
+    "slug": "0c63e36343e566db0cfb1d8c2fbe2c6807db120c",
+    "sha1": "0c63e36343e566db0cfb1d8c2fbe2c6807db120c",
+    "size": [
+      3181,
+      3299
+    ],
+    "crop": [
+      1132,
+      540,
+      2008,
+      2464
+    ]
+  },
+  "Terminator 2 - The Arcade Game": {
+    "slug": "663d5096d3cb040dbdc69a8f76506c35ee25dd63",
+    "sha1": "663d5096d3cb040dbdc69a8f76506c35ee25dd63",
+    "size": [
+      3130,
+      3249
+    ],
+    "crop": [
+      1140,
+      532,
+      1996,
+      2456
+    ]
+  },
+  "Terminator, The": {
+    "slug": "f45ae61112138a097be89a4c75dd5df328984c83",
+    "sha1": "f45ae61112138a097be89a4c75dd5df328984c83",
+    "size": [
+      3231,
+      3223
+    ],
+    "crop": [
+      1120,
+      532,
+      1996,
+      2456
+    ]
+  },
+  "Tetris 2": {
+    "slug": "7c296b0f432767501e34543f04c66d4654458f7e",
+    "sha1": "7c296b0f432767501e34543f04c66d4654458f7e",
+    "size": [
+      3181,
+      3249
+    ],
+    "crop": [
+      1116,
+      536,
+      1992,
+      2460
+    ]
+  },
+  "Tetris Attack": {
+    "slug": "81e7ef02e109ca3cbc61c4da8c72896b1175fad0",
+    "sha1": "81e7ef02e109ca3cbc61c4da8c72896b1175fad0",
+    "size": [
+      3206,
+      3223
+    ],
+    "crop": [
+      1136,
+      540,
+      1992,
+      2464
+    ]
+  },
+  "Tetris _ Dr. Mario": {
+    "slug": "12468ac6196b938512ab2732a3e444c46fea0203",
+    "sha1": "12468ac6196b938512ab2732a3e444c46fea0203",
+    "size": [
+      3155,
+      3223
+    ],
+    "crop": [
+      1124,
+      544,
+      2000,
+      2468
+    ]
+  },
+  "Thomas the Tank Engine _ Friends": {
+    "slug": "8bae3558bd4d3dd795ce73cf0854fa4a9f7e1ada",
+    "sha1": "8bae3558bd4d3dd795ce73cf0854fa4a9f7e1ada",
+    "size": [
+      3206,
+      3324
+    ],
+    "crop": [
+      1128,
+      540,
+      2004,
+      2464
+    ]
+  },
+  "Thunder Spirits": {
+    "slug": "da718336112df725df86f045349cd0e9cefd4576",
+    "sha1": "da718336112df725df86f045349cd0e9cefd4576",
+    "size": [
+      3206,
+      3299
+    ],
+    "crop": [
+      1132,
+      536,
+      1988,
+      2460
+    ]
+  },
+  "Tick, The": {
+    "slug": "0a0d420b28a36007335ec0f56ac7611d4f0f6e6f",
+    "sha1": "0a0d420b28a36007335ec0f56ac7611d4f0f6e6f",
+    "size": [
+      3231,
+      3274
+    ],
+    "crop": [
+      1128,
+      540,
+      2004,
+      2464
+    ]
+  },
+  "Time Cop": {
+    "slug": "5acb121aea00386927b01e4d65b1dea6cd3204d3",
+    "sha1": "5acb121aea00386927b01e4d65b1dea6cd3204d3",
+    "size": [
+      3282,
+      3249
+    ],
+    "crop": [
+      1120,
+      540,
+      1996,
+      2464
+    ]
+  },
+  "Time Slip": {
+    "slug": "57237e631ec64d7201c2c781aee77ac439b3acff",
+    "sha1": "57237e631ec64d7201c2c781aee77ac439b3acff",
+    "size": [
+      3181,
+      3249
+    ],
+    "crop": [
+      1124,
+      544,
+      2000,
+      2468
+    ]
+  },
+  "Time Trax": {
+    "slug": "2b6e97a024d9a94bf55f44dcc6bd0f96fb5ce9b1",
+    "sha1": "2b6e97a024d9a94bf55f44dcc6bd0f96fb5ce9b1",
+    "size": [
+      3130,
+      3274
+    ],
+    "crop": [
+      1132,
+      548,
+      1948,
+      2472
+    ]
+  },
+  "Timon _ Pumbaa_s Jungle Games": {
+    "slug": "72d307ef89e14234eb4612cbf8637b3ef4490b12",
+    "sha1": "72d307ef89e14234eb4612cbf8637b3ef4490b12",
+    "size": [
+      3181,
+      3249
+    ],
+    "crop": [
+      1124,
+      532,
+      2000,
+      2456
+    ]
+  },
+  "Tin Star": {
+    "slug": "38c9ac5045e2e08675dc4f207221edbc2e14a64a",
+    "sha1": "38c9ac5045e2e08675dc4f207221edbc2e14a64a",
+    "size": [
+      3635,
+      3299
+    ],
+    "crop": [
+      1120,
+      536,
+      1996,
+      2460
+    ]
+  },
+  "Tiny Toon Adventures - Buster Busts Loose!": {
+    "slug": "58f7e97b8210953cea1430df74c7ce4a3f515d3c",
+    "sha1": "58f7e97b8210953cea1430df74c7ce4a3f515d3c",
+    "size": [
+      3231,
+      3249
+    ],
+    "crop": [
+      1124,
+      548,
+      1940,
+      2472
+    ]
+  },
+  "Tiny Toon Adventures - Wacky Sports Challenge": {
+    "slug": "92dbd558665eb023e96037191175c7e6ac0b3020",
+    "sha1": "92dbd558665eb023e96037191175c7e6ac0b3020",
+    "size": [
+      3181,
+      3249
+    ],
+    "crop": [
+      1128,
+      540,
+      1944,
+      2464
+    ]
+  },
+  "Tom and Jerry": {
+    "slug": "f2aa50779d70c9638b43f19878efa705d9376946",
+    "sha1": "f2aa50779d70c9638b43f19878efa705d9376946",
+    "size": [
+      3206,
+      3249
+    ],
+    "crop": [
+      1132,
+      548,
+      2008,
+      2472
+    ]
+  },
+  "Tommy Moe_s Winter Extreme - Skiing and Snowboarding": {
+    "slug": "1b472fe4eb6387c7133498bdbcb475e2af4b7435",
+    "sha1": "1b472fe4eb6387c7133498bdbcb475e2af4b7435",
+    "size": [
+      3181,
+      3274
+    ],
+    "crop": [
+      1120,
+      536,
+      1956,
+      2460
+    ]
+  },
+  "Tony Meola_s Sidekicks Soccer": {
+    "slug": "3cb84d21265b491bc2f6618875853f43964b8f19",
+    "sha1": "3cb84d21265b491bc2f6618875853f43964b8f19",
+    "size": [
+      3155,
+      3249
+    ],
+    "crop": [
+      1124,
+      528,
+      2000,
+      2452
+    ]
+  },
+  "Top Gear": {
+    "slug": "1ece08cf4ac37b1646f59e366ef357efe9f1bac6",
+    "sha1": "1ece08cf4ac37b1646f59e366ef357efe9f1bac6",
+    "size": [
+      3181,
+      3274
+    ],
+    "crop": [
+      1112,
+      536,
+      2008,
+      2460
+    ]
+  },
+  "Top Gear 2": {
+    "slug": "8adb2e6509e7bd4a27eb1fec9f606ed6df650c19",
+    "sha1": "8adb2e6509e7bd4a27eb1fec9f606ed6df650c19",
+    "size": [
+      3206,
+      3249
+    ],
+    "crop": [
+      1136,
+      540,
+      1992,
+      2464
+    ]
+  },
+  "Top Gear 3000": {
+    "slug": "373dccf5e08d58722a977d90d903273e314ffeef",
+    "sha1": "373dccf5e08d58722a977d90d903273e314ffeef",
+    "size": [
+      3610,
+      3249
+    ],
+    "crop": [
+      1144,
+      540,
+      2000,
+      2464
+    ]
+  },
+  "Total Carnage": {
+    "slug": "6d5da16cb3af595c2dff43865eb79dba7ef3b283",
+    "sha1": "6d5da16cb3af595c2dff43865eb79dba7ef3b283",
+    "size": [
+      3155,
+      3223
+    ],
+    "crop": [
+      1120,
+      536,
+      1996,
+      2460
+    ]
+  },
+  "Toy Story": {
+    "slug": "78895d4b1838be37a92dee347d26db05e7c7ad49",
+    "sha1": "78895d4b1838be37a92dee347d26db05e7c7ad49",
+    "size": [
+      3711,
+      3299
+    ],
+    "crop": [
+      1136,
+      544,
+      1992,
+      2468
+    ]
+  },
+  "Toys - Let the Toy Wars Begin!": {
+    "slug": "c0fe3f233303c26df0234f6367992171f2c4d076",
+    "sha1": "c0fe3f233303c26df0234f6367992171f2c4d076",
+    "size": [
+      3206,
+      3274
+    ],
+    "crop": [
+      1124,
+      540,
+      2000,
+      2464
+    ]
+  },
+  "Troddlers": {
+    "slug": "ec8f18d338287baa042a09c5258607ea4a249467",
+    "sha1": "ec8f18d338287baa042a09c5258607ea4a249467",
+    "size": [
+      3181,
+      3299
+    ],
+    "crop": [
+      1124,
+      544,
+      1980,
+      2468
+    ]
+  },
+  "Troy Aikman NFL Football": {
+    "slug": "9677721c86a2469a49ac1f469e0327abe945fa0c",
+    "sha1": "9677721c86a2469a49ac1f469e0327abe945fa0c",
+    "size": [
+      3989,
+      3249
+    ],
+    "crop": [
+      1116,
+      540,
+      1932,
+      2464
+    ]
+  },
+  "True Golf - Wicked 18": {
+    "slug": "c1cdb38044ccd6870edea15833451e7266bcee1e",
+    "sha1": "c1cdb38044ccd6870edea15833451e7266bcee1e",
+    "size": [
+      3660,
+      3299
+    ],
+    "crop": [
+      1112,
+      516,
+      1988,
+      2440
+    ]
+  },
+  "True Golf Classics - Pebble Beach Golf Links": {
+    "slug": "ed445eedfbdf3e267388a048b4e993a4345e7bbe",
+    "sha1": "ed445eedfbdf3e267388a048b4e993a4345e7bbe",
+    "size": [
+      3686,
+      3299
+    ],
+    "crop": [
+      1128,
+      536,
+      1984,
+      2460
+    ]
+  },
+  "True Golf Classics - Waialae Country Club": {
+    "slug": "72a773a16eb505d7327f41189e8a8a35d9b45016",
+    "sha1": "72a773a16eb505d7327f41189e8a8a35d9b45016",
+    "size": [
+      3686,
+      3249
+    ],
+    "crop": [
+      1120,
+      556,
+      1996,
+      2480
+    ]
+  },
+  "True Lies": {
+    "slug": "f3ce0a597731718e5bdab6860fdd088398d00b9d",
+    "sha1": "f3ce0a597731718e5bdab6860fdd088398d00b9d",
+    "size": [
+      3130,
+      3223
+    ],
+    "crop": [
+      1120,
+      536,
+      1996,
+      2460
+    ]
+  },
+  "Turn and Burn - No-Fly Zone": {
+    "slug": "77bc1f41b8002cb531b4723a441d96cada8a3ca6",
+    "sha1": "77bc1f41b8002cb531b4723a441d96cada8a3ca6",
+    "size": [
+      3181,
+      3198
+    ],
+    "crop": [
+      1124,
+      524,
+      1960,
+      2448
+    ]
+  },
+  "Twisted Tales of Spike McFang, The": {
+    "slug": "59f0309ce783f182e57b4847e3b06db232ed8a5e",
+    "sha1": "59f0309ce783f182e57b4847e3b06db232ed8a5e",
+    "size": [
+      3635,
+      3223
+    ],
+    "crop": [
+      1124,
+      544,
+      1980,
+      2468
+    ]
+  },
+  "UN Squadron": {
+    "slug": "51ff49f71225f3884620adb119a4a7aa3727701f",
+    "sha1": "51ff49f71225f3884620adb119a4a7aa3727701f",
+    "size": [
+      3206,
+      3299
+    ],
+    "crop": [
+      1112,
+      544,
+      1988,
+      2468
+    ]
+  },
+  "Ultima - Runes of Virtue II": {
+    "slug": "350e80d17a7e67e7b3c4528ccf772ac76041ff96",
+    "sha1": "350e80d17a7e67e7b3c4528ccf772ac76041ff96",
+    "size": [
+      3660,
+      3249
+    ],
+    "crop": [
+      1136,
+      544,
+      1992,
+      2468
+    ]
+  },
+  "Ultima - The Black Gate": {
+    "slug": "b16918a6a3a88d556139cbf1496533b2a88b62f0",
+    "sha1": "b16918a6a3a88d556139cbf1496533b2a88b62f0",
+    "size": [
+      3610,
+      3299
+    ],
+    "crop": [
+      1120,
+      544,
+      1996,
+      2468
+    ]
+  },
+  "Ultima - The False Prophet": {
+    "slug": "d02b672968174093c5b693431257a522089cacb9",
+    "sha1": "d02b672968174093c5b693431257a522089cacb9",
+    "size": [
+      3660,
+      3249
+    ],
+    "crop": [
+      1120,
+      540,
+      1996,
+      2464
+    ]
+  },
+  "Ultimate Fighter": {
+    "slug": "8c69c93428ebad1555069e0dcafbccf7c0a006e5",
+    "sha1": "8c69c93428ebad1555069e0dcafbccf7c0a006e5",
+    "size": [
+      3559,
+      3249
+    ],
+    "crop": [
+      1140,
+      552,
+      1996,
+      2476
+    ]
+  },
+  "Ultimate Mortal Kombat 3": {
+    "slug": "e30eab6327bd4978466b597d311d4f2a131eebaf",
+    "sha1": "e30eab6327bd4978466b597d311d4f2a131eebaf",
+    "size": [
+      3181,
+      3249
+    ],
+    "crop": [
+      1184,
+      536,
+      2000,
+      2460
+    ]
+  },
+  "Ultraman - Towards the Future": {
+    "slug": "5920ab0dd073e8a8edb7710aaa095bf26e33ded5",
+    "sha1": "5920ab0dd073e8a8edb7710aaa095bf26e33ded5",
+    "size": [
+      3256,
+      3249
+    ],
+    "crop": [
+      1124,
+      548,
+      2000,
+      2472
+    ]
+  },
+  "Uncharted Waters": {
+    "slug": "c2a82f34c184d14e3444be9b6f7a088c0040d3ad",
+    "sha1": "c2a82f34c184d14e3444be9b6f7a088c0040d3ad",
+    "size": [
+      3736,
+      3274
+    ],
+    "crop": [
+      1120,
+      540,
+      1996,
+      2464
+    ]
+  },
+  "Uncharted Waters - New Horizons": {
+    "slug": "a06f34c6efaefd259c617a52784325abd990e959",
+    "sha1": "a06f34c6efaefd259c617a52784325abd990e959",
+    "size": [
+      3660,
+      3249
+    ],
+    "crop": [
+      1136,
+      540,
+      2012,
+      2464
+    ]
+  },
+  "Uniracers": {
+    "slug": "2e5d8a087bba6828a0aefe47839cbd603cad7760",
+    "sha1": "2e5d8a087bba6828a0aefe47839cbd603cad7760",
+    "size": [
+      3686,
+      3299
+    ],
+    "crop": [
+      1112,
+      532,
+      2008,
+      2456
+    ]
+  },
+  "Untouchables, The": {
+    "slug": "d2d19f8eca3a5cbc82223ddab158b8a6cd70f7ad",
+    "sha1": "d2d19f8eca3a5cbc82223ddab158b8a6cd70f7ad",
+    "size": [
+      3181,
+      3249
+    ],
+    "crop": [
+      1124,
+      544,
+      2000,
+      2468
+    ]
+  },
+  "Urban Strike": {
+    "slug": "80c56d11476a7543a3c2851432d25e72daa6004d",
+    "sha1": "80c56d11476a7543a3c2851432d25e72daa6004d",
+    "size": [
+      3206,
+      3249
+    ],
+    "crop": [
+      1124,
+      532,
+      1940,
+      2456
+    ]
+  },
+  "Utopia - The Creation of a Nation": {
+    "slug": "90ec36640a99e2e49f0e092c48300e6778c29ba6",
+    "sha1": "90ec36640a99e2e49f0e092c48300e6778c29ba6",
+    "size": [
+      3660,
+      3249
+    ],
+    "crop": [
+      1136,
+      548,
+      1992,
+      2472
+    ]
+  },
+  "Vegas Stakes": {
+    "slug": "b0e85f73a30acef29badc7a8fb2766c61d8eb644",
+    "sha1": "b0e85f73a30acef29badc7a8fb2766c61d8eb644",
+    "size": [
+      3761,
+      3274
+    ],
+    "crop": [
+      1112,
+      540,
+      2008,
+      2464
+    ]
+  },
+  "Vortex": {
+    "slug": "31c71b0358583d26f753401a87933e66c5b53d8b",
+    "sha1": "31c71b0358583d26f753401a87933e66c5b53d8b",
+    "size": [
+      3938,
+      3223
+    ],
+    "crop": [
+      1136,
+      540,
+      1992,
+      2464
+    ]
+  },
+  "WCW - Super Brawl Wrestling": {
+    "slug": "fcd360097a7159a2f0c1b67f0a734293b97c5377",
+    "sha1": "fcd360097a7159a2f0c1b67f0a734293b97c5377",
+    "size": [
+      3610,
+      3274
+    ],
+    "crop": [
+      1136,
+      544,
+      1952,
+      2468
+    ]
+  },
+  "WWF Raw": {
+    "slug": "1568c544d6182d223ca0df4b1a8a96f85d344113",
+    "sha1": "1568c544d6182d223ca0df4b1a8a96f85d344113",
+    "size": [
+      3635,
+      3249
+    ],
+    "crop": [
+      1120,
+      544,
+      1996,
+      2468
+    ]
+  },
+  "WWF Royal Rumble": {
+    "slug": "5ff88a8bcc1ed794cee48742f78a2e9b06a17682",
+    "sha1": "5ff88a8bcc1ed794cee48742f78a2e9b06a17682",
+    "size": [
+      3181,
+      3274
+    ],
+    "crop": [
+      1148,
+      512,
+      2004,
+      2436
+    ]
+  },
+  "WWF Super Wrestlemania": {
+    "slug": "abb057df7072de16f684f1b464d1c8a31a0f94e3",
+    "sha1": "abb057df7072de16f684f1b464d1c8a31a0f94e3",
+    "size": [
+      3206,
+      3223
+    ],
+    "crop": [
+      1136,
+      540,
+      1992,
+      2464
+    ]
+  },
+  "WWF Wrestlemania - The Arcade Game": {
+    "slug": "65ff1a01400b300e9750a1fe951a42cd0a25b44d",
+    "sha1": "65ff1a01400b300e9750a1fe951a42cd0a25b44d",
+    "size": [
+      3181,
+      3249
+    ],
+    "crop": [
+      1132,
+      540,
+      1988,
+      2464
+    ]
+  },
+  "Wanderers From Ys III": {
+    "slug": "6b548c7d5d298eb6aa3454bbe7c2c74018bb8e7a",
+    "sha1": "6b548c7d5d298eb6aa3454bbe7c2c74018bb8e7a",
+    "size": [
+      3686,
+      3324
+    ],
+    "crop": [
+      1132,
+      536,
+      1988,
+      2460
+    ]
+  },
+  "War 2410": {
+    "slug": "280a6d073ca2567c22802dada73d0537ea0e30f7",
+    "sha1": "280a6d073ca2567c22802dada73d0537ea0e30f7",
+    "size": [
+      3231,
+      3223
+    ],
+    "crop": [
+      1132,
+      536,
+      1988,
+      2460
+    ]
+  },
+  "War 3010 - The Revolution": {
+    "slug": "67737c72efcc5b4d347b16d2e3f772e8c1de4ed4",
+    "sha1": "67737c72efcc5b4d347b16d2e3f772e8c1de4ed4",
+    "size": [
+      3206,
+      3274
+    ],
+    "crop": [
+      1136,
+      536,
+      1992,
+      2460
+    ]
+  },
+  "Wario_s Woods": {
+    "slug": "5eb4e729f084830c85e67d3d7b7008de5662b15a",
+    "sha1": "5eb4e729f084830c85e67d3d7b7008de5662b15a",
+    "size": [
+      3711,
+      3299
+    ],
+    "crop": [
+      1116,
+      528,
+      1992,
+      2452
+    ]
+  },
+  "Warlock": {
+    "slug": "29f936c2fb56191b4ca64d6d5df0feb4a5f5673e",
+    "sha1": "29f936c2fb56191b4ca64d6d5df0feb4a5f5673e",
+    "size": [
+      3181,
+      3299
+    ],
+    "crop": [
+      1132,
+      540,
+      1988,
+      2444
+    ]
+  },
+  "Warp Speed": {
+    "slug": "61d128e4bff9ed4108cdc9ba25631639c8568cf9",
+    "sha1": "61d128e4bff9ed4108cdc9ba25631639c8568cf9",
+    "size": [
+      3155,
+      3223
+    ],
+    "crop": [
+      1140,
+      552,
+      1996,
+      2476
+    ]
+  },
+  "Wayne Gretzky and the NHLPA All-Stars": {
+    "slug": "47ae8c534eba61de96120ad407e7c5cf3d090ea2",
+    "sha1": "47ae8c534eba61de96120ad407e7c5cf3d090ea2",
+    "size": [
+      3913,
+      3249
+    ],
+    "crop": [
+      1136,
+      532,
+      1952,
+      2456
+    ]
+  },
+  "Wayne_s World": {
+    "slug": "6e644a53d784b8bd6a0062ff14a6339a0013eae3",
+    "sha1": "6e644a53d784b8bd6a0062ff14a6339a0013eae3",
+    "size": [
+      3181,
+      3249
+    ],
+    "crop": [
+      1144,
+      544,
+      2000,
+      2468
+    ]
+  },
+  "We_re Back! - A Dinosaur_s Story": {
+    "slug": "f71a45c58e30d40f8a46640602937560d6d68368",
+    "sha1": "f71a45c58e30d40f8a46640602937560d6d68368",
+    "size": [
+      3181,
+      3249
+    ],
+    "crop": [
+      1124,
+      556,
+      2000,
+      2480
+    ]
+  },
+  "WeaponLord": {
+    "slug": "536cc98b3aeba83cbaf0fdbec84c7fd1bd2038d3",
+    "sha1": "536cc98b3aeba83cbaf0fdbec84c7fd1bd2038d3",
+    "size": [
+      3130,
+      3223
+    ],
+    "crop": [
+      1132,
+      540,
+      1948,
+      2464
+    ]
+  },
+  "Wheel of Fortune - Deluxe Edition": {
+    "slug": "d3009bf3d7d43053594f71dc8e599d958e4217f6",
+    "sha1": "d3009bf3d7d43053594f71dc8e599d958e4217f6",
+    "size": [
+      3231,
+      3274
+    ],
+    "crop": [
+      1108,
+      524,
+      1964,
+      2448
+    ]
+  },
+  "Wheel of Fortune - Featuring Vanna White": {
+    "slug": "6cc74a946ab7dc25e92e77ab8c92746b79d042b3",
+    "sha1": "6cc74a946ab7dc25e92e77ab8c92746b79d042b3",
+    "size": [
+      3206,
+      3249
+    ],
+    "crop": [
+      1124,
+      544,
+      1980,
+      2468
+    ]
+  },
+  "Where in Time is Carmen Sandiego": {
+    "slug": "d415a06a777058523193bc734b344c25722ca394",
+    "sha1": "d415a06a777058523193bc734b344c25722ca394",
+    "size": [
+      3307,
+      3299
+    ],
+    "crop": [
+      1132,
+      524,
+      1988,
+      2448
+    ]
+  },
+  "Where in the World is Carmen Sandiego": {
+    "slug": "ce52274c5447b364aa851db5e9519def3ff1a37e",
+    "sha1": "ce52274c5447b364aa851db5e9519def3ff1a37e",
+    "size": [
+      3206,
+      3249
+    ],
+    "crop": [
+      1112,
+      544,
+      1968,
+      2468
+    ]
+  },
+  "Whizz": {
+    "slug": "62aeb784f51fd403adbdaf480dee4737d8fbbeb9",
+    "sha1": "62aeb784f51fd403adbdaf480dee4737d8fbbeb9",
+    "size": [
+      3206,
+      3249
+    ],
+    "crop": [
+      1120,
+      536,
+      1996,
+      2460
+    ]
+  },
+  "Wild CATs - Covert Action Teams": {
+    "slug": "bf90321ab479b1b570998c938bac3f701d328b0e",
+    "sha1": "bf90321ab479b1b570998c938bac3f701d328b0e",
+    "size": [
+      3231,
+      3299
+    ],
+    "crop": [
+      1120,
+      532,
+      1996,
+      2456
+    ]
+  },
+  "Wild Guns": {
+    "slug": "74186792652c1f3a97b7d0132cc12771919e1759",
+    "sha1": "74186792652c1f3a97b7d0132cc12771919e1759",
+    "size": [
+      3155,
+      3299
+    ],
+    "crop": [
+      1128,
+      536,
+      2004,
+      2460
+    ]
+  },
+  "Wild Snake": {
+    "slug": "f7f56c2c7138a3e638ba0c1da00d912a81229ed4",
+    "sha1": "f7f56c2c7138a3e638ba0c1da00d912a81229ed4",
+    "size": [
+      3181,
+      3249
+    ],
+    "crop": [
+      1132,
+      532,
+      1988,
+      2456
+    ]
+  },
+  "Williams Arcade_s Greatest Hits": {
+    "slug": "764292ea044c79b21180539ea74116e2cf8d5ab0",
+    "sha1": "764292ea044c79b21180539ea74116e2cf8d5ab0",
+    "size": [
+      3181,
+      3249
+    ],
+    "crop": [
+      1116,
+      528,
+      1932,
+      2452
+    ]
+  },
+  "Wing Commander": {
+    "slug": "0a7a44828dd3b53a46218ba38869652af2f689cd",
+    "sha1": "0a7a44828dd3b53a46218ba38869652af2f689cd",
+    "size": [
+      3181,
+      3274
+    ],
+    "crop": [
+      1124,
+      540,
+      2000,
+      2464
+    ]
+  },
+  "Wing Commander - The Secret Missions": {
+    "slug": "a779dd25ca1ebc986be493f9f4c5a88b439769ca",
+    "sha1": "a779dd25ca1ebc986be493f9f4c5a88b439769ca",
+    "size": [
+      3610,
+      3299
+    ],
+    "crop": [
+      1112,
+      528,
+      1988,
+      2452
+    ]
+  },
+  "Wings 2 - Aces High": {
+    "slug": "786deb29b44c5ef634479ddd965f7f3cbb6066e2",
+    "sha1": "786deb29b44c5ef634479ddd965f7f3cbb6066e2",
+    "size": [
+      3206,
+      3349
+    ],
+    "crop": [
+      1132,
+      552,
+      1968,
+      2476
+    ]
+  },
+  "Winter Olympic Games - Lillehammer _94": {
+    "slug": "2fc03252d5f3fc5ac5a4f604892c3a90430d5320",
+    "sha1": "2fc03252d5f3fc5ac5a4f604892c3a90430d5320",
+    "size": [
+      3206,
+      3249
+    ],
+    "crop": [
+      1124,
+      540,
+      1980,
+      2464
+    ]
+  },
+  "Wizard of Oz, The": {
+    "slug": "f51618cd1dd6c6ac9033f348ac5c1fcf03096b3d",
+    "sha1": "f51618cd1dd6c6ac9033f348ac5c1fcf03096b3d",
+    "size": [
+      3231,
+      3299
+    ],
+    "crop": [
+      1120,
+      528,
+      1996,
+      2452
+    ]
+  },
+  "Wizardry V - Heart of the Maelstrom": {
+    "slug": "988f4dba3690f57a978aac1787d67ca96e51a08c",
+    "sha1": "988f4dba3690f57a978aac1787d67ca96e51a08c",
+    "size": [
+      3761,
+      3249
+    ],
+    "crop": [
+      1108,
+      532,
+      1984,
+      2456
+    ]
+  },
+  "Wolf Child": {
+    "slug": "09421d96bb409083b8a08894d2c6c300f3023b5f",
+    "sha1": "09421d96bb409083b8a08894d2c6c300f3023b5f",
+    "size": [
+      3282,
+      3223
+    ],
+    "crop": [
+      1124,
+      544,
+      2000,
+      2468
+    ]
+  },
+  "Wolfenstein 3-D": {
+    "slug": "2230ebc8a595d25b713744f31f0c44d42e163f81",
+    "sha1": "2230ebc8a595d25b713744f31f0c44d42e163f81",
+    "size": [
+      3282,
+      3299
+    ],
+    "crop": [
+      1128,
+      528,
+      1984,
+      2452
+    ]
+  },
+  "Wolverine - Adamantium Rage": {
+    "slug": "947fc9a743015deb62c8835b7636a86dc86d5c52",
+    "sha1": "947fc9a743015deb62c8835b7636a86dc86d5c52",
+    "size": [
+      3206,
+      3274
+    ],
+    "crop": [
+      1124,
+      528,
+      2000,
+      2452
+    ]
+  },
+  "Wordtris": {
+    "slug": "374cfda344cf1b40f9cb848a239b5b27dd46b341",
+    "sha1": "374cfda344cf1b40f9cb848a239b5b27dd46b341",
+    "size": [
+      3256,
+      3299
+    ],
+    "crop": [
+      1128,
+      532,
+      1984,
+      2456
+    ]
+  },
+  "World Cup USA _94": {
+    "slug": "5f0811c6b22f642f331dadd509c4c169e69c7b09",
+    "sha1": "5f0811c6b22f642f331dadd509c4c169e69c7b09",
+    "size": [
+      3963,
+      3274
+    ],
+    "crop": [
+      1112,
+      536,
+      1988,
+      2460
+    ]
+  },
+  "World Heroes": {
+    "slug": "43ab699bd39f29d3136ef4071b04eaf83d185f27",
+    "sha1": "43ab699bd39f29d3136ef4071b04eaf83d185f27",
+    "size": [
+      3635,
+      3324
+    ],
+    "crop": [
+      1112,
+      532,
+      1988,
+      2456
+    ]
+  },
+  "World Heroes 2": {
+    "slug": "0a06fa1cd069bca72679e008c6b68ec242861257",
+    "sha1": "0a06fa1cd069bca72679e008c6b68ec242861257",
+    "size": [
+      3660,
+      3274
+    ],
+    "crop": [
+      1124,
+      536,
+      2000,
+      2460
+    ]
+  },
+  "World League Soccer": {
+    "slug": "ba2661c6da01ad66b2f6b333bdeef631ef795f95",
+    "sha1": "ba2661c6da01ad66b2f6b333bdeef631ef795f95",
+    "size": [
+      3686,
+      3274
+    ],
+    "crop": [
+      1136,
+      552,
+      1992,
+      2476
+    ]
+  },
+  "World Soccer _94 - Road to Glory": {
+    "slug": "15c7002f2e964503644ea889808bddbe9c3aa39f",
+    "sha1": "15c7002f2e964503644ea889808bddbe9c3aa39f",
+    "size": [
+      3231,
+      3249
+    ],
+    "crop": [
+      1124,
+      552,
+      1960,
+      2476
+    ]
+  },
+  "X-Kaliber 2097": {
+    "slug": "fd100624f3ff486b08b8e8106da4123d9d69d53c",
+    "sha1": "fd100624f3ff486b08b8e8106da4123d9d69d53c",
+    "size": [
+      3282,
+      3299
+    ],
+    "crop": [
+      1124,
+      532,
+      1980,
+      2456
+    ]
+  },
+  "X-Men - Mutant Apocalypse": {
+    "slug": "282f80edcb06f1d5b3ad88dfdf62e0c986057a05",
+    "sha1": "282f80edcb06f1d5b3ad88dfdf62e0c986057a05",
+    "size": [
+      3282,
+      3223
+    ],
+    "crop": [
+      1132,
+      512,
+      1988,
+      2436
+    ]
+  },
+  "X-Zone": {
+    "slug": "e3e84459442a5c36db66cf1b8de409a518e320e2",
+    "sha1": "e3e84459442a5c36db66cf1b8de409a518e320e2",
+    "size": [
+      3155,
+      3274
+    ],
+    "crop": [
+      1128,
+      532,
+      1984,
+      2456
+    ]
+  },
+  "Xardion": {
+    "slug": "caa08fa63f11187a33bcb2d6cd9513e0c9719ffb",
+    "sha1": "caa08fa63f11187a33bcb2d6cd9513e0c9719ffb",
+    "size": [
+      3711,
+      3274
+    ],
+    "crop": [
+      1136,
+      536,
+      1992,
+      2460
+    ]
+  },
+  "Yoshi_s Cookie": {
+    "slug": "9897bc115d4b3ee83813c5af2e0b6ecbcd2a070a",
+    "sha1": "9897bc115d4b3ee83813c5af2e0b6ecbcd2a070a",
+    "size": [
+      3155,
+      3223
+    ],
+    "crop": [
+      1108,
+      536,
+      1924,
+      2460
+    ]
+  },
+  "Yoshi_s Safari": {
+    "slug": "de706ad85627c57cebd6efc3b49568d17ed4736f",
+    "sha1": "de706ad85627c57cebd6efc3b49568d17ed4736f",
+    "size": [
+      3635,
+      3299
+    ],
+    "crop": [
+      1124,
+      536,
+      1980,
+      2460
+    ]
+  },
+  "Young Merlin": {
+    "slug": "f7ef3dbd13e2f7fb8aa23e3580162c03fe9cf84a",
+    "sha1": "f7ef3dbd13e2f7fb8aa23e3580162c03fe9cf84a",
+    "size": [
+      3206,
+      3299
+    ],
+    "crop": [
+      1132,
+      528,
+      1988,
+      2452
+    ]
+  },
+  "Zero - The Kamikaze Squirrel": {
+    "slug": "57b412d6ef48dc47e61db34e2c63b9de5bdf0eca",
+    "sha1": "57b412d6ef48dc47e61db34e2c63b9de5bdf0eca",
+    "size": [
+      3181,
+      3299
+    ],
+    "crop": [
+      1140,
+      536,
+      1996,
+      2460
+    ]
+  },
+  "Zombies Ate My Neighbors": {
+    "slug": "e78ea1c6cd3356b9caa9b7ac8400fc3578502478",
+    "sha1": "e78ea1c6cd3356b9caa9b7ac8400fc3578502478",
+    "size": [
+      3559,
+      3274
+    ],
+    "crop": [
+      1132,
+      532,
+      1988,
+      2456
+    ]
+  },
+  "Zool - Ninja of the _Nth_ Dimension": {
+    "slug": "be90d302cfd5a59bd5d634d4e1b6263790e9a5f6",
+    "sha1": "be90d302cfd5a59bd5d634d4e1b6263790e9a5f6",
+    "size": [
+      3307,
+      3274
+    ],
+    "crop": [
+      1132,
+      532,
+      1988,
+      2456
+    ]
+  },
+  "Zoop": {
+    "slug": "035df0a19ef14edb0234658b660e701caa208caa",
+    "sha1": "035df0a19ef14edb0234658b660e701caa208caa",
+    "size": [
+      3206,
+      3249
+    ],
+    "crop": [
+      1112,
+      528,
+      2008,
+      2452
+    ]
+  }
+}

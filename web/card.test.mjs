@@ -287,5 +287,5 @@ test('a folder the browser listed as empty says it could not be read', () => {
 });
 
 test('a folder with files but no games is still not a slot card', () => {
-  assert.throws(() => fromFiles(listed({ Photos: { 'a.jpg': '' } })), /doesn’t look like a slot SD card/);
+  assert.throws(() => fromFiles(listed({ Photos: { 'a.jpg': '' } })), /doesn’t look like a compatible SD card/);
 });

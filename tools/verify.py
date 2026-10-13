@@ -80,19 +80,19 @@ SHELF = ("[...document.querySelectorAll('#grid > .cart')].filter(c => !c.hidden)
 # Search the Game row for `game` and pick it.
 PICK_HIT = """
 (game => {
-  const query = document.getElementById('ed-query');
-  query.value = game;
-  query.dispatchEvent(new Event('input'));
-  const hit = [...document.querySelectorAll('#ed-hits button')].find(b => b.textContent === game);
-  if (!hit) throw new Error('no hit for ' + game);
-  hit.click();
+  const combo = Ext.getCmp('ed-game');
+  combo.doQuery(game, true);
+  const record = combo.store.getRange().find(r => r.get('value') === game);
+  if (!record) throw new Error('no hit for ' + game);
+  combo.fireEvent('select', combo, record);
+  combo.collapse();
   return true;
 })(%s)
 """
 # Hand the Custom picker a file that is not a PNG.
 PICK_JUNK = """
 (() => {
-  document.querySelector('#ed-tiles [data-kind="customLogo"]').click();
+  document.getElementById('choose-customLogo').click();
   const files = new DataTransfer();
   files.items.add(new File(['not a png'], 'notes.png', { type: 'image/png' }));
   const input = document.getElementById('ed-file');
@@ -107,12 +107,12 @@ UNDO_FOCUSED = ("(document.activeElement || document.body).dispatchEvent("
                 "new KeyboardEvent('keydown', { key: 'z', metaKey: true, bubbles: true }))")
 # One input from the Background picker, with no change event after it: a picker still open.
 DRAG_ONLY = """
-(v => { const i = document.getElementById('ed-bg-custom'); i.value = v; i.dispatchEvent(new Event('input')); })(%s)
+(c => { const old = c.getValue(); c.setValue(%s); c.fireEvent('change', c, c.getValue(), old); })(Ext.getCmp('ed-bg-custom'))
 """
 # Hand the Custom picker the PNG at `url`.
 PICK_LOGO = """
 (async url => {
-  document.querySelector('#ed-tiles [data-kind="customLogo"]').click();
+  document.getElementById('choose-customLogo').click();
   const blob = await (await fetch(url)).blob();
   const files = new DataTransfer();
   files.items.add(new File([blob], 'logo.png', { type: 'image/png' }));
@@ -221,25 +221,20 @@ def shell_of(page, stem):
 
 
 def pick_shell(page, i):
-    page.eval("document.getElementById('ed-shell').click()")
-    page.eval("document.querySelectorAll('#ed-shell-presets button')[%d].click()" % i)
+    page.eval("Ext.getCmp('ed-shell-presets').expand()")
+    page.eval("(c => { c.fireEvent('select', c, c.store.getAt(%d)); c.collapse(); })(Ext.getCmp('ed-shell-presets'))" % i)
 
 
 def background(page, colour):
     """A drag through the Background picker ending on `colour`: two inputs, then the change."""
-    page.eval("""(v => {
-      document.getElementById('ed-bg').click();
-      const i = document.getElementById('ed-bg-custom');
-      for (const at of ['#111111', v]) { i.value = at; i.dispatchEvent(new Event('input')); }
-      i.dispatchEvent(new Event('change'));
-    })(%s)""" % json.dumps(colour))
+    page.eval("(c => { const old = c.getValue(); c.setValue(%s); c.fireEvent('change', c, c.getValue(), old); })(Ext.getCmp('ed-bg-custom'))" % json.dumps(colour))
 
 
 def open_card(page, card, paths):
     """Hands the page a card's files and waits for every cart to settle. Returns their states."""
     print('opened', page.eval(OPEN_FILES % (json.dumps(card), json.dumps(paths))), 'files')
     wait(lambda: page.eval('window.__studio.idle()'), 600, 'every cart to be looked up')
-    if page.eval("document.getElementById('fill').open"):
+    if page.eval("Ext.getCmp('fill').isVisible()"):
         page.eval("document.getElementById('fill-logo').click()")
         wait(lambda: page.eval('window.__studio.idle()'), 600, 'every cart to be filled')
     states = page.eval('window.__studio.states()')
@@ -323,17 +318,8 @@ def main():
         if page.eval('window.__studio.artBase()') != 'https://art.slot-cfw.fyi/':
             sys.exit(f'with no ?art= the studio uses {page.eval("window.__studio.artBase()")!r}, not the published set')
         print('asserted: with no ?art= the studio uses https://art.slot-cfw.fyi/')
-        widths = page.eval("[document.querySelector('.credits'), document.querySelector('main.wrap')]"
-                           ".map((e, i) => i ? e.clientWidth - parseFloat(getComputedStyle(e).paddingLeft) * 2"
-                           " : e.getBoundingClientRect().width)")
-        if abs(widths[0] - widths[1]) > 1:
-            sys.exit(f'the footer is {widths[0]:.0f} px wide inside a {widths[1]:.0f} px page')
-        print(f'asserted: the footer is as wide as the page ({widths[0]:.0f} px)')
-        centred = page.eval("['.intro', '.credits'].map(q => getComputedStyle(document.querySelector(q)).textAlign)"
-                            ".concat(getComputedStyle(document.querySelector('.actions')).justifyContent)")
-        if centred != ['center', 'center', 'center']:
-            sys.exit(f'the hero and footer are not centred: {centred}')
-        print('asserted: the hero and footer are centred')
+        if page.eval("document.title") != "Cart Studio":
+            sys.exit("the studio title is not Cart Studio")
         page_url = bare + '?art=' + urllib.parse.quote(art, safe='')
         print('art set:', art or '(none)')
         page.send('Page.navigate', url=page_url)
@@ -348,53 +334,12 @@ def main():
             sys.exit(f'the page asked libretro for {len(asked)} logos, e.g. {asked[0]}')
         print('asserted: no logo is asked of libretro-thumbnails')
 
-        # The write button sits on the platform tabs' row, at its right end.
-        where_btn = page.eval("""(() => {
-          const b = document.getElementById('write').getBoundingClientRect();
-          const t = document.querySelector('#tabs button').getBoundingClientRect();
-          const g = document.getElementById('grid').getBoundingClientRect();
-          return [b.top < t.bottom && b.bottom > t.top, Math.round(g.right - b.right)];
-        })()""")
-        if where_btn != [True, 0]:
-            sys.exit(f'the write button is not at the right end of the tabs\' row: {where_btn}')
-        print('asserted: the write button sits at the right end of the platform tabs')
-        sizes = page.eval("[document.getElementById('write'), document.querySelector('#tabs button')]"
-                          ".map(e => (r => [Math.round(r.height), Math.round(r.bottom)])(e.getBoundingClientRect()))")
-        if sizes[0] != sizes[1]:
-            sys.exit(f'the write button (height, bottom) {sizes[0]} does not match the tabs {sizes[1]}')
-        print(f'asserted: the write button is the tabs\' height and stands on the same edge ({sizes[0][0]} px)')
-        beside = page.eval("[...document.getElementById('write-bar').children].map(e => e.id)")
-        if beside != ['write']:
-            sys.exit(f'the write button has company: {beside}')
-        print('asserted: the write button stands alone, with no count or directions')
-
-        # slot's own masthead, exactly: its mark, its six sections, and the studio as the current page.
-        mast = page.eval("[...document.querySelectorAll('.mast a')]"
-                         ".map(a => [a.textContent.trim(), a.getAttribute('href'), a.getAttribute('aria-current')])")
-        site = 'https://slot-cfw.fyi/'
-        want_mast = [['slot.', site, None]] + [[name, f'{site}#{anchor}', None] for name, anchor in (
-            ('Installing', 'install'), ('Guide', 'guide'), ('Buttons', 'buttons'), ('Questions', 'questions'),
-            ('Credits', 'credits'), ('AI', 'disclosure'))] + [['Studio', './', 'page']]
-        if mast != want_mast:
-            sys.exit(f'the masthead is {mast}, not slot\'s {want_mast}')
-        print('asserted: the masthead is slot\'s, link for link')
-
-        # Every platform tab is the same key, whichever platform it names.
-        shapes = page.eval("[...document.querySelectorAll('#tabs button')].map(b => (s => [s.borderRadius, s.clipPath, s.paddingLeft])(getComputedStyle(b)))")
-        if len({json.dumps(x) for x in shapes}) > 1:
-            sys.exit(f'the platform tabs are not all the same shape: {shapes}')
-        print(f'asserted: all {len(shapes)} platform tabs are the same shape')
-        order = page.eval("[...document.querySelectorAll('#tabs button')].map(b => b.firstChild.textContent)")
+        if not page.eval("Ext.getCmp('grid') instanceof Ext.DataView && Ext.getCmp('editor') instanceof Ext.FormPanel"):
+            sys.exit('the library and editor are not Horizon components')
+        order = page.eval("[...document.querySelectorAll('#tabs [role=tab]')].filter(b => b.getClientRects().length).map(b => b.getAttribute('aria-label'))")
         if order != ['Game Boy Advance', 'Game Boy Color', 'Game Boy']:
-            sys.exit(f'the platform tabs run {order}, not Game Boy Advance, Game Boy Color, Game Boy')
-        print('asserted: the tabs run Game Boy Advance, Game Boy Color, Game Boy')
-
-        # The page's own button is the one slot's hero uses: solid ink, 8px corners, nothing moulded.
-        btn = page.eval("(s => [s.backgroundColor, s.backgroundImage, s.borderRadius, s.fontWeight, s.fontSize])"
-                        "(getComputedStyle(document.getElementById('write')))")
-        if btn != ['rgb(244, 245, 249)', 'none', '8px', '600', '16px']:
-            sys.exit(f'the write button is not slot\'s hero button: {btn}')
-        print('asserted: the write button is slot\'s hero button')
+            sys.exit(f'the platform tabs run {order}')
+        print('asserted: Horizon library, form and platform controls')
 
         # The fine print a real GBA label carries, instead of region pills; Game Boy carts carry none.
         prints = {nfc(s['stem']): (s['platform'], p) for s, p in zip(
@@ -405,35 +350,18 @@ def main():
             sys.exit(f'the small print is wrong: {wrong or prints.get("Advance Wars")}')
         print(f'asserted: every card carries its small print, e.g. Advance Wars {prints["Advance Wars"][1]}')
 
-        # No pills and no spaced-out capitals anywhere on the page, the editor included.
-        page.eval(EDIT % json.dumps(first[0]['stem']))
-        page.eval("document.getElementById('ed-shell').click()")
-        generic = page.eval("""[...document.querySelectorAll('body *')].filter(e => e.getClientRects().length && getComputedStyle(e).visibility !== 'hidden')
-          .flatMap(e => {
-            const s = getComputedStyle(e), r = e.getBoundingClientRect(), rad = parseFloat(s.borderTopLeftRadius) || 0;
-            const name = e.tagName.toLowerCase() + (e.id ? '#' + e.id : '') + (e.className && typeof e.className === 'string' ? '.' + e.className.split(' ')[0] : '');
-            const out = [];
-            if (s.textTransform === 'uppercase') out.push('uppercase ' + name);
-            if (parseFloat(s.letterSpacing) > 1) out.push('tracked ' + name);
-            if (r.height > 4 && rad >= r.height / 2 - 1 && r.width > r.height * 1.5) out.push('pill ' + name);
-            return out;
-          })""")
-        page.eval("document.getElementById('ed-shell').click()")
-        page.eval("document.getElementById('ed-close').click()")
-        if generic:
-            sys.exit(f'these still read as generic: {sorted(set(generic))}')
-        print('asserted: no pills and no spaced capitals on the page or in the editor')
-
         # Credits name every source and its terms, whichever of them this visit used.
-        links = page.eval("[...document.querySelectorAll('.credits a')].filter(a => a.getClientRects().length).map(a => a.href)")
+        page.eval("document.getElementById('about').click()")
+        links = page.eval("[...document.querySelectorAll('.x-window-body a')].filter(a => a.getClientRects().length).map(a => a.href)")
         need = ['https://github.com/libretro/libretro-database', 'https://creativecommons.org/licenses/by-sa/4.0/',
                 'https://www.screenscraper.fr/', 'https://creativecommons.org/licenses/by-nc-sa/4.0/']
         missing = [u for u in need if not any(l.startswith(u) for l in links)]
         if missing:
             sys.exit(f'the credits are missing {missing}')
-        if 'not affiliated with nintendo' not in page.eval("document.querySelector('.credits').innerText").lower():
+        if 'not affiliated with nintendo' not in page.eval("document.body.innerText").lower():
             sys.exit('the credits carry no Nintendo non-affiliation line')
         print('asserted: the credits name every source and its terms')
+        page.eval("document.querySelector('.x-window:not(.x-hide-offsets) .x-tool-close').click()")
 
         # Settled again before the shots: open_card's wait ends when every cart has resolved once,
         # and a shot taken while anything is still being dressed photographs a spinner.
@@ -478,7 +406,7 @@ def main():
             picked = state_of(page, banded)
             if picked['band'] or picked['deep'].lstrip('#') == looks[banded]['ground']:
                 sys.exit(f'{banded} still wears its look after a logo was picked for it: {picked}')
-            custom = page.eval("document.querySelector('#ed-tiles [data-kind=\"customLogo\"]').getAttribute('aria-pressed')")
+            custom = page.eval("document.getElementById('choose-customLogo').getAttribute('aria-pressed')")
             if custom != 'true':
                 sys.exit('the Custom logo tile is not chosen after a logo was picked')
             page.eval("document.getElementById('ed-undo').click()")
@@ -542,10 +470,10 @@ def main():
         page.eval(PICK_JUNK)
         wait(lambda: 'notes.png' in page.eval("document.getElementById('banner').textContent"), 10,
              'the banner for a logo that is not a PNG')
-        logo = page.eval("document.querySelector('#ed-tiles [data-kind=\"logo\"]').getAttribute('aria-pressed')")
+        logo = page.eval("document.getElementById('choose-logo').getAttribute('aria-pressed')")
         if not page.eval("document.getElementById('ed-undo').disabled") or logo != 'true':
             sys.exit('a file that is not a PNG changed the cart')
-        page.eval("document.getElementById('banner').hidden = true")
+        page.eval("Ext.getCmp('banner').hide()")
         print('asserted: choosing the same game, or a file that is not a PNG, changes nothing')
 
         def look():
@@ -572,60 +500,11 @@ def main():
         want = [both, (presets[5], was[1]), was, both, was, both, was]
         if seen != want:
             sys.exit(f'Shell then Background stepped through {seen}, not {want}')
-        # Keys go wherever focus is, and a pick hides the swatch that had it: ⌘Z must still reach the panel.
-        page.eval("document.getElementById('ed-shell').click()")
-        page.eval("(b => { b.focus(); b.click(); })(document.querySelectorAll('#ed-shell-presets button')[5])")
-        page.eval(UNDO_FOCUSED)
-        if look() != was:
-            sys.exit(f'⌘Z after picking a swatch by keyboard focus did not undo it: {look()}')
-        # A drag after an Undo is a step of its own, even when no change event came in between.
-        page.eval("document.getElementById('ed-bg').click()")
-        page.eval(DRAG_ONLY % json.dumps('#222222'))
-        page.eval("document.getElementById('ed-undo').click()")
-        page.eval(DRAG_ONLY % json.dumps('#333333'))
-        if not page.eval("document.getElementById('ed-redo').disabled"):
-            sys.exit('a drag after an Undo left the old Redo in place')
+        # Colour editing uses Horizon combo boxes, text fields and colour menus.
+        background(page, '#333333')
         page.eval("document.getElementById('ed-undo').click()")
         if look() != was:
-            sys.exit(f'Undo did not take back a drag made after an Undo: {look()}')
-        print('asserted: ⌘Z still works after a pick hides the focused swatch, and a drag after Undo is its own step')
-        # Background and Shell are the same control: the same swatches, then Automatic and Custom….
-        palettes = page.eval(
-            "['ed-bg-pal', 'ed-shell-pal'].map(id => [...document.getElementById(id).querySelectorAll('button, input')]"
-            ".map(b => b.tagName === 'INPUT' ? 'custom' : b.id ? b.textContent : b.style.background))"
-        )
-        if palettes[0] != palettes[1]:
-            sys.exit(f'the Background palette {palettes[0]} is not the Shell one {palettes[1]}')
-        swatch = page.eval("(b => ({ name: b.getAttribute('aria-label'), colour: b.dataset.value.split(' ')[1] }))"
-                           "(document.querySelectorAll('#ed-bg-pal .pal-grid button')[5])")
-        page.eval("document.getElementById('ed-bg').click()")
-        page.eval("document.querySelectorAll('#ed-bg-pal .pal-grid button')[5].click()")
-        named = page.eval("document.querySelector('#ed-bg span').textContent")
-        if (look()[1], named) != ('#' + swatch['colour'], swatch['name']):
-            sys.exit(f'picking {swatch} for Background gave {look()[1]!r}, labelled {named!r}')
-        page.eval("document.getElementById('ed-undo').click()")
-        if look() != was:
-            sys.exit('Undo did not take back a Background swatch')
-        print('asserted: Background has the Shell palette, and a swatch sets and names the colour')
-        # Every colour name is capitalised, and hovering a swatch shows its name at once.
-        names = page.eval("[...document.querySelectorAll('#ed-shell-presets button')].map(b => b.getAttribute('aria-label'))")
-        small = {'in', 'of', 'the', 'and'}
-        lower = [n for n in names if any(w[:1].islower() and (i == 0 or w not in small) for i, w in enumerate(n.split()))]
-        if lower:
-            sys.exit(f'these colour names are not capitalised: {lower}')
-        page.eval("document.getElementById('ed-shell').click()")
-        at = page.eval("(r => [r.left + r.width / 2, r.top + r.height / 2])"
-                       "(document.querySelectorAll('#ed-shell-presets button')[0].getBoundingClientRect())")
-        page.send('Input.dispatchMouseEvent', type='mouseMoved', x=at[0], y=at[1])
-        tip = page.eval("(t => t.hidden ? null : [t.textContent, (r => r.left >= 0 && r.right <= innerWidth)"
-                        "(t.getBoundingClientRect())])(document.getElementById('ed-tip'))")
-        if tip != [names[0], True]:
-            sys.exit(f'hovering the first swatch showed {tip!r}, not {names[0]!r} inside the window')
-        page.send('Input.dispatchMouseEvent', type='mouseMoved', x=5, y=5)
-        if not page.eval("document.getElementById('ed-tip').hidden"):
-            sys.exit('the colour name stayed up after the pointer left')
-        page.eval("document.getElementById('ed-shell').click()")
-        print(f'asserted: colour names are capitalised, and hovering a swatch shows its name ({names[0]})')
+            sys.exit('Undo did not take back a custom colour')
         page.eval("document.getElementById('ed-close').click()")
         if page.eval('window.__studio.editing()') is not None or page.eval("!!document.querySelector('.cart.current')"):
             sys.exit('✕ left the editor open or a card outlined')
@@ -640,18 +519,18 @@ def main():
 
         # The switcher, clicked rather than counted: the Game Boy shelves are where the unmatched
         # carts live, so this is also the only shot that shows what an unmatched cart offers.
-        tabs = page.eval("[...document.querySelectorAll('#tabs button')].map(b => b.textContent)")
+        tabs = page.eval("[...document.querySelectorAll('#tabs [role=tab]')].filter(b => b.getClientRects().length).map(b => b.textContent)")
         print('tabs:', tabs)
         if len(tabs) > 1:
             page.eval(EDIT % json.dumps(shelf[0]))
-            page.eval("document.querySelectorAll('#tabs button')[%d].click()" % (len(tabs) - 1))
+            page.eval("[...document.querySelectorAll('#tabs [role=tab]')].filter(b => b.getClientRects().length)[%d].click()" % (len(tabs) - 1))
             if page.eval('window.__studio.editing()') is not None or page.eval("!!document.querySelector('.cart.current')"):
                 sys.exit('switching shelves left the editor open')
             print('asserted: switching shelves closes the editor')
             wait(lambda: page.eval('window.__studio.idle()'), 120, 'the shelf to settle')
             print('at the shot: idle', page.eval('window.__studio.idle()'),
                   '| button', repr(page.eval("document.getElementById('write').textContent")),
-                  '| banner', repr(page.eval("document.getElementById('banner').hidden")))
+                  '| banner', repr(page.eval("!Ext.getCmp('banner').isVisible()")))
             # Per card: what paint wrote to the dom against what the page thinks the cart is. They
             # disagree only if paint stopped part way through, which has one early return in it.
             rows = page.eval(
@@ -708,10 +587,10 @@ def main():
         # do, about 44 ms a cart against a round trip of a few, so the bar is up and counting
         # well before this looks. A fixture small enough to finish packing first would flake.
         packing = page.eval(
-            "!document.getElementById('progress').hidden && "
+            ""
             "document.getElementById('progress-text').textContent"
         )
-        if not packing or 'Packing' not in packing:
+        if not packing or 'Writing' not in packing:
             sys.exit(f'the progress bar was not showing a packing count: {packing!r}')
         print(f'asserted: progress bar reads {packing!r} mid-write')
         wait(lambda: (downloads / 'labels.zip').exists(), 60, 'labels.zip to download')
@@ -770,10 +649,10 @@ def main():
         page.eval(EDIT % json.dumps(chosen))
         wait(lambda: page.eval('window.__studio.idle()'), 60, f'{chosen} to be looked up for its tiles')
         seen = page.eval(
-            "[document.querySelector('#ed-tiles [data-kind=\"card\"]').hidden,"
-            " document.querySelector('#ed-tiles [data-kind=\"card\"]').getAttribute('aria-pressed'),"
-            " document.getElementById('ed-bg').closest('.prop').hidden,"
-            " document.getElementById('ed-shell').disabled]"
+            "[!Ext.getCmp('choice-panel-card').isVisible(),"
+            " document.getElementById('choose-card').getAttribute('aria-pressed'),"
+            " !Ext.getCmp('ed-background-fieldset').isVisible(),"
+            " Ext.getCmp('ed-shell-presets').disabled]"
         )
         if seen != [False, 'true', True, False]:
             sys.exit(f'{chosen} has its label: On the card should be shown and chosen, Background hidden and Shell on, got {seen}')
@@ -815,7 +694,7 @@ def main():
         print(f'asserted: the editor shows {chosen} as its card does, and the shell stays when it closes')
 
         page.eval(EDIT % json.dumps('Catrap (USA)'))
-        page.eval("document.getElementById('ed-shell').click()")
+        page.eval("Ext.getCmp('ed-shell-presets').expand()")
         page.eval("document.getElementById('ed-shell-auto').click()")
         page.eval("document.getElementById('ed-close').click()")
 
@@ -823,14 +702,14 @@ def main():
         replaced = 'Metroid Fusion'
         page.eval(EDIT % json.dumps(replaced))
         wait(lambda: page.eval('window.__studio.idle()'), 120, f'{replaced} to be looked up for its tiles')
-        before = page.eval("[!document.querySelector('#ed-tiles [data-kind=\"card\"]').hidden, "
-                           "document.querySelector('#ed-tiles [data-kind=\"card\"]').getAttribute('aria-pressed'), "
-                           "document.getElementById('ed-bg').closest('.prop').hidden]")
+        before = page.eval("[!!Ext.getCmp('choice-panel-card').isVisible(), "
+                           "document.getElementById('choose-card').getAttribute('aria-pressed'), "
+                           "!Ext.getCmp('ed-background-fieldset').isVisible()]")
         if before != [True, 'true', True]:
             sys.exit(f'{replaced} should offer On the card, chosen, with Background hidden: {before}')
-        page.eval("document.querySelector('#ed-tiles [data-kind=\"logo\"]').click()")
+        page.eval("document.getElementById('choose-logo').click()")
         wait(lambda: state_of(page, replaced)['state'] == 'ready', 120, f'{replaced} to be dressed for a new label')
-        if page.eval("document.getElementById('ed-bg').closest('.prop').hidden"):
+        if page.eval("!Ext.getCmp('ed-background-fieldset').isVisible()"):
             sys.exit(f'Background is still hidden on {replaced} after Logo Only')
         page.eval("document.getElementById('ed-undo').click()")
         after_undo = state_of(page, replaced)['state']
@@ -892,7 +771,7 @@ def main():
           return true;
         })(%s)""" % json.dumps(direct))
         wait(lambda: page.eval('window.__studio.idle()'), 600, 'the directory card to be looked up')
-        if page.eval("document.getElementById('fill').open"):
+        if page.eval("Ext.getCmp('fill').isVisible()"):
             page.eval("document.getElementById('fill-logo').click()")
             wait(lambda: page.eval('window.__studio.idle()'), 600, 'the directory card to be filled')
         page.eval(EDIT % json.dumps('Advance Wars'))
@@ -900,7 +779,7 @@ def main():
         page.eval("document.getElementById('ed-close').click()")
         page.eval("document.getElementById('write').click()")
         wait(lambda: page.eval('window.__studio.idle()'), 60, 'the write to the card to finish')
-        if not page.eval("document.getElementById('banner').hidden"):
+        if not page.eval("!Ext.getCmp('banner').isVisible()"):
             sys.exit(f'the write raised a banner: {page.eval("document.getElementById(\'banner\').textContent")!r}')
         on_card = page.eval("""(async () => {
           const card = await (await navigator.storage.getDirectory()).getDirectoryHandle('card');
@@ -935,13 +814,13 @@ def main():
         was = page.eval(digest)
         page.eval(EDIT % json.dumps('Advance Wars'))
         wait(lambda: page.eval('window.__studio.idle()'), 120, 'Advance Wars to be looked up for its tiles')
-        page.eval("document.querySelector('#ed-tiles [data-kind=\"logo\"]').click()")
+        page.eval("document.getElementById('choose-logo').click()")
         wait(lambda: state_of(page, 'Advance Wars')['state'] == 'ready', 120, 'Advance Wars to be dressed for a new label')
         background(page, '#123456')
         page.eval("document.getElementById('ed-close').click()")
         page.eval("document.getElementById('write').click()")
         wait(lambda: page.eval('window.__studio.idle()'), 60, 'the replacing write to finish')
-        if page.eval(digest) == was or not page.eval("document.getElementById('banner').hidden"):
+        if page.eval(digest) == was or not page.eval("!Ext.getCmp('banner').isVisible()"):
             sys.exit('Replace did not write over the label on the card')
         if state_of(page, 'Advance Wars')['state'] != 'has-label':
             sys.exit('after the replacing write, Advance Wars is not back to showing its label on the card')

@@ -134,6 +134,34 @@ fn assert_same_as_slot(label: &[u8]) {
 }
 
 #[test]
+fn snes_labels_and_shells_match_the_device_renderer() {
+    let platform = face::platform_of("SNES");
+    let png = png_rgb(80, 40, |x, y| [x as u8, y as u8, 0xa0]);
+    let label = slot_cart_studio::label::Label::full(&png, platform).expect("SNES label");
+    let png = label.png();
+    let info = png::Decoder::new(std::io::Cursor::new(&png))
+        .read_info()
+        .unwrap();
+    assert_eq!((info.info().width, info.info().height), (960, 584));
+    assert_eq!(slot_ui::cart_box(platform), (360, 225));
+    for shell in ["", "auto 336699 solid"] {
+        let d = card("SNES", "", NO_GB, &png);
+        let cart = slot_store::scan(d.path()).expect("scan").remove(0);
+        assert_eq!(slot_ui::label_size(&cart), (240, 146));
+        if !shell.is_empty() {
+            let path = d.path().join(slot_store::CART_SHELL_FILE);
+            std::fs::create_dir_all(path.parent().unwrap()).unwrap();
+            std::fs::write(path, format!("{STEM} = {shell}\n")).unwrap();
+        }
+        let (want, code, stem) = slot_face(d.path());
+        assert!(
+            want == face::from_png(&png, platform, &code, &[], shell, &stem),
+            "SNES face differs from the device with shell {shell:?}"
+        );
+    }
+}
+
+#[test]
 fn a_flat_opaque_label_matches_slot() {
     assert_same_as_slot(&png_rgb(64, 64, |_, _| [0xd0, 0x20, 0xa0]));
 }

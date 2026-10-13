@@ -28,15 +28,17 @@ import { albumCoverPath, fromDirectory, fromFiles, labelKey, PLATFORMS, shelved 
 import { matchedChecksum, romChecksums } from './snes.js';
 import { existingCover, needsCoverWrite, readAlbum } from './music.js';
 import { createMusicEditor, setCoverImage } from './music-editor.js';
-import { DEFAULT_MUSIC_API } from './config.js';
+import { DEFAULT_MUSIC_API, DEFAULT_ART_BASE } from './config.js';
 import { fetchArt, fetchDat, fetchIndex, fetchThumb, limiter } from './libretro.js';
 import { createEditor } from './editor.js';
 import { amend, commit } from './history.js';
 import { smallPrint } from './smallprint.js';
 import { hasLog, logError, logText } from './log.js';
 import { applyFill, autoFill, available, fillCounts, fillText, wears } from './label-choice.js';
+import { createStudioUi } from './ui.js';
 
 const $ = (id) => document.getElementById(id);
+const ui = createStudioUi();
 const limit = limiter(4);
 // The GBA game code sits at 0xAC and the Game Boy header ends at 0x150; nothing past that is read.
 const HEAD = 0x150;
@@ -54,16 +56,36 @@ const dats = new Map();
 let session = null;
 let busy = 0;
 let writing = false;
+let loadOperation = null;
 // Set by the first WASM trap. What the module holds is undefined after one (a RefCell can stay
 // borrowed, and then every face panics), so nothing calls into it again.
 let fatal = false;
 
-const track = (promise) => {
+const track = (promise, s = session) => {
   busy++;
+  const operation = s?.load;
+  const token = {};
+  if (operation === loadOperation) operation.pending.add(token);
   return promise.finally(() => {
     busy--;
+    if (operation === loadOperation && operation) {
+      operation.pending.delete(token);
+      finishLoading(s);
+    }
   });
 };
+
+function finishLoading(s) {
+  const operation = s?.load;
+  if (!operation || operation !== loadOperation || operation.initializing || operation.pending.size || operation.waitingForFill) return;
+  // Both scanning branches and their artwork downloads finish before asking for a style.
+  if (!operation.checkedFill && !fatal) {
+    operation.checkedFill = true;
+    track(fillOrAsk(s).catch(e => { logError('Loading labels', e); banner(e.message); }), s);
+    return;
+  }
+  loading(null);
+}
 
 function newCart({ platform, stem, file }) {
   return {
@@ -158,7 +180,7 @@ const hex = (rgb) => `#${[...rgb].map((v) => v.toString(16).padStart(2, '0')).jo
 const crcHex = (crc) => crc.toString(16).toUpperCase().padStart(8, '0');
 // Our own set, published beside the studio. `?art=` points at another, a local one while it is
 // being harvested, and an empty `?art=` leaves every cart to libretro.
-const ART_BASE = new URLSearchParams(location.search).get('art') ?? 'https://art.slot-cfw.fyi/';
+const ART_BASE = new URLSearchParams(location.search).get('art') ?? DEFAULT_ART_BASE;
 let artIndex = null;
 const fromHex = (value) => [1, 3, 5].map((at) => parseInt(value.slice(at, at + 2), 16));
 // A sure look from the art set, or null: anything missing, unsure or malformed counts as no look.
@@ -262,7 +284,7 @@ function trapped(e) {
     fatal = true;
     loading(null);
     logError('trap', e);
-    $('progress').hidden = true;
+    ui.setProgress(0, 0);
     banner(FATAL);
     updateWriteBar();
   }
@@ -283,8 +305,7 @@ function describe(c, state) {
   return '';
 }
 
-function buildCard(c) {
-  const root = $('card-tpl').content.firstElementChild.cloneNode(true);
+function buildCard(c, root) {
   const q = (selector) => root.querySelector(selector);
   c.el = { root, canvas: q('canvas'), face: q('.face'), stem: q('.stem'), print: q('.print'), game: q('.game') };
   const [boxW, boxH] = boxOf(c.platform);
@@ -483,43 +504,25 @@ async function takeLogo(c, file) {
 
 function loading(text) {
   document.body.classList.toggle('loading', !!text);
-  $('loader').hidden = !text;
-  if (text) $('loader-text').textContent = text;
+  if (!text) {
+    loadOperation = null;
+    ui.hideProgress();
+  }
+  ui.setLoading(text);
 }
 
 function progress(done, total, stem, verb = 'Reading') {
   if (document.body.classList.contains('loading') && stem) loading(`${verb} ${done + 1} of ${total}: ${stem}`);
-  $('progress').hidden = done >= total;
-  $('bar').max = total;
-  $('bar').value = done;
+  // The read count is one stage; lookup and artwork still have to finish.
+  ui.setProgress(done, total ? total / 0.4 : 0);
   $('progress-text').textContent = stem ? `${verb} ${done + 1} of ${total}: ${stem}` : '';
 }
 
 function banner(text, retry) {
-  const b = $('banner');
-  b.replaceChildren(Object.assign(document.createElement('span'), { className: 'message', textContent: text }));
-  const key = (label, click, extra = '') => {
-    const button = Object.assign(document.createElement('button'), {
-      type: 'button',
-      className: `key dark ${extra}`.trim(),
-      textContent: label,
-    });
-    button.addEventListener('click', () => click(button));
-    b.append(' ', button);
-  };
-  if (retry) key('Retry', retry);
-  if (hasLog()) {
-    key('Copy log', async (button) => {
-      try {
-        await navigator.clipboard.writeText(logText(navigator.userAgent));
-        button.textContent = 'Copied';
-      } catch (e) {
-        console.error('clipboard', e);
-        button.textContent = 'Couldn’t copy';
-      }
-    }, 'copy-log');
-  }
-  b.hidden = false;
+  ui.showBanner(text, retry, hasLog() ? async () => {
+    try { await navigator.clipboard.writeText(logText(navigator.userAgent)); ui.buttons['copy-log'].setText('Copied'); }
+    catch (e) { console.error('clipboard', e); ui.buttons['copy-log'].setText('Couldn’t copy'); }
+  } : null);
 }
 
 async function open(source) {
@@ -527,40 +530,54 @@ async function open(source) {
     banner(FATAL);
     return;
   }
-  const carts = await shelved(source.carts);
   editor.close();
   musicEditor.close();
+  ui.fill.hide();
+  const operation = loadOperation = { pending: new Set(), initializing: true, checkedFill: false, waitingForFill: false };
+  ui.showProgress('Loading SD card', 'Reading the card…');
+  ui.setProgress(0, 0);
+  loading('Reading the card…');
+  let carts;
+  try {
+    source = await source;
+    carts = await shelved(source.carts);
+  } catch (e) {
+    if (operation === loadOperation) loading(null);
+    throw e;
+  }
+  if (operation !== loadOperation) return;
   for (const album of session?.albums ?? []) setCoverImage(album.el.image, null);
-  loading(null);
-  session = { source, carts: carts.map(newCart), albums: (source.albums ?? []).map((a) => ({
+  session = { source, load: operation, carts: carts.map(newCart), albums: (source.albums ?? []).map((a) => ({
     ...a, title: a.path.split('/').at(-1), artist: 'Unknown Artist', loading: true,
     selected: null, original: null, history: { undo: [], redo: [] },
   })) };
-  $('banner').hidden = true;
+  ui.showBanner('');
   // A card opened mid-scan replaces identify()'s loop before it reaches progress(total, total, ''),
   // so the old bar has to be cleared here rather than left for a call that may never come.
-  $('progress').hidden = true;
+  ui.setProgress(0, 0);
   $('progress-text').textContent = '';
-  $('grid').replaceChildren(...session.carts.map(buildCard), ...session.albums.map(buildAlbum));
+  ui.setCards([...session.carts, ...session.albums], (item, node) => item.platform ? buildCard(item, node) : buildAlbum(item, node));
   session.carts.forEach(paint);
   showPlatform(platformsOf(session)[0] ?? PLATFORMS[0]);
-  // The card is chosen, so the chooser goes: the write bar sits in its place, once there is
-  // something to write. updateWriteBar, reached through paint, is what shows it.
-  $('pick').hidden = true;
-  $('pick-files-label').hidden = true;
-  $('write-bar').hidden = true;
-  $('fill-open').hidden = true;
+  ui.buttons['fill-open'].hide();
+  updateWriteBar();
   if (session.carts.length === 0 && session.albums.length === 0) {
     banner('There are no games or music albums in that card’s Games folder.');
+    loading(null);
     return;
   }
-  loading('Reading the card…');
-  if (session.carts.length) track(identify(session));
-  track(identifyAlbums(session));
+  const s = session;
+  const failed = e => {
+    if (s !== session) return;
+    if (!trapped(e)) { logError('Reading card', e); banner(e.message); }
+  };
+  if (s.carts.length) track(identify(s).catch(failed), s);
+  track(identifyAlbums(s).catch(failed), s);
+  operation.initializing = false;
+  finishLoading(s);
 }
 
-function buildAlbum(album) {
-  const root = $('card-tpl').content.firstElementChild.cloneNode(true);
+function buildAlbum(album, root) {
   root.classList.add('album');
   const face = root.querySelector('.face');
   face.replaceChildren();
@@ -590,8 +607,9 @@ function paintAlbum(album) {
 }
 
 async function identifyAlbums(s) {
-  for (const album of s.albums) {
-    if (s !== session) return;
+  for (const [i, album] of s.albums.entries()) {
+    if (s !== session || fatal) return;
+    loading(`Reading album ${i + 1} of ${s.albums.length}: ${album.title}`);
     Object.assign(album, await readAlbum(album));
     if (s !== session) return;
     try { album.original = album.selected = await existingCover(album); }
@@ -600,8 +618,8 @@ async function identifyAlbums(s) {
     album.loading = false;
     paintAlbum(album);
     musicEditor.scanFinished(album);
+    if (!s.carts.length) ui.setProgress(0.9 * (i + 1) / s.albums.length, 1);
   }
-  if (s === session && !s.carts.length) loading(null);
 }
 
 async function identify(s) {
@@ -621,7 +639,8 @@ async function identify(s) {
     failed.push(e);
   }
   if (s !== session || fatal) return;
-  if (failed.length) banner(failed.find((e) => e.name === 'OldShellFile')?.message ?? 'The card’s shells couldn’t be read.');
+  // Browsers can reject the optional legacy filename even when it is absent.
+  if (failed.some(e => e.name !== 'OldShellFile')) banner('The card’s shells couldn’t be read.');
   s.shellText = text.labels;
   const system = cart_shells(text.system);
   s.systemShells = new Set(system.filter((_, i) => i % 2 === 0).map((stem) => stem.normalize('NFC')));
@@ -664,7 +683,6 @@ async function identify(s) {
   progress(total, total, '');
   loading('Looking up the games…');
   await match(s);
-  if (s === session) loading(null);
 }
 
 async function match(s) {
@@ -693,11 +711,22 @@ async function match(s) {
   if (s !== session || fatal) return;
   if (s.datFailed) {
     s.datFailed = false;
-    $('banner').hidden = true;
+    ui.showBanner('');
   }
   const pending = s.carts.filter((c) => (c.crc !== null || onDisc(c)) && !c.game && !c.existing && !c.error);
-  await Promise.all(pending.map((c) => art(s, c)));
-  if (s === session && !fatal && s.fill == null) await fillOrAsk(s);
+  let completed = 0;
+  const results = await Promise.allSettled(pending.map(async c => {
+    await art(s, c);
+    if (s === session && !fatal && s.load === loadOperation) {
+      ++completed;
+      loading(completed === pending.length && s.albums.some(a => a.loading)
+        ? 'Reading remaining albums…' : `Loading artwork ${completed} of ${pending.length}: ${c.stem}`);
+      ui.setProgress(0.4 + 0.5 * completed / pending.length, 1);
+    }
+  }));
+  const failed = results.find(result => result.status === 'rejected');
+  if (failed) throw failed.reason;
+  if (s === session && !fatal && s.fill == null && !loadOperation) await fillOrAsk(s);
 }
 
 // A cart is named by its checksum. A disc is named by its file, when that is spelled the way
@@ -755,7 +784,7 @@ async function dress(s, c) {
       : limit(async () =>
           s === session && !fatal ? fetchThumb(c.platform, folder, name, stub_target) : null,
         ).catch(noImage);
-  // Logos come from our own set alone, by checksum; libretro is asked only for box art.
+  // Prefer checksum-matched artwork, then named libretro logos for cartridges.
   const ours = (media) => {
     const path = key && artIndex?.[key]?.[media];
     if (!path) return Promise.resolve(null);
@@ -767,9 +796,15 @@ async function dress(s, c) {
   // after the logo.
   const boxJob = thumb('Named_Boxarts');
   if (!c.logoBytes) {
-    const logo = await ours('wheel');
+    let logo = await ours('wheel');
     if (s !== session || fatal) return;
-    c.logoBytes = logo && readable(logo) ? logo : null;
+    if (logo && !readable(logo)) logo = null;
+    if (!logo && ['GBA', 'GB', 'GBC', 'SNES'].includes(c.platform)) {
+      logo = await thumb('Named_Logos');
+      if (s !== session || fatal) return;
+      if (logo && !readable(logo)) logo = null;
+    }
+    c.logoBytes = logo;
     // How bright the logo is decides which way its ground goes, so it is measured with the logo.
     c.logoLuma = c.logoBytes ? logo_luma(c.logoBytes) : 255;
   }
@@ -798,17 +833,10 @@ const PLATFORM_NAMES = { GBA: 'Game Boy Advance', GB: 'Game Boy', GBC: 'Game Boy
 function renderTabs() {
   const s = session;
   const present = platformsOf(s);
-  $('tabs').hidden = present.length < 2;
-  $('tabs').replaceChildren(
-    ...present.map((p) => {
-      const n = p === 'Music' ? s.albums.length : s.carts.filter((c) => c.platform === p).length;
-      const tab = Object.assign(document.createElement('button'), { type: 'button', className: 'shelf-tab' });
-      tab.append(PLATFORM_NAMES[p] ?? p, Object.assign(document.createElement('span'), { className: 'n', textContent: n }));
-      tab.setAttribute('aria-pressed', String(p === s.platform));
-      tab.addEventListener('click', () => showPlatform(p));
-      return tab;
-    }),
-  );
+  ui.setPlatforms(present.map((p) => ({
+    id: p, name: PLATFORM_NAMES[p] ?? p,
+    count: p === 'Music' ? s.albums.length : s.carts.filter((c) => c.platform === p).length,
+  })), s.platform, showPlatform);
 }
 
 // Switching hides the other shelves rather than rebuilding the grid: a cart keeps its canvas, its
@@ -825,23 +853,25 @@ function showPlatform(p) {
 function updateWriteBar() {
   if (!session) return;
   const n = readyCarts().length + shellChanges().length + readyAlbums().length;
-  // Nothing to write means no button at all.
-  $('write-bar').hidden = n === 0 && !writing;
-  $('write').disabled = n === 0 || writing || fatal;
-  $('write').textContent = session.source.direct ? 'Write to card' : 'Download ZIP';
-  $('music-save').textContent = $('write').textContent;
-  $('music-save').disabled = $('write').disabled;
+  ui.buttons.write.setVisible(n > 0 || writing);
+  ui.buttons.write.setDisabled(n === 0 || writing || fatal);
+  ui.buttons.pick.setDisabled(writing || fatal);
+  ui.buttons.write.setText(session.source.direct ? 'Write to card' : 'Download ZIP');
+  ui.buttons['music-save'].setText(ui.buttons.write.text);
+  ui.buttons['music-save'].setDisabled(ui.buttons.write.disabled);
 }
 
 function writeProgress(done, total) {
-  $('write').classList.toggle('busy', total > 0);
-  $('write').style.setProperty('--done', total > 0 ? String(done / total) : '0');
+  if (total && !done) ui.showProgress('Saving SD card', 'Writing to the card…');
+  ui.setProgress(done, total);
+  ui.setLoading(total ? 'Writing ' + done + ' of ' + total : null);
+  if (!total) ui.hideProgress();
 }
 
 function updateFillButton() {
   if (!session) return;
   const counts = fillCounts(session.carts.map(view));
-  $('fill-open').hidden = counts.unlabelled === 0 || (session.fill != null && autoFill(counts) !== null);
+  ui.buttons['fill-open'].setVisible(!(counts.unlabelled === 0 || (session.fill != null && autoFill(counts) !== null)));
 }
 
 async function fillOrAsk(s) {
@@ -856,7 +886,7 @@ async function askFill(s) {
   const counts = fillCounts(s.carts.map(view));
   if (counts.unlabelled === 0 || s !== session || fatal) return;
   const { title, question } = fillText(counts);
-  $('fill-title').textContent = title;
+  ui.fill.setTitle(ui.encode(title));
   $('fill-question').textContent = question;
   const sample =
     s.carts.find((c) => !c.existingPng && view(c).hasReal && view(c).hasLogo) ??
@@ -864,7 +894,7 @@ async function askFill(s) {
   if (sample) await fetchReal(s, sample);
   if (s !== session || fatal) return;
   for (const kind of ['real', 'logo']) {
-    const canvas = $(`fill-${kind}`).querySelector('canvas');
+    const canvas = ui.fillChoices[kind].canvas.el.dom;
     let face = null;
     try {
       face = sample ? faceFor(sample, kind) : null;
@@ -878,10 +908,11 @@ async function askFill(s) {
       drawFace(canvas, face, sample.platform);
     }
   }
-  if (!$('fill').open) {
-    $('fill').showModal();
-    $('fill').focus();
+  if (s.load === loadOperation) {
+    s.load.waitingForFill = true;
+    ui.hideProgress();
   }
+  if (!ui.fill.isVisible()) { ui.fill.show(); ui.fill.center(); }
 }
 
 function answerFill(fill) {
@@ -896,13 +927,19 @@ function answerFill(fill) {
       if (snap.choice == null) snap.choice = fill;
     });
   }
-  $('fill').close();
+  ui.fill.hide();
+  if (s.load === loadOperation) {
+    s.load.waitingForFill = false;
+    ui.showProgress('Loading SD card', 'Loading labels…');
+    loading('Loading labels…');
+  }
   for (const c of s.carts) {
     if (!c.userHue) c.deep = null;
     paint(c);
     if (needsReal(c)) track(fetchReal(s, c));
   }
   updateFillButton();
+  finishLoading(s);
 }
 
 function download(blob, name) {
@@ -1151,6 +1188,7 @@ function changed(c, soon = false) {
 }
 
 const editor = createEditor({
+  ui,
   name: (c) => clean_label(c.stem),
   box: boxOf,
   draw: drawFace,
@@ -1199,6 +1237,7 @@ const editor = createEditor({
 });
 
 const musicEditor = createMusicEditor({
+  ui,
   base: MUSIC_API,
   changed: paintAlbum,
   closeCart: () => editor.close(),
@@ -1215,23 +1254,23 @@ async function start() {
       artIndex = await fetchIndex(ART_BASE);
       console.info(`art set: ${Object.keys(artIndex).length} checksums from ${ART_BASE}`);
     } catch (e) {
-      banner(`The art set at ${ART_BASE} didn’t load (${e.message}), so carts get slot’s own labels.`);
+      banner(`The artwork service didn’t load (${e.message}), so carts get generated labels.`);
     }
   }
   const direct = 'showDirectoryPicker' in window;
-  $('pick').hidden = !direct;
-  $('pick-files-label').hidden = direct;
+  ui.buttons.pick.enable();
 
-  $('pick').addEventListener('click', async () => {
+  ui.buttons.pick.on('click', async () => {
+    if (!direct) { $('pick-files').click(); return; }
     let root;
     try {
-      root = await window.showDirectoryPicker({ id: 'slot-card', mode: 'readwrite' });
+      root = await window.showDirectoryPicker({ id: 'cart-studio-card', mode: 'readwrite' });
     } catch (e) {
       if (e.name !== 'AbortError') banner(e.message);
       return;
     }
     try {
-      await open(await fromDirectory(root));
+      await open(fromDirectory(root));
     } catch (e) {
       banner(e.message);
     }
@@ -1247,33 +1286,17 @@ async function start() {
       banner(err.message);
     }
   });
-  $('write').addEventListener('click', () => track(writeLabels()));
-  $('music-save').addEventListener('click', () => track(writeLabels()));
-  $('fill-open').addEventListener('click', () => track(askFill(session)));
-  for (const kind of ['real', 'logo']) $(`fill-${kind}`).addEventListener('click', () => answerFill(kind));
-  $('fill').addEventListener('cancel', (e) => {
-    if (session?.fill == null) e.preventDefault();
-  });
-
-  // slot's masthead: a row side by side, a list behind a button on a phone.
-  const menu = (open) => {
-    $('mast-links').classList.toggle('is-open', open);
-    $('menu-btn').setAttribute('aria-expanded', String(open));
-  };
-  $('menu-btn').addEventListener('click', (e) => {
-    e.stopPropagation();
-    menu(!$('mast-links').classList.contains('is-open'));
-  });
-  document.addEventListener('click', (e) => {
-    if (!$('menu-btn').contains(e.target)) menu(false);
-  });
+  ui.buttons['write'].on('click', () => track(writeLabels()));
+  ui.buttons['music-save'].on('click', () => track(writeLabels()));
+  ui.buttons['fill-open'].on('click', () => track(askFill(session)));
+  for (const kind of ['real', 'logo']) ui.buttons['fill-' + kind].on('click', () => answerFill(kind));
 
 
   // For tools/verify.py, which has no native picker to click. Never set on the published site.
   if (['localhost', '127.0.0.1'].includes(location.hostname)) {
     window.__studio = {
       openFiles: (files) => open(fromFiles(files)),
-      openDirectory: async (root) => open(await fromDirectory(root)),
+      openDirectory: (root) => open(fromDirectory(root)),
       idle: () =>
         busy === 0 && session !== null && session.carts.every((c) => stateOf(c) !== 'looking') && session.albums.every((a) => !a.loading),
       albums: () => session?.albums.map((a) => ({ path: a.path, title: a.title, artist: a.artist,
@@ -1307,7 +1330,7 @@ $('build').append(
   BUILD === 'dev'
     ? 'dev'
     : Object.assign(document.createElement('a'), {
-        href: `https://github.com/BrandonKowalski/slot-cart-studio/commit/${BUILD}`,
+        href: `https://github.com/bently0602/slot-cart-studio/commit/${BUILD}`,
         textContent: BUILD.slice(0, 7),
       }),
 );

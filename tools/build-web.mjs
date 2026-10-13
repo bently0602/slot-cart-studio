@@ -1,8 +1,22 @@
 import { build } from 'esbuild';
-import { mkdir, readFile, writeFile } from 'node:fs/promises';
+import { cp, mkdir, readFile, writeFile } from 'node:fs/promises';
+import { createHash } from 'node:crypto';
 import { dirname, join } from 'node:path';
 
-// Only the metadata library is bundled. The studio's own modules remain directly readable.
+// HorizonJS is a pinned local distribution rather than a CDN dependency. Verify
+// its upstream assets before copying the runtime, readable source, and notices.
+const horizonSource = 'third_party/horizonjs';
+const horizon = JSON.parse(await readFile(join(horizonSource, 'checksums.json'), 'utf8'));
+for (const [file, expected] of Object.entries(horizon.files)) {
+  const bytes = await readFile(join(horizonSource, file));
+  if (createHash('sha256').update(bytes).digest('hex') !== expected) {
+    throw new Error(`HorizonJS integrity check failed: ${file}`);
+  }
+}
+await mkdir('web/vendor', { recursive: true });
+await cp(horizonSource, 'web/vendor/horizonjs', { recursive: true });
+
+// The metadata parser is bundled; studio modules remain directly readable.
 const result = await build({
   entryPoints: ['web/music-metadata.js'],
   bundle: true,

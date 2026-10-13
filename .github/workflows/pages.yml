@@ -46,7 +46,7 @@ jobs:
         with:
           node-version: '22'
 
-      - name: Bundle music metadata parser
+      - name: Build HorizonJS frontend and music parser
         working-directory: slot-cart-studio
         run: npm ci && npm run build
 

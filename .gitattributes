@@ -1,0 +1,4 @@
+# Shell scripts must retain Unix line endings for Linux and WSL shebangs.
+*.sh text eol=lf
+# Preserve the pinned upstream HorizonJS bytes used by the integrity manifest.
+/third_party/horizonjs/** -text

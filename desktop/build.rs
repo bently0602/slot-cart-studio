@@ -3,9 +3,12 @@
 use std::path::{Path, PathBuf};
 use std::{env, fs};
 
-const KINDS: &[&str] = &["html", "css", "js", "wasm", "png", "svg", "ico", "woff2"];
+const KINDS: &[&str] = &[
+    "html", "css", "js", "wasm", "png", "gif", "svg", "ico", "woff2", "txt",
+];
 const WASM: &str = "pkg/slot_cart_studio_bg.wasm";
 const MUSIC: &str = "vendor/music-metadata.js";
+const HORIZON: &str = "vendor/horizonjs/ext-all.js";
 
 fn main() {
     let web = PathBuf::from(env::var("CARGO_MANIFEST_DIR").unwrap()).join("../web");
@@ -21,6 +24,10 @@ fn main() {
     assert!(
         files.iter().any(|(name, _)| name == MUSIC),
         "web/{MUSIC} is missing: build it first with npm ci && npm run build"
+    );
+    assert!(
+        files.iter().any(|(name, _)| name == HORIZON),
+        "web/{HORIZON} is missing: build it first with npm ci && npm run build"
     );
 
     let mut table = String::from("static FILES: &[(&str, &[u8])] = &[\n");

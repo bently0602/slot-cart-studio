@@ -8,7 +8,7 @@ publish = false
 build = "build.rs"
 
 [[bin]]
-name = "slot-cart-studio"
+name = "cart-studio"
 path = "src/main.rs"
 
 [dependencies]

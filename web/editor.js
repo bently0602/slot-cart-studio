@@ -1,346 +1,148 @@
-// One panel for everything about one cart. It keeps no cart state: every change goes through the
-// studio's api, one history step at a time.
 import { canRedo, canRevert, canUndo, commit, redo, revert, undo, visit, visited } from './history.js';
-import { arrange } from './palette.js';
-
-const $ = (id) => document.getElementById(id);
-const OPENERS = { 'ed-games': 'ed-game', 'ed-bg-pal': 'ed-bg', 'ed-shell-pal': 'ed-shell' };
 
 export function createEditor(api) {
-  const panel = $('editor');
-  let cart = null;
-  let built = false;
-  // A drag through a colour picker is one step: the first input records it, the rest follow.
-  let dragging = false;
-
-  function change(fn, c = cart) {
-    dragging = false;
-    if (c && commit(c, () => fn(c))) api.changed(c);
+  const ui = api.ui, H = window.Ext, b = ui.buttons, f = ui.fields;
+  const panel = ui.cartEditor;
+  let cart = null, built = false, picking = null;
+  const menus = [];
+  function closeMenus() {
+    for (const menu of menus) menu.hide();
+    for (const field of Object.values(f)) if (field instanceof H.form.ComboBox) field.collapse();
   }
-
-  function drag(fn) {
-    const c = cart;
-    if (!c) return;
-    if (dragging) {
-      fn(c);
-      api.changed(c, true);
-    } else if ((dragging = commit(c, () => fn(c)))) {
-      api.changed(c);
-    }
-  }
-
-  function step(fn) {
-    dragging = false;
-    const c = cart;
-    if (c && fn(c)) api.changed(c);
-  }
-
-  // Hiding or disabling the focused control drops focus to the page, where ⌘Z never reaches the panel.
-  function keepFocus(fallback = panel, lost = false) {
-    const at = document.activeElement;
-    if (cart && (lost || (panel.contains(at) && (at.disabled || at.closest('[hidden]'))))) {
-      (fallback.disabled ? panel : fallback).focus({ preventScroll: true });
-    }
-  }
-
-  function closePops() {
-    dragging = false;
-    $('ed-tip').hidden = true;
-    for (const [pop, opener] of Object.entries(OPENERS)) {
-      const had = $(pop).contains(document.activeElement);
-      $(pop).hidden = true;
-      $(opener).setAttribute('aria-expanded', 'false');
-      if (had) keepFocus($(opener), true);
-    }
-  }
-
-  function toggle(pop) {
-    const opening = $(pop).hidden;
-    closePops();
-    $(pop).hidden = !opening;
-    $(OPENERS[pop]).setAttribute('aria-expanded', String(opening));
-    return opening;
-  }
-
-  const press = (group, value) => {
-    for (const b of $(group).querySelectorAll('button')) b.setAttribute('aria-pressed', String(b.dataset.value === value));
-  };
-  const enable = (group, on) => {
-    for (const b of $(group).querySelectorAll('button')) b.disabled = !on;
-  };
-
-  // Background and Shell share one palette: the real plastics, by colour.
+  function change(fn, c = cart) { if (c && commit(c, () => fn(c))) api.changed(c); }
+  function step(fn) { if (cart && fn(cart)) api.changed(cart); }
   function build() {
     if (built) return;
     built = true;
-    const { neutrals, colours } = arrange(api.presets());
-    const swatch = ({ name, value }) => {
-      const b = Object.assign(document.createElement('button'), { type: 'button' });
-      b.setAttribute('aria-label', name);
-      b.dataset.value = value;
-      b.dataset.finish = value.split(' ')[2];
-      b.style.backgroundColor = `#${value.split(' ')[1]}`;
-      return b;
-    };
-    for (const id of ['ed-bg-presets', 'ed-shell-presets']) {
-      const gap = Object.assign(document.createElement('span'), { className: 'pal-break' });
-      $(id).replaceChildren(...neutrals.map(swatch), gap, ...colours.map(swatch));
-    }
-  }
-
-  const presetNamed = (hex) => api.presets().find(({ value }) => `#${value.split(' ')[1]}` === hex)?.name ?? hex;
-
-  function showGames() {
-    const c = cart;
-    const item = (text, pick, className = '') => {
-      const b = Object.assign(document.createElement('button'), { type: 'button', textContent: text, className });
-      b.addEventListener('click', () => {
-        closePops();
-        pick();
+    const data = api.presets().map(p => [p.value, p.name]);
+    for (const id of ['ed-bg-presets', 'ed-shell-presets']) f[id].store.loadData(data);
+    for (const kind of ['bg', 'shell']) {
+      const menu = new H.menu.ColorMenu();
+      menus.push(menu);
+      menu.on('select', (_, colour) => {
+        menu.hide();
+        if (kind === 'bg') change(c => api.setBackground(c, api.fromHex('#' + colour)));
+        else change(c => api.setShell(c, { ...api.shellOf(c), colour }));
       });
-      const li = document.createElement('li');
-      li.append(b);
-      return li;
-    };
-    $('ed-hits').replaceChildren(
-      ...(api.matched(c) ? [item('No match', () => change(api.noMatch), 'none')] : []),
-      ...(api.search(c, $('ed-query').value) ?? []).map((name) =>
-        item(name, () => change((c) => api.chooseGame(c, name))),
-      ),
-    );
-  }
-
-  function renderTiles(c) {
-    const wearing = api.wearing(c);
-    const fill = api.fill();
-    const can = api.canLabel(c);
-    for (const tile of $('ed-tiles').querySelectorAll('.tile')) {
-      const kind = tile.dataset.kind;
-      const ok = api.available(c, kind);
-      const retry = kind === 'real' && api.realFailed(c);
-      tile.hidden = kind === 'card' && !ok;
-      tile.disabled = !can || (!ok && !retry && kind !== 'customLogo' && kind !== 'customLabel');
-      tile.setAttribute('aria-pressed', String(wearing.kind === kind));
-      const badge = tile.querySelector('.badge.default');
-      if (badge) badge.hidden = fill !== kind;
-      const small = tile.querySelector('small');
-      if (small && (kind === 'real' || kind === 'logo')) small.textContent = retry ? 'Couldn’t load. Click to try again' : ok ? '' : 'None for this game';
-      const hasFile = kind === 'customLogo' ? !!c.customLogoBytes : kind === 'customLabel' ? !!c.customLabelBytes : true;
-      tile.classList.toggle('has-file', hasFile);
-      if (small && (kind === 'customLogo' || kind === 'customLabel')) small.textContent = hasFile ? 'Click again to use another file' : '';
-      const canvas = tile.querySelector('canvas');
-      const face = ok && hasFile ? api.tileFace(c, kind) : null;
-      canvas.hidden = !face;
-      if (face) {
-        [canvas.width, canvas.height] = api.box(c.platform);
-        api.draw(canvas, face, c.platform);
-      }
+      b['ed-' + kind + '-palette'].on('click', () => menu.show(b['ed-' + kind + '-palette'].el));
     }
   }
-
   function refresh() {
     const c = cart;
     if (!c) return;
     if (!visited(c)) visit(c);
-    $('ed-name').textContent = api.name(c);
-    const face = api.face(c);
-    $('ed-face').hidden = !face;
-    if (face) api.draw($('ed-face'), face, c.platform);
-
-    const label = api.canLabel(c);
-    $('ed-game').disabled = !label;
-    $('ed-game').querySelector('span').textContent = api.matched(c) ? c.game : 'Choose a game';
-    renderTiles(c);
-
-    const bg = api.background(c);
-    $('ed-bg').closest('.prop').hidden = !api.canBackground(c);
-    $('ed-bg').querySelector('i').style.background = api.hex(bg.rgb);
-    $('ed-bg').querySelector('span').textContent = bg.auto ? 'Automatic' : presetNamed(api.hex(bg.rgb));
-    for (const b of $('ed-bg-presets').querySelectorAll('button')) {
-      b.setAttribute('aria-pressed', String(!bg.auto && `#${b.dataset.value.split(' ')[1]}` === api.hex(bg.rgb)));
+    panel.setTitle(ui.encode(api.name(c)));
+    const canvas = document.getElementById('ed-face'), face = api.face(c);
+    canvas.hidden = !face;
+    if (face) api.draw(canvas, face, c.platform);
+    f['ed-game'].setDisabled(!api.canLabel(c));
+    f['ed-game'].setValue(api.matched(c) ? c.game : '');
+    const wearing = api.wearing(c);
+    for (const [kind, choice] of Object.entries(ui.choices)) {
+      const ok = api.available(c, kind), retry = kind === 'real' && api.realFailed(c);
+      choice.panel.setVisible(kind !== 'card' || ok);
+      choice.button.setDisabled(!api.canLabel(c) || (!ok && !retry && !kind.startsWith('custom')));
+      choice.panel.el.dom.classList.toggle('choice-selected', wearing.kind === kind);
+      choice.button.el.dom.querySelector('button').setAttribute('aria-pressed', String(wearing.kind === kind));
+      const hasFile = kind === 'customLogo' ? !!c.customLogoBytes : kind === 'customLabel' ? !!c.customLabelBytes : true;
+      choice.note.el.dom.textContent = retry ? 'Couldn’t load. Click to retry.' :
+        kind.startsWith('custom') ? (hasFile ? 'Click again to replace the file.' : 'Import a PNG image.') :
+        !ok ? 'None for this game' : api.fill() === kind ? 'Default' : '';
+      const face = ok && hasFile ? api.tileFace(c, kind) : null, canvas = choice.canvas.el.dom;
+      canvas.hidden = !face;
+      if (face) { [canvas.width, canvas.height] = api.box(c.platform); api.draw(canvas, face, c.platform); }
     }
-    $('ed-bg-auto').setAttribute('aria-pressed', String(bg.auto));
-    $('ed-bg-custom').value = api.hex(bg.rgb);
-
-    const shell = api.shellOf(c);
-    const shells = api.canShell(c);
-    $('ed-shell').disabled = !shells;
-    $('ed-shell').querySelector('i').style.background = `#${shell.colour}`;
-    $('ed-shell').querySelector('span').textContent = shell.auto ? 'Automatic' : shell.name;
-    for (const b of $('ed-shell-presets').querySelectorAll('button')) {
-      const [, colour, finish] = b.dataset.value.split(' ');
-      b.dataset.finish = c.platform === 'SNES' ? 'solid' : finish;
-      b.setAttribute('aria-pressed', String(!shell.auto && colour === shell.colour && (c.platform === 'SNES' || finish === shell.finish)));
-    }
-    $('ed-shell-auto').setAttribute('aria-pressed', String(shell.auto));
-    $('ed-shell-custom').value = `#${shell.colour}`;
-    press('ed-finish', shell.finish);
-    enable('ed-finish', shells && !shell.auto);
-    // A PlayStation case is not plastic slot colours, so its shell rows and their rule go.
-    const plastic = api.hasShell(c);
-    const shellRow = $('ed-shell').closest('.prop');
-    shellRow.hidden = !plastic;
-    shellRow.previousElementSibling.hidden = !plastic;
-    $('ed-finish').closest('.prop').hidden = !plastic || c.platform === 'SNES';
-    $('ed-outline-row').hidden = !plastic || ['GBA', 'SNES'].includes(c.platform);
-    press('ed-outline', shell.outline);
-    enable('ed-outline', shells);
-
-    if (Object.entries(OPENERS).some(([pop, opener]) => !$(pop).hidden && $(opener).disabled)) closePops();
-    $('ed-undo').disabled = !canUndo(c);
-    $('ed-redo').disabled = !canRedo(c);
-    $('ed-revert').disabled = !canRevert(c);
-    keepFocus();
+    const bg = api.background(c), shell = api.shellOf(c), shells = api.canShell(c);
+    ui.background.setVisible(api.canBackground(c));
+    f['ed-bg-custom'].setValue(api.hex(bg.rgb));
+    const bgPreset = api.presets().find(p => '#' + p.value.split(' ')[1] === api.hex(bg.rgb));
+    f['ed-bg-presets'].setValue(bg.auto ? '' : bgPreset?.value ?? '');
+    ui.shell.setVisible(api.hasShell(c));
+    f['ed-shell-custom'].setValue('#' + shell.colour);
+    const shellPreset = api.presets().find(p => {
+      const [, colour, finish] = p.value.split(' ');
+      return colour === shell.colour && (c.platform === 'SNES' || finish === shell.finish);
+    });
+    f['ed-shell-presets'].setValue(shell.auto ? '' : shellPreset?.value ?? '');
+    f['ed-shell-presets'].setDisabled(!shells);
+    f['ed-shell-custom'].setDisabled(!shells);
+    b['ed-shell-auto'].setDisabled(!shells); b['ed-shell-palette'].setDisabled(!shells);
+    f['ed-finish'].setValue(shell.finish); f['ed-finish'].setDisabled(!shells || shell.auto);
+    f['ed-outline'].setValue(shell.outline); f['ed-outline'].setDisabled(!shells);
+    ui.setFieldVisible('ed-finish', api.hasShell(c) && c.platform !== 'SNES');
+    ui.setFieldVisible('ed-outline', api.hasShell(c) && !['GBA', 'SNES'].includes(c.platform));
+    b['ed-undo'].setDisabled(!canUndo(c)); b['ed-redo'].setDisabled(!canRedo(c)); b['ed-revert'].setDisabled(!canRevert(c));
+    // Framework controls can lose focus when a history step disables them.
+    if (panel.el.dom.contains(document.activeElement) && document.activeElement.disabled) panel.focus();
+    panel.doLayout();
+    ui.layoutCartChoices();
   }
-
   function open(c) {
     build();
     if (c === cart) return;
+    closeMenus();
     cart?.el.root.classList.remove('current');
-    cart = c;
-    dragging = false;
-    api.ensureTiles(c);
-    visit(c);
-    closePops();
-    c.el.root.classList.add('current');
-    [$('ed-face').width, $('ed-face').height] = api.box(c.platform);
-    panel.hidden = false;
-    document.body.classList.add('editing');
-    refresh();
-    panel.focus({ preventScroll: true });
+    cart = c; api.ensureTiles(c); visit(c); c.el.root.classList.add('current');
+    const canvas = document.getElementById('ed-face');
+    [canvas.width, canvas.height] = api.box(c.platform);
+    panel.show(); refresh(); panel.focus();
   }
-
   function close() {
-    if (!cart) return;
-    cart.el.root.classList.remove('current');
-    cart = null;
-    closePops();
-    panel.hidden = true;
-    document.body.classList.remove('editing');
+    closeMenus(); cart?.el.root.classList.remove('current'); cart = null; panel.hide();
   }
-
-  // A swatch's name, at once and kept inside the window; the browser's own tooltip is slow to come.
-  function tip(b) {
-    const t = $('ed-tip');
-    if (!b) {
-      t.hidden = true;
-      return;
-    }
-    t.textContent = b.getAttribute('aria-label');
-    t.hidden = false;
-    const r = b.getBoundingClientRect();
-    const left = Math.min(Math.max(8, r.left + r.width / 2 - t.offsetWidth / 2), innerWidth - t.offsetWidth - 8);
-    t.style.left = `${left}px`;
-    t.style.top = `${Math.max(8, r.top - t.offsetHeight - 6)}px`;
-  }
-  const swatch = (e) => e.target.closest?.('.pal-grid button') ?? null;
-  for (const id of ['ed-bg-presets', 'ed-shell-presets']) {
-    $(id).addEventListener('pointerover', (e) => tip(swatch(e)));
-    $(id).addEventListener('pointerout', () => tip(null));
-    $(id).addEventListener('focusin', (e) => tip(swatch(e)));
-    $(id).addEventListener('focusout', () => tip(null));
-  }
-
-  $('ed-close').addEventListener('click', close);
-
-  $('ed-game').addEventListener('click', () => {
-    if (!toggle('ed-games')) return;
-    $('ed-query').value = api.name(cart);
-    showGames();
-    $('ed-query').select();
+  panel.on('hide', () => { closeMenus(); cart?.el.root.classList.remove('current'); cart = null; });
+  b['ed-close'].on('click', close);
+  f['ed-game'].on('beforequery', query => {
+    if (!cart) { query.cancel = true; return; }
+    f['ed-game'].store.loadData([
+      ...(api.matched(cart) ? [['__none__', 'No match']] : []),
+      ...(api.search(cart, query.query) ?? []).map(name => [name, name]),
+    ]);
+    // The database already searches anywhere in the name; keep its results intact.
+    query.forceAll = true;
   });
-  $('ed-query').addEventListener('input', showGames);
-
-  let picking = null;
-  $('ed-tiles').addEventListener('click', (e) => {
-    const tile = e.target.closest('.tile');
-    if (!tile || tile.disabled) return;
-    const kind = tile.dataset.kind;
-    const c = cart;
-    const file = kind === 'customLogo' ? c.customLogoBytes : kind === 'customLabel' ? c.customLabelBytes : null;
-    if ((kind === 'customLogo' || kind === 'customLabel') && (!file || c.choice === kind)) {
-      picking = kind;
-      $('ed-file').click();
-      return;
+  // The legacy combo listens for keyup; input also covers paste and other modern input methods.
+  f['ed-game'].el.dom.addEventListener('input', () => f['ed-game'].doQuery(f['ed-game'].getRawValue()));
+  f['ed-game'].on('select', (_, record) => {
+    const name = record.get('value');
+    change(c => name === '__none__' ? api.noMatch(c) : api.chooseGame(c, name));
+  });
+  for (const [kind, choice] of Object.entries(ui.choices)) choice.button.on('click', () => {
+    const c = cart, bytes = kind === 'customLogo' ? c.customLogoBytes : c.customLabelBytes;
+    if (kind.startsWith('custom') && (!bytes || c.choice === kind)) {
+      picking = kind; f['ed-file'].el.dom.click(); return;
     }
     if (kind === 'real') api.retryReal(c);
-    if (kind === 'customLogo') change((c) => api.useCustomLogo(c, file));
-    else if (kind === 'customLabel') change((c) => api.useCustomLabel(c, file));
-    else change((c) => api.choose(c, kind));
+    change(c => kind === 'customLogo' ? api.useCustomLogo(c, bytes) :
+      kind === 'customLabel' ? api.useCustomLabel(c, bytes) : api.choose(c, kind));
   });
-  $('ed-file').addEventListener('change', async () => {
-    const c = cart;
-    const kind = picking;
-    const file = $('ed-file').files[0];
-    $('ed-file').value = '';
+  f['ed-file'].el.dom.addEventListener('change', async e => {
+    const c = cart, kind = picking, file = e.target.files[0]; e.target.value = '';
     const bytes = await api.readLogo(file);
-    if (!bytes || !kind) return;
-    change((c) => (kind === 'customLogo' ? api.useCustomLogo(c, bytes) : api.useCustomLabel(c, bytes)), c);
+    if (bytes && kind) change(c => kind === 'customLogo' ? api.useCustomLogo(c, bytes) : api.useCustomLabel(c, bytes), c);
   });
-
-  $('ed-bg').addEventListener('click', () => toggle('ed-bg-pal'));
-  $('ed-bg-presets').addEventListener('click', (e) => {
-    const value = e.target.closest('button')?.dataset.value;
-    if (!value) return;
-    closePops();
-    change((c) => api.setBackground(c, api.fromHex(`#${value.split(' ')[1]}`)));
+  f['ed-bg-presets'].on('select', (_, r) => change(c => api.setBackground(c, api.fromHex('#' + r.get('value').split(' ')[1]))));
+  f['ed-shell-presets'].on('select', (_, r) => {
+    const [, colour, finish] = r.get('value').split(' ');
+    change(c => api.setShell(c, { ...api.shellOf(c), colour, finish }));
   });
-  $('ed-bg-auto').addEventListener('click', () => {
-    closePops();
-    change((c) => api.setBackground(c, null));
+  b['ed-bg-auto'].on('click', () => change(c => api.setBackground(c, null)));
+  b['ed-shell-auto'].on('click', () => change(c => api.setShell(c, null)));
+  f['ed-bg-custom'].on('change', field => {
+    if (field.isValid()) change(c => api.setBackground(c, api.fromHex(field.getValue())));
   });
-  $('ed-bg-custom').addEventListener('input', () =>
-    drag((c) => api.setBackground(c, api.fromHex($('ed-bg-custom').value))),
-  );
-
-  $('ed-shell').addEventListener('click', () => toggle('ed-shell-pal'));
-  $('ed-shell-presets').addEventListener('click', (e) => {
-    const value = e.target.closest('button')?.dataset.value;
-    if (!value) return;
-    const [, colour, finish] = value.split(' ');
-    closePops();
-    change((c) => api.setShell(c, { ...api.shellOf(c), colour, finish }));
+  f['ed-shell-custom'].on('change', field => {
+    if (field.isValid()) change(c => api.setShell(c, { ...api.shellOf(c), colour: field.getValue().slice(1) }));
   });
-  $('ed-shell-auto').addEventListener('click', () => {
-    closePops();
-    change((c) => api.setShell(c, null));
-  });
-  $('ed-shell-custom').addEventListener('input', () =>
-    drag((c) => api.setShell(c, { ...api.shellOf(c), colour: $('ed-shell-custom').value.slice(1) })),
-  );
-  for (const id of ['ed-bg-custom', 'ed-shell-custom']) {
-    $(id).addEventListener('change', () => {
-      dragging = false;
-      closePops();
-    });
-  }
-  $('ed-finish').addEventListener('click', (e) => {
-    const finish = e.target.closest('button')?.dataset.value;
-    if (finish) change((c) => api.setShell(c, { ...api.shellOf(c), finish }));
-  });
-  $('ed-outline').addEventListener('click', (e) => {
-    const outline = e.target.closest('button')?.dataset.value;
-    if (outline) change((c) => api.setShell(c, { ...api.shellOf(c), outline }));
-  });
-
-  $('ed-undo').addEventListener('click', () => step(undo));
-  $('ed-redo').addEventListener('click', () => step(redo));
-  $('ed-revert').addEventListener('click', () => step(revert));
-
-  panel.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') {
-      if (Object.keys(OPENERS).some((pop) => !$(pop).hidden)) closePops();
-      else close();
-      e.preventDefault();
-      return;
-    }
-    if (!(e.metaKey || e.ctrlKey) || e.target.matches('input[type="search"]')) return;
-    const key = e.key.toLowerCase();
-    if (key === 'z' && !e.shiftKey) step(undo);
-    else if ((key === 'z' && e.shiftKey) || key === 'y') step(redo);
+  for (const key of ['finish', 'outline']) f['ed-' + key].on('select', (_, r) =>
+    change(c => api.setShell(c, { ...api.shellOf(c), [key]: r.get('value') })));
+  b['ed-undo'].on('click', () => step(undo)); b['ed-redo'].on('click', () => step(redo)); b['ed-revert'].on('click', () => step(revert));
+  panel.el.dom.addEventListener('keydown', e => {
+    if (!(e.ctrlKey || e.metaKey) || ['INPUT', 'TEXTAREA'].includes(e.target.tagName)) return;
+    if (e.key.toLowerCase() === 'z') step(e.shiftKey ? redo : undo);
+    else if (e.key.toLowerCase() === 'y') step(redo);
     else return;
     e.preventDefault();
   });
-
   return { open, close, refresh, current: () => cart };
 }
