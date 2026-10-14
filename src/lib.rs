@@ -32,12 +32,12 @@ pub mod zip;
 
 use wasm_bindgen::prelude::*;
 
-/// The cart face's size for a platform, `[w, h]`, so the page sizes its canvases from slot. A
+/// The preview size for a platform, `[w, h]`. SNES shows artwork alone; other sizes follow slot. A
 /// Game Boy Game Pak is the same width as a GBA cart and nearly twice as tall, so one size cannot
 /// serve both: a canvas cut for the wrong one refuses the pixels outright.
 #[wasm_bindgen]
 pub fn cart_size(platform: &str) -> Vec<u32> {
-    let (w, h) = cart::cart_box(face::platform_of(platform));
+    let (w, h) = face::size(face::platform_of(platform));
     vec![w, h]
 }
 

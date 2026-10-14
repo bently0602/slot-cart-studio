@@ -19,8 +19,10 @@ const NAMES = {
 // Cartridges are catalogued by No-Intro; discs are Redump's.
 const SETS = { PSX: 'redump' };
 
-export async function fetchDat(platform) {
-  const r = await fetch(`${DAT}${SETS[platform] ?? 'no-intro'}/${encodeURIComponent(NAMES[platform])}.dat`);
+export async function fetchDat(platform, library = null) {
+  const path = library?.platforms[platform]?.database;
+  if (library && !path) throw new Error(`The local library has no ${platform} database; update it first.`);
+  const r = await fetch(library ? localUrl(library.base, path) : `${DAT}${SETS[platform] ?? 'no-intro'}/${encodeURIComponent(NAMES[platform])}.dat`);
   if (!r.ok) throw new Error(`HTTP ${r.status}`);
   return r.text();
 }
@@ -58,8 +60,8 @@ export async function fetchIndex(base) {
   return r.json();
 }
 
-export async function fetchArt(base, path) {
-  const r = await fetch(new URL(path, base));
+export async function fetchArt(base, path, localOnly = false) {
+  const r = await fetch(localOnly ? localUrl(base, path) : new URL(path, base));
   if (r.status === 404) return null;
   if (!r.ok) throw new Error(`HTTP ${r.status}`);
   return new Uint8Array(await r.arrayBuffer());
@@ -67,7 +69,15 @@ export async function fetchArt(base, path) {
 
 // A thumbnail's bytes, or null when libretro has none. A git symlink comes back as a one-line
 // body naming its target in the same folder; `stubTarget`, from the Rust side, tells the two apart.
-export async function fetchThumb(platform, folder, name, stubTarget) {
+export async function fetchThumb(platform, folder, name, stubTarget, library = null) {
+  if (library) {
+    const path = library.platforms[platform]?.thumbnails?.[folder]?.[name];
+    if (path) return fetchArt(library.base, path, true);
+    if (library.onDemand && library.platforms[platform] && ['Named_Boxarts', 'Named_Logos'].includes(folder)) {
+      return fetchArt(library.base, `thumbnails/${platform}/${folder}/${encodeURIComponent(name + '.png')}`, true);
+    }
+    return null;
+  }
   const repo = NAMES[platform].replaceAll(' ', '_');
   const get = async (file) => {
     const r = await fetch(`${THUMBS}${repo}/master/${folder}/${encodeURIComponent(file)}`);
@@ -79,4 +89,24 @@ export async function fetchThumb(platform, folder, name, stubTarget) {
   if (!body) return null;
   const target = stubTarget(body);
   return target === undefined ? body : get(target);
+}
+
+function localUrl(base, path) {
+  const root = new URL(base);
+  const url = new URL(path, root);
+  if (url.origin !== root.origin || !url.pathname.startsWith(root.pathname)) {
+    throw new Error('This artwork library contains a nonlocal file path; update the library.');
+  }
+  return url;
+}
+
+export async function fetchLibrary(base) {
+  const r = await fetch(new URL('library.json', base));
+  if (r.status === 404) return null;
+  if (!r.ok) throw new Error(`HTTP ${r.status}`);
+  const library = await r.json();
+  if (library.version !== 1 || library.offline !== true || !library.platforms) {
+    throw new Error('Unsupported local artwork library');
+  }
+  return { ...library, base };
 }

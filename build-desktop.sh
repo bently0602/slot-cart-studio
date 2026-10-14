@@ -93,7 +93,14 @@ Cart Studio for macOS (Apple Silicon)
 The studio opens in your default browser. Close the Terminal window to stop it.
 To use a local artwork collection: ./cart-studio --art-dir /path/to/artwork
 The collection directory must contain index.json and its prepared PNGs.
-It needs the internet for game names, artwork, and album cover searches. Use Chrome
+A complete cart-studio-art folder beside the executable is detected automatically.
+Missing game names and artwork download automatically and are kept between launches.
+The cache is the artwork folder beside this executable.
+Download Assets in the top toolbar caches the entire five-platform library before
+choosing an SD card. Its progress dialog can cancel; later runs reuse cached files.
+Use --cache-dir PATH to choose another location; --no-art-download uses cached art only.
+Original USA SNES labels are prepared from reviewed Near scans as needed.
+New artwork and album cover searches need the internet. Use Chrome
 or Edge to write labels and covers straight to the SD card; other browsers download
 a zip instead. Unzip at the card root and merge Games and Labels.
 EOF
@@ -107,7 +114,14 @@ Cart Studio for Windows (64-bit)
 The studio opens in your default browser. Close the console window to stop it.
 To use local artwork, run: cart-studio.exe --art-dir "C:\path\to\artwork"
 The collection directory must contain index.json and its prepared PNGs.
-It needs the internet for game names, artwork, and album cover searches. Use Chrome
+A complete cart-studio-art folder beside the executable is detected automatically.
+Missing game names and artwork download automatically and are kept between launches.
+The cache is the artwork folder beside this executable.
+Download Assets in the top toolbar caches the entire five-platform library before
+choosing an SD card. Its progress dialog can cancel; later runs reuse cached files.
+Use --cache-dir PATH to choose another location; --no-art-download uses cached art only.
+Original USA SNES labels are prepared from reviewed Near scans as needed.
+New artwork and album cover searches need the internet. Use Chrome
 or Edge to write labels and covers straight to the SD card; other browsers download
 a zip instead. Unzip at the card root and merge Games and Labels.
 EOF

@@ -103,7 +103,6 @@ fn assert_same_as_slot(label: &[u8]) {
     // that shares a title but not the plastic. Last, a PlayStation case, which has no header.
     for (dir, code, gb) in [
         ("PSX", "", NO_GB),
-        ("SNES", "", NO_GB),
         ("GBA", EMERALD, NO_GB),
         ("GBA", PLAIN, NO_GB),
         ("GB", "", (b"", b"", 0x00, false)),
@@ -134,7 +133,7 @@ fn assert_same_as_slot(label: &[u8]) {
 }
 
 #[test]
-fn snes_labels_and_shells_match_the_device_renderer() {
+fn snes_previews_show_only_artwork_and_ignore_shell_colour() {
     let platform = face::platform_of("SNES");
     let png = png_rgb(80, 40, |x, y| [x as u8, y as u8, 0xa0]);
     let label = slot_cart_studio::label::Label::full(&png, platform).expect("SNES label");
@@ -143,22 +142,21 @@ fn snes_labels_and_shells_match_the_device_renderer() {
         .read_info()
         .unwrap();
     assert_eq!((info.info().width, info.info().height), (960, 584));
-    assert_eq!(slot_ui::cart_box(platform), (360, 225));
+    assert_eq!(face::size(platform), (240, 146));
+    let preview = label.face(platform, "", &[], "", STEM);
+    assert_eq!(preview.len(), 240 * 146 * 4);
     for shell in ["", "auto 336699 solid"] {
-        let d = card("SNES", "", NO_GB, &png);
-        let cart = slot_store::scan(d.path()).expect("scan").remove(0);
-        assert_eq!(slot_ui::label_size(&cart), (240, 146));
-        if !shell.is_empty() {
-            let path = d.path().join(slot_store::CART_SHELL_FILE);
-            std::fs::create_dir_all(path.parent().unwrap()).unwrap();
-            std::fs::write(path, format!("{STEM} = {shell}\n")).unwrap();
-        }
-        let (want, code, stem) = slot_face(d.path());
-        assert!(
-            want == face::from_png(&png, platform, &code, &[], shell, &stem),
-            "SNES face differs from the device with shell {shell:?}"
+        assert_eq!(
+            preview,
+            face::from_png(&png, platform, "", &[], shell, STEM)
         );
     }
+    let solid = png_rgb(240, 146, |_, _| [20, 90, 160]);
+    let preview = face::from_png(&solid, platform, "", &[], "", STEM);
+    assert!(preview.chunks_exact(4).all(|p| p == [20, 90, 160, 255]));
+    let placeholder = face::from_png(b"", platform, "", &[], "", STEM);
+    assert_eq!(placeholder.len(), preview.len());
+    assert!(placeholder.chunks_exact(4).all(|p| p[3] == 255));
 }
 
 #[test]
@@ -241,7 +239,6 @@ fn a_chosen_shell_matches_slot() {
         ),
         ("GBC", "", (b"", b"", 0xc0, false), "notched 123456 glitter"),
         ("GBA", EMERALD, NO_GB, "auto c0282c solid"),
-        ("SNES", "", NO_GB, "auto 336699 solid"),
         ("GBA", PLAIN, NO_GB, "rounded 2b3a88 clear"),
     ] {
         let d = card(dir, code, gb, &label);

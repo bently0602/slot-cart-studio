@@ -21,6 +21,10 @@ switching platforms preserves cartridge previews and edits. Arrow keys, Home, En
 Enter, and Space work in the tab strip.
 Clicking a cartridge or album opens a centered modal editor with a background mask.
 The dialog stays within the viewport on resize; close it before switching platforms.
+The game editor keeps its main preview visible while the image choices scroll.
+Choosing Real Label retains the current preview beneath a loading screen with a spinner
+and offers a retry if the image fails. Image choices have stable preview
+areas, a selected state, and clickable thumbnails; undo/redo preserves your choice.
 Card loading and saving show a centered Horizon MessageBox with progress and a full
 background mask. Loading waits for game matching, music metadata, and artwork;
 any required label-style choice is shown in its own masked dialog before finishing.
@@ -31,8 +35,8 @@ Choose the root of the SD card. SNES ROMs belong directly in `Games/SNES`: `.sfc
 and `.fig` are recognized. Labels are PNGs at `Labels/SNES/<original-stem>.png`, exported at
 960 × 584 to fit slot's 240 × 146 label well. Matching checks the original CRC first and, for
 512-byte copier headers, the headerless CRC second. Correct a match in the cartridge editor,
-choose real artwork or a generated logo label, or import a custom image. SNES supports shell
-colour; its renderer has no finish or outline variants. Generated colours come from box art.
+choose real artwork or a generated logo label, or import a custom image. SNES previews show
+the selected artwork by itself, without a cartridge shell. Generated colours come from box art.
 The SNES tab appears automatically when compatible ROMs are found. Existing SNES labels
 are loaded from the card; imported labels, logos, undo/redo, and saving work like the handhelds.
 Automatic GBA, GB, GBC, and SNES logos prefer the checksum-matched artwork index, then fall back to
@@ -293,6 +297,93 @@ contains 716 labels mapped to 800 retail ROM checksums. For this checkout, the l
 Verify the importer with `python3 -m unittest discover -s tools -p test_harvest_near.py`.
 After harvesting, run the real-image browser check with
 `STUDIO_NEAR_ART=out/near-art node --test --test-name-pattern="Near trial" tools/browser.test.mjs`.
+
+### Local cover library for all five game platforms
+
+The desktop executable now downloads missing game databases and artwork as needed.
+It performs downloads and image preparation itself; end users do not need Python,
+Git, GoTask or an artwork ZIP. Files are kept between launches and served through
+localhost. Opening a card downloads only the databases for its platforms and the
+images needed by its games. Existing cached images work without the internet.
+Original USA SNES labels use the reviewed Near catalog: only the selected game's
+scan is fetched, checked against its SHA-1 and dimensions, cropped, rotated and
+padded to 960 × 584. Only the prepared label is retained in the cache.
+
+The automatic cache is an `artwork` folder beside the executable on every platform,
+regardless of the working directory used to launch it. For example,
+`C:\CartStudio\cart-studio.exe` stores downloads in `C:\CartStudio\artwork`.
+
+The top toolbar's **Download Assets** button downloads the entire GBA, GB, GBC,
+SNES and PSX library before you choose an SD card. It includes matching databases,
+available covers/logos, hosted cartridge artwork and all reviewed Near SNES labels.
+A masked progress dialog shows preparation and download counts. **Cancel download**
+stops after current transfers; clicking Download Assets again resumes using cached
+files. Closing/reopening the browser reconnects to an active download. Completed
+downloads remain available after restarting the executable. Completion reports
+missing or failed images; Retry reuses successful downloads. Existing labels and
+edits are preserved. The button is available with the automatic desktop cache;
+prepared collections and `--no-art-download` leave it disabled.
+Temporary upstream HTTP 500/502/503/504 failures are retried twice automatically.
+Persistent HTTP errors identify the failing URL; catalog errors also identify the
+platform and artwork folder.
+
+Use `--cache-dir PATH` to choose another location and `--no-art-download` to use
+cached artwork only. Music searches are independent and still require the internet.
+An explicit `--art-dir PATH` takes priority. Otherwise a prepared `cart-studio-art`
+directory beside the executable is used when present; `--cache-dir` selects the
+automatic cache instead of that adjacent directory. Download failures leave existing
+labels intact; missing images use placeholders, and failed requests can be retried.
+
+The bulk preparation commands below remain available for preparing a complete
+portable collection ahead of time. They are optional for users of the executable.
+
+Data preparation is a separate [GoTask](https://taskfile.dev/docs/installation/) workflow;
+desktop builds do not download the artwork library:
+
+```bash
+task data:download              # Original SNES labels, then all five cover/database sets
+task data:download:covers       # Covers/databases only; retains existing SNES labels
+task data:download:snes         # Original SNES labels only
+task data:rebuild               # Rebuild from existing caches without downloads
+task data:pack                  # Export out/packages/cart-studio-art.zip
+```
+
+Defaults are `ART_DIR=out/near-art` and `JOBS=8`. Override them on the command line:
+
+```bash
+task data:download ART_DIR="/path/to/cart-studio-art" JOBS=4
+task data:pack ART_ARCHIVE="/path/to/cart-studio-art.zip"
+```
+
+`PYTHON` defaults to `python` on Windows and `python3` elsewhere. If needed, pass
+`PYTHON="/path/to/python"` (for example, your virtual environment's interpreter).
+Git, Python with Pillow, and GoTask are required. Downloads are reused on subsequent
+runs. The first full SNES scan download is approximately 12.7 GB, plus the cover sets.
+
+Predownload the available **GBA, GB, GBC, SNES and PSX** box covers, named logos,
+checksum artwork and matching No-Intro/Redump databases:
+
+```bash
+python3 tools/cache-art.py --out out/near-art
+python3 tools/pack-art.py out/near-art dist/cart-studio-art.zip
+```
+
+The tool requires Git and Pillow. It uses sparse Git snapshots for covers/logos,
+resolves image aliases, checks PNG integrity, stores shared images by their content
+hash, and reuses verified cached downloads. Existing authentic Near SNES labels are
+retained. `library-report.json` records source revisions, coverage and any unavailable
+images. Use `--offline` to rebuild from existing snapshots and downloaded data.
+
+Extract `cart-studio-art.zip` beside the desktop executable. The resulting
+`cart-studio-art` folder is detected automatically, or use `--art-dir` with its path.
+When `library.json` is present, game matching databases, covers, logos and cartridge
+labels are read exclusively from the local server. Missing images use the normal
+placeholder; they do not trigger an online artwork lookup. Music searches remain online.
+Without a local library installed, the existing website/legacy artwork behavior is retained.
+
+Verify the cache tool with `python3 -m unittest discover -s tools -p test_cache_art.py`.
+After changing the reviewed Near catalog, refresh the executable's checksum map
+with `python3 tools/near-checksums.py out/near-art/dat/SNES.dat`.
 
 ## License
 

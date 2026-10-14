@@ -21,6 +21,7 @@ before(async () => {
         res.setHeader('Content-Type', 'application/json');
         return res.end(JSON.stringify({ [crc]: { wheel: `SNES/wheel/${crc}.png`, 'support-texture': `SNES/support-texture/${crc}.png` } }));
       }
+      if (path === '/art/library.json') return res.writeHead(404).end('not found');
       if (path.startsWith('/art/')) { res.setHeader('Content-Type', 'image/png'); return res.end(PNG); }
       if (path === '/rom.smc') return res.end(rom);
       if (path === '/corrupt.mp3') return res.end('corrupt');
@@ -40,7 +41,7 @@ before(async () => {
 });
 after(async () => { await browser?.close(); await new Promise((r) => server?.close(r)); });
 
-async function studio(t, { search, covers, fallback = false, artIndex, dat } = {}) {
+async function studio(t, { search, covers, fallback = false, artIndex, dat, library } = {}) {
   const context = await browser.newContext({ acceptDownloads: true });
   t.after(() => context.close());
   const page = await context.newPage();
@@ -51,6 +52,11 @@ async function studio(t, { search, covers, fallback = false, artIndex, dat } = {
   await page.route('https://fonts.googleapis.com/**', (route) => route.abort());
   await page.route('https://fonts.gstatic.com/**', (route) => route.abort());
   if (artIndex !== undefined) await page.route(`${base}/art/index.json`, route => route.fulfill({ json: artIndex }));
+  if (library) {
+    await page.route(`${base}/art/library.json`, route => route.fulfill({ json: library }));
+    await page.route(`${base}/art/dat/*.dat`, route => route.fulfill({ contentType: 'text/plain',
+      body: dat ?? `game (\n name "SNES Probe (USA)"\n rom ( crc ${crc} )\n)\n` }));
+  }
   await page.route('https://raw.githubusercontent.com/**', (route) => route.fulfill(route.request().url().includes('/metadat/') ? {
     contentType: 'text/plain', body: dat ?? `game (\n name "SNES Probe (USA)"\n rom ( name "Probe.sfc" crc ${crc} )\n)\n`,
   } : { contentType: 'image/png', body: PNG }));
@@ -156,14 +162,29 @@ test('Horizon controls support keyboard navigation and card replacement on mobil
   assert.equal(await page.locator('.studio-progress-dialog').isVisible(), false);
 });
 
-test('mixed card matches headered SNES, renders its cartridge and saves selected music in a ZIP', async (t) => {
+test('mixed card matches headered SNES, previews artwork without a shell and saves selected music in a ZIP', async (t) => {
   const page = await studio(t);
   await openCard(page, [['Games/SNES/Probe.smc', `${base}/rom.smc`], ['Games/Music/Artist/Album/one.mp3', `${base}/corrupt.mp3`]]);
   const games = await page.evaluate(() => window.__studio.states());
   assert.equal(games[0].game, 'SNES Probe (USA)');
   assert.equal(games[0].platform, 'SNES');
-  assert.deepEqual(await page.locator('.cart:not(.album) canvas').evaluate((c) => [c.width, c.height]), [360, 225]);
+  assert.deepEqual(await page.locator('.cart:not(.album) canvas').evaluate((c) => [c.width, c.height]), [240, 146]);
+  const corners = await page.locator('.cart:not(.album) canvas').evaluate(c => {
+    const context = c.getContext('2d');
+    return [[0, 0], [c.width - 1, 0], [0, c.height - 1], [c.width - 1, c.height - 1]]
+      .map(([x, y]) => [...context.getImageData(x, y, 1, 1).data]);
+  });
+  const expected = await page.evaluate(async url => {
+    const image = await createImageBitmap(await (await fetch(url)).blob());
+    const canvas = document.createElement('canvas');
+    canvas.width = image.width; canvas.height = image.height;
+    const context = canvas.getContext('2d'); context.drawImage(image, 0, 0);
+    return [0, image.width - 1].map(x => [...context.getImageData(x, 0, 1, 1).data]);
+  }, `${base}/cover.png`);
+  assert.deepEqual(corners, [...expected, ...expected], 'artwork reaches every edge without shell pixels');
   await page.locator('.cart:not(.album)').click();
+  assert.deepEqual(await page.locator('#ed-face').evaluate(c => [c.width, c.height]), [240, 146]);
+  assert.equal(await page.locator('#ed-shell-custom').isVisible(), false);
   assert.equal(await page.locator('#ed-finish').isVisible(), false);
   assert.equal(await page.locator('#ed-outline-row').isVisible(), false);
   await page.locator('#ed-close').click();
@@ -339,6 +360,89 @@ test('SNES prefers hosted logos and handles missing fallback artwork without blo
   assert.equal(await page.locator('#choose-customLogo').isEnabled(), true);
 });
 
+test('Real Label keeps the previous preview while loading and respects a newer selection', async t => {
+  const page = await studio(t);
+  let release, began;
+  const gate = new Promise(resolve => { release = resolve; });
+  const started = new Promise(resolve => { began = resolve; });
+  t.after(() => release());
+  await page.route(`${base}/art/SNES/support-texture/**`, async route => {
+    began(); await gate;
+    await route.fulfill({ contentType: 'image/png', body: PNG }).catch(() => {});
+  });
+  await openCard(page, [['Games/SNES/Probe.smc', `${base}/rom.smc`], ['Labels/SNES/Probe.png', `${base}/cover.png`]]);
+  await page.locator('.cart').click();
+  await started;
+  await page.waitForFunction(() => !document.getElementById('choose-real').disabled);
+  const preview = await page.locator('#ed-face').evaluate(canvas => canvas.toDataURL());
+  const gameRow = await page.locator('#ed-game').boundingBox();
+  await page.locator('#choose-real').click();
+  assert.equal(await page.locator('#ed-face').isVisible(), true);
+  assert.equal(await page.locator('#ed-face').evaluate(canvas => canvas.toDataURL()), preview);
+  assert.match(await page.locator('#ed-preview-message').innerText(), /Loading real label/);
+  assert.equal(await page.locator('#ed-preview').getAttribute('aria-busy'), 'true');
+  assert.equal(await page.locator('#ed-real-loading').isVisible(), true);
+  assert.equal(await page.getByRole('progressbar', { name: 'Loading real label', exact: true }).isVisible(), true);
+  assert.equal(await page.locator('#choose-real').getAttribute('aria-pressed'), 'true');
+  assert.equal((await page.locator('#ed-game').boundingBox()).y, gameRow.y);
+  await page.locator('#choose-logo').click();
+  assert.equal(await page.locator('#ed-real-loading').isVisible(), false);
+  release();
+  await page.waitForFunction(() => window.__studio.idle());
+  assert.equal((await page.evaluate(() => window.__studio.states()))[0].wears, 'logo');
+  assert.equal(await page.locator('#choose-logo').getAttribute('aria-pressed'), 'true');
+  await page.locator('#choose-real').click();
+  assert.equal(await page.locator('#ed-preview').getAttribute('aria-busy'), 'false');
+  assert.equal(await page.locator('#ed-real-loading').isVisible(), false);
+  assert.match(await page.locator('#ed-preview-message').innerText(), /Selected: Real Label/);
+  await page.locator('#ed-undo').click();
+  assert.equal((await page.evaluate(() => window.__studio.states()))[0].wears, 'logo');
+  await page.locator('#ed-redo').click();
+  assert.equal((await page.evaluate(() => window.__studio.states()))[0].wears, 'real');
+});
+
+test('Real Label reports failure and refreshes loading feedback when retrying the same choice', async t => {
+  const page = await studio(t);
+  let release, began;
+  let fail = false;
+  const gate = new Promise(resolve => { release = resolve; });
+  const started = new Promise(resolve => { began = resolve; });
+  t.after(() => release());
+  await page.route(`${base}/art/SNES/support-texture/**`, async route => {
+    if (fail) return route.fulfill({ status: 503, body: 'unavailable' });
+    began(); await gate;
+    await route.fulfill({ contentType: 'image/png', body: PNG }).catch(() => {});
+  });
+  fail = true;
+  await openCard(page, [['Games/SNES/Probe.smc', `${base}/rom.smc`], ['Labels/SNES/Probe.png', `${base}/cover.png`]]);
+  await page.locator('.cart').click();
+  await page.waitForFunction(() => document.getElementById('choose-real').textContent.includes('Retry'));
+  await page.locator('#choose-real').click();
+  await page.waitForFunction(() => window.__studio.idle());
+  assert.match(await page.locator('#ed-preview-message').innerText(), /couldn’t load.*Showing Logo Only/);
+  assert.equal(await page.locator('#ed-real-loading').isVisible(), false);
+  assert.equal(await page.locator('#ed-face').isVisible(), true);
+  fail = false;
+  await page.locator('#choose-real').click();
+  await started;
+  assert.match(await page.locator('#ed-preview-message').innerText(), /Loading real label/);
+  assert.equal(await page.locator('#ed-preview').getAttribute('aria-busy'), 'true');
+  assert.equal(await page.locator('#choose-real').isDisabled(), true);
+  assert.equal(await page.locator('#ed-real-loading').isVisible(), true);
+  release();
+  await page.waitForFunction(() => window.__studio.idle());
+  assert.equal((await page.evaluate(() => window.__studio.states()))[0].wears, 'real');
+  assert.equal(await page.locator('#ed-preview').getAttribute('aria-busy'), 'false');
+  assert.equal(await page.locator('#ed-real-loading').isVisible(), false);
+  await page.locator('#choice-logo').click();
+  assert.equal((await page.evaluate(() => window.__studio.states()))[0].wears, 'logo');
+  await page.setViewportSize({ width: 400, height: 650 });
+  await page.locator('#choose-real').click();
+  const frame = await page.locator('#ed-preview').boundingBox();
+  assert.ok(frame.y >= 0 && frame.y + frame.height <= 650, 'main preview stays visible while choosing images on mobile');
+  await page.screenshot({ path: 'out/browser/real-label-mobile.png' });
+});
+
 test('delayed SNES fallback logos keep loading masked and cannot change a replacement card', async t => {
   const page = await studio(t, { artIndex: {} });
   let release, began;
@@ -386,7 +490,28 @@ test('SNES imported labels write to the card and reopen with the original ROM st
   const [game] = await page.evaluate(() => window.__studio.states());
   assert.equal(game.state, 'has-label');
   assert.equal(game.wears, 'card');
-  assert.deepEqual(await page.locator('.cart canvas').evaluate(c => [c.width, c.height]), [360, 225]);
+  assert.deepEqual(await page.locator('.cart canvas').evaluate(c => [c.width, c.height]), [240, 146]);
+});
+
+test('a cached game library loads and saves SNES labels while all game-artwork services are blocked', async (t) => {
+  const page = await studio(t, { library: { version: 1, offline: true, platforms: {
+    SNES: { database: 'dat/SNES.dat', thumbnails: {
+      Named_Boxarts: { 'SNES Probe (USA)': `SNES/boxart/${crc}.png` }, Named_Logos: {},
+    } },
+  } } });
+  const remote = [];
+  await page.route('https://raw.githubusercontent.com/**', route => { remote.push(route.request().url()); return route.abort(); });
+  await page.route('https://art.slot-cfw.fyi/**', route => { remote.push(route.request().url()); return route.abort(); });
+  await openCard(page, [['Games/SNES/Offline.smc', `${base}/rom.smc`]], true);
+  const [game] = await page.evaluate(() => window.__studio.states());
+  assert.equal(game.game, 'SNES Probe (USA)');
+  assert.equal(game.wears, 'real');
+  await page.locator('.cart').click();
+  await page.locator('#ed-close').click();
+  await page.locator('#write').click();
+  await page.waitForFunction(() => window.__written.length === 1 && window.__studio.idle());
+  assert.equal((await page.evaluate(() => window.__written[0])).path, 'Labels/SNES/Offline.png');
+  assert.deepEqual(remote, []);
 });
 
 test('Near trial uses the actual Chrono Trigger label and saves/reopens it',
@@ -598,6 +723,58 @@ test('loading message box masks the app until music metadata and game artwork fi
   assert.equal(await page.locator('#music-artist').inputValue(), album.artist);
 });
 
+test('Download Assets starts the full library before card selection and masks progress until complete', async t => {
+  const page = await studio(t, { library: { version: 1, offline: true, onDemand: true, downloadsEnabled: true, platforms: {} } });
+  let running = false, complete = false, posts = 0;
+  const status = () => ({ running: running && !complete, stage: 'Downloading all five platforms…',
+    completed: complete ? 20 : 5, total: 20, available: complete ? 20 : 5, missing: 0, failed: 0, cancelled: false, error: null });
+  await page.route('**/api/artwork/status', route => route.fulfill({ json: status() }));
+  await page.route('**/api/artwork/download', route => {
+    assert.equal(route.request().method(), 'POST'); posts++; running = true;
+    return route.fulfill({ json: status() });
+  });
+  const button = page.getByRole('button', { name: 'Download Assets', exact: true });
+  assert.equal(await button.isEnabled(), true);
+  await button.click();
+  await page.waitForFunction(() => document.querySelector('#studio-header').inert);
+  assert.equal(await page.locator('.studio-progress-dialog').isVisible(), true);
+  assert.equal(await page.locator('#download-assets').isDisabled(), true);
+  assert.equal(await page.locator('#pick').isDisabled(), true);
+  await page.keyboard.press('Escape');
+  assert.equal(await page.locator('.studio-progress-dialog').isVisible(), true);
+  complete = true;
+  await page.waitForFunction(() => !document.querySelector('#studio-header').inert);
+  assert.equal(await button.isEnabled(), true);
+  assert.match(await page.locator('#banner-message').innerText(), /20 files ready/);
+  assert.equal(posts, 1);
+});
+
+test('Download Assets can cancel, retry failures and preserves existing labels and edits', async t => {
+  const page = await studio(t, { library: { version: 1, offline: true, onDemand: true, downloadsEnabled: true, platforms: {
+    SNES: { database: 'dat/SNES.dat', thumbnails: {} },
+  } } });
+  let running = false, cancelled = false, posts = 0;
+  const status = () => ({ running, stage: 'Downloading assets…', completed: 1, total: 10, available: 1,
+    missing: 0, failed: 0, cancelled, error: null });
+  await page.route('**/api/artwork/status', route => route.fulfill({ json: status() }));
+  await page.route('**/api/artwork/download', route => { posts++; running = true; cancelled = false; return route.fulfill({ json: status() }); });
+  await page.route('**/api/artwork/cancel', route => { running = false; cancelled = true; return route.fulfill({ json: status() }); });
+  await openCard(page, [['Games/SNES/Probe.smc', `${base}/rom.smc`], ['Labels/SNES/Probe.png', `${base}/cover.png`]]);
+  const before = await page.evaluate(() => window.__studio.states());
+  await page.locator('#download-assets').click();
+  await page.getByRole('button', { name: 'Cancel download', exact: true }).click();
+  await page.waitForFunction(() => !document.querySelector('#studio-header').inert);
+  assert.match(await page.locator('#banner-message').innerText(), /cancelled.*resume/);
+  assert.deepEqual(await page.evaluate(() => window.__studio.states()), before);
+  await page.route('**/api/artwork/download', route => route.fulfill({ status: 503, json: { error: 'Provider temporarily unavailable' } }));
+  await page.locator('#download-assets').click();
+  await page.waitForFunction(() => !document.querySelector('#studio-header').inert);
+  assert.match(await page.locator('#banner-message').innerText(), /Provider temporarily unavailable/);
+  assert.equal(await page.locator('#download-assets').isEnabled(), true);
+  assert.deepEqual(await page.evaluate(() => window.__studio.states()), before);
+  assert.equal(posts, 1);
+});
+
 test('loading waits for delayed artwork and clears its mask when replaced by an empty card', async (t) => {
   const page = await studio(t);
   let release, began;
@@ -723,9 +900,10 @@ test('native TabPanel preserves edited cards and supports keyboard navigation an
   await snes.click();
   assert.equal(await page.getByRole('tabpanel', { name: 'Super Nintendo' }).isVisible(), true);
   await page.locator('.cart:not([hidden])').click();
-  await page.locator('#ed-shell-custom').fill('#336699');
-  await page.locator('#ed-shell-auto').focus();
-  const edited = (await page.evaluate(() => window.__studio.shells())).find(c => c.stem === 'Probe').shell;
+  await page.locator('#choose-logo').click();
+  await page.locator('#ed-bg-custom').fill('#336699');
+  await page.locator('#ed-bg-auto').focus();
+  const edited = (await page.evaluate(() => window.__studio.states())).find(c => c.stem === 'Probe').deep;
   await page.evaluate(() => { window.__keptCanvas = document.querySelector('.cart:not([hidden]) canvas'); });
   await page.locator('#ed-close').click();
   await snes.focus();
@@ -738,7 +916,7 @@ test('native TabPanel preserves edited cards and supports keyboard navigation an
   assert.equal(await page.getByRole('tab', { name: 'Game Boy Color' }).getAttribute('aria-selected'), 'true');
   await snes.click();
   assert.equal(await page.evaluate(() => window.__keptCanvas === document.querySelector('.cart:not([hidden]) canvas')), true);
-  assert.equal((await page.evaluate(() => window.__studio.shells())).find(c => c.stem === 'Probe').shell, edited);
+  assert.equal((await page.evaluate(() => window.__studio.states())).find(c => c.stem === 'Probe').deep, edited);
   await page.setViewportSize({ width: 260, height: 800 });
   await page.waitForFunction(() => Ext.getCmp('tabs').scrolling === true);
   await snes.focus();
@@ -812,12 +990,15 @@ test('complete Horizon viewport is unbranded and the fallback chooser remains us
 });
 
 test('Horizon cartridge forms apply imported logos, colours, presets and history', async (t) => {
-  const page = await studio(t);
-  await openCard(page, [['Games/SNES/Probe.smc', `${base}/rom.smc`]]);
+  const page = await studio(t, {
+    artIndex: { [rawCrc]: { wheel: 'GBA/wheel/probe.png', 'support-texture': 'GBA/support-texture/probe.png' } },
+    dat: `game (\n name "GBA Probe (USA)"\n rom ( name "Probe.gba" crc ${rawCrc} )\n)\n`,
+  });
+  await openCard(page, [['Games/GBA/Probe.gba', `${base}/rom.smc`]]);
   await page.locator('.cart').click();
   await page.waitForFunction(() => document.getElementById('cart-editor-window').contains(document.activeElement));
   await page.locator('#ed-game').fill('Probe');
-  await page.locator('.x-combo-list-item').filter({ hasText: 'SNES Probe (USA)' }).click();
+  await page.locator('.x-combo-list-item').filter({ hasText: 'GBA Probe (USA)' }).click();
   assert.equal(await page.locator('#ed-undo').isDisabled(), true);
   await page.locator('#ed-game').locator('..').locator('.x-form-trigger').click();
   await page.locator('.x-combo-list-item').filter({ hasText: 'No match' }).click();

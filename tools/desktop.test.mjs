@@ -4,6 +4,8 @@ import { spawn } from 'node:child_process';
 import { readFile, mkdtemp, mkdir, writeFile, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { resolve } from 'node:path';
+import { createHash } from 'node:crypto';
+import { crc32 } from 'node:zlib';
 import { chromium } from '@playwright/test';
 
 test('desktop serves the packaged WASM and parser and scans a tagged album', {
@@ -12,7 +14,9 @@ test('desktop serves the packaged WASM and parser and scans a tagged album', {
 }, async (t) => {
   const executable = resolve(process.env.STUDIO_DESKTOP ?? (process.platform === 'win32' ?
     'dist/windows-x64/cart-studio.exe' : 'dist/macos-arm64/cart-studio'));
-  const child = spawn(executable, ['--no-open'], { windowsHide: true, stdio: ['ignore', 'pipe', 'pipe'] });
+  const cache = await mkdtemp(resolve(tmpdir(), 'studio-empty-cache-'));
+  t.after(() => rm(cache, { recursive: true, force: true }));
+  const child = spawn(executable, ['--no-open', '--cache-dir', cache, '--no-art-download'], { windowsHide: true, stdio: ['ignore', 'pipe', 'pipe'] });
   t.after(() => child.kill());
   const base = await new Promise((resolve, reject) => {
     let output = '';
@@ -126,4 +130,85 @@ test('desktop artwork CLI serves local labels without a query override', {
   await page.waitForFunction(() => document.body.dataset.ready === 'true');
   assert.equal(await page.evaluate(() => window.__studio.artBase()), new URL('art/', base).href);
   assert.deepEqual(errors, []);
+});
+
+test('automatic cache serves all five platforms after an offline executable restart', {
+  skip: process.platform !== 'win32' && process.platform !== 'darwin' && !process.env.STUDIO_DESKTOP,
+  timeout: 30000,
+}, async t => {
+  const executable = resolve(process.env.STUDIO_DESKTOP ?? (process.platform === 'win32' ?
+    'dist/windows-x64/cart-studio.exe' : 'dist/macos-arm64/cart-studio'));
+  const root = await mkdtemp(resolve(tmpdir(), 'studio-persistent-cache-'));
+  t.after(() => rm(root, { recursive: true, force: true }));
+  const bytes = Buffer.alloc(32768, 1);
+  const checksum = crc32(bytes).toString(16).toUpperCase().padStart(8, '0');
+  const png = Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAIAAAABCAIAAAB7QOjdAAAAD0lEQVR4nGO0snJiYGAAAAOUALgNWObMAAAAAElFTkSuQmCC', 'base64');
+  const filename = 'Probe (USA).png';
+  const key = createHash('sha256').update(filename).digest('hex');
+  const platforms = ['GBA', 'GB', 'GBC', 'SNES', 'PSX'];
+  await mkdir(resolve(root, 'dat'), { recursive: true });
+  await writeFile(resolve(root, 'index.json'), '{}');
+  for (const platform of platforms) {
+    await writeFile(resolve(root, `dat/${platform}.dat`), `game (\n name "Probe (USA)"\n rom ( crc ${checksum} )\n)\n`);
+    for (const media of ['boxart', 'wheel']) {
+      await mkdir(resolve(root, platform, media), { recursive: true });
+      await writeFile(resolve(root, platform, media, `${key}.png`), png);
+    }
+  }
+  let child;
+  t.after(() => child?.kill());
+  async function start() {
+    child = spawn(executable, ['--no-open', '--cache-dir', root, '--no-art-download'],
+      { windowsHide: true, stdio: ['ignore', 'pipe', 'pipe'] });
+    return new Promise((resolve, reject) => {
+      let output = '';
+      child.on('error', reject);
+      child.on('exit', code => reject(new Error(`Desktop exited before startup: ${code}`)));
+      child.stdout.on('data', data => {
+        output += data;
+        const match = output.match(/Cart Studio is at (http:\/\/127\.0\.0\.1:\d+\/)/);
+        if (match) resolve(match[1]);
+      });
+    });
+  }
+  for (let run = 0; run < 2; run++) {
+    const base = await start();
+    const library = await (await fetch(new URL('art/library.json', base))).json();
+    assert.equal(library.onDemand, true);
+    for (const platform of platforms) {
+      const url = `art/thumbnails/${platform}/Named_Boxarts/${encodeURIComponent(filename)}`;
+      assert.deepEqual(Buffer.from(await (await fetch(new URL(url, base))).arrayBuffer()), png);
+    }
+    if (run === 0) { child.kill(); await new Promise(resolve => child.once('exit', resolve)); continue; }
+    const browser = await chromium.launch({ headless: true, ...(process.env.STUDIO_CHROME ? { executablePath: process.env.STUDIO_CHROME } :
+      process.platform === 'win32' ? { executablePath: 'C:/Program Files/Google/Chrome/Application/chrome.exe' } : {}) });
+    t.after(() => browser.close());
+    const page = await browser.newPage({ acceptDownloads: true });
+    const remote = [], errors = [];
+    page.on('pageerror', error => errors.push(error.message));
+    await page.route(/^https:\/\//, route => { remote.push(route.request().url()); return route.abort(); });
+    await page.goto(base);
+    await page.waitForFunction(() => document.body.dataset.ready === 'true');
+    await page.evaluate(({ platforms, bytes }) => {
+      const extensions = { GBA: 'gba', GB: 'gb', GBC: 'gbc', SNES: 'smc', PSX: 'chd' };
+      const files = platforms.map(platform => {
+        const file = new File([new Uint8Array(bytes)], `Probe (USA).${extensions[platform]}`);
+        Object.defineProperty(file, 'webkitRelativePath', { value: `card/Games/${platform}/${file.name}` });
+        return file;
+      });
+      window.__studio.openFiles(files);
+    }, { platforms, bytes: [...bytes] });
+    await page.waitForFunction(() => window.__studio.idle());
+    if (!await page.locator('#fill').isVisible()) await page.locator('#fill-open').click();
+    await page.locator('#fill-logo').click();
+    await page.waitForFunction(() => window.__studio.idle());
+    const games = await page.evaluate(() => window.__studio.states());
+    assert.equal(games.length, 5);
+    assert.ok(games.every(game => game.game === 'Probe (USA)' && game.state === 'ready'), JSON.stringify(games));
+    const download = page.waitForEvent('download');
+    await page.locator('#write').click();
+    assert.ok((await download).suggestedFilename().endsWith('.zip'));
+    assert.deepEqual(remote, []);
+    assert.deepEqual(errors, []);
+  }
 });

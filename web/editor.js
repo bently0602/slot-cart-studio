@@ -9,7 +9,12 @@ export function createEditor(api) {
     for (const menu of menus) menu.hide();
     for (const field of Object.values(f)) if (field instanceof H.form.ComboBox) field.collapse();
   }
-  function change(fn, c = cart) { if (c && commit(c, () => fn(c))) api.changed(c); }
+  function change(fn, c = cart) {
+    if (!c) return;
+    commit(c, () => fn(c));
+    // Retrying a download changes its loading state even when the choice is unchanged.
+    api.changed(c);
+  }
   function step(fn) { if (cart && fn(cart)) api.changed(cart); }
   function build() {
     if (built) return;
@@ -33,23 +38,50 @@ export function createEditor(api) {
     if (!visited(c)) visit(c);
     panel.setTitle(ui.encode(api.name(c)));
     const canvas = document.getElementById('ed-face'), face = api.face(c);
-    canvas.hidden = !face;
-    if (face) api.draw(canvas, face, c.platform);
+    const realLoading = api.realLoading(c), realFailed = api.realFailed(c);
+    const waitingForReal = c.choice === 'real' && realLoading;
+    const loading = c.looking || waitingForReal;
+    // Keep the previous image while its replacement downloads. The reserved frame
+    // also keeps the game field and image choices from jumping up and down.
+    if (face) { canvas.hidden = false; api.draw(canvas, face, c.platform); }
+    else if (!loading) canvas.hidden = true;
+    ui.preview.panel.el.dom.setAttribute('aria-busy', String(loading));
+    ui.preview.loading.el.dom.hidden = !waitingForReal;
+    ui.preview.placeholder.el.dom.hidden = !canvas.hidden;
+    ui.preview.placeholder.el.dom.textContent = loading ? 'Loading preview…' : 'Choose an image to preview.';
     f['ed-game'].setDisabled(!api.canLabel(c));
     f['ed-game'].setValue(api.matched(c) ? c.game : '');
     const wearing = api.wearing(c);
+    const selectedLabel = ui.choices[wearing.kind]?.label;
+    ui.preview.message.el.dom.textContent = waitingForReal
+      ? 'Loading real label…' + (canvas.hidden ? '' : ' Your current preview is shown until it’s ready.')
+      : c.looking ? 'Finding artwork…'
+      : c.choice === 'real' && realFailed
+        ? 'Real label couldn’t load. ' + (selectedLabel ? `Showing ${selectedLabel}. ` : '') + 'Retry below or choose another image.'
+      : selectedLabel ? `Selected: ${selectedLabel}` : 'Choose an image below, or import your own PNG.';
     for (const [kind, choice] of Object.entries(ui.choices)) {
       const ok = api.available(c, kind), retry = kind === 'real' && api.realFailed(c);
+      const selected = wearing.kind === kind, pending = kind === 'real' && realLoading;
       choice.panel.setVisible(kind !== 'card' || ok);
-      choice.button.setDisabled(!api.canLabel(c) || (!ok && !retry && !kind.startsWith('custom')));
-      choice.panel.el.dom.classList.toggle('choice-selected', wearing.kind === kind);
-      choice.button.el.dom.querySelector('button').setAttribute('aria-pressed', String(wearing.kind === kind));
+      choice.button.setDisabled(!api.canLabel(c) || (pending && selected) || (!ok && !retry && !kind.startsWith('custom')));
+      choice.panel.el.dom.classList.toggle('choice-selected', selected);
+      choice.panel.el.dom.setAttribute('aria-busy', String(pending));
+      choice.panel.el.dom.dataset.state = retry ? 'error' : pending ? 'loading' : selected ? 'selected' : !ok ? 'unavailable' : 'ready';
+      const nativeButton = choice.button.el.dom.querySelector('button');
+      nativeButton.setAttribute('aria-pressed', String(selected));
+      nativeButton.setAttribute('aria-label', retry ? `Retry ${choice.label}` :
+        selected && kind.startsWith('custom') ? `Replace ${choice.label}` : choice.label);
+      choice.button.setText(retry ? 'Retry Real Label' : pending && selected ? 'Loading…' :
+        selected ? (kind.startsWith('custom') ? 'Replace image…' : 'Selected') : choice.label);
       const hasFile = kind === 'customLogo' ? !!c.customLogoBytes : kind === 'customLabel' ? !!c.customLabelBytes : true;
-      choice.note.el.dom.textContent = retry ? 'Couldn’t load. Click to retry.' :
+      choice.note.el.dom.textContent = retry ? 'Couldn’t load this image. Try again.' : pending ? 'Loading preview…' :
         kind.startsWith('custom') ? (hasFile ? 'Click again to replace the file.' : 'Import a PNG image.') :
         !ok ? 'None for this game' : api.fill() === kind ? 'Default' : '';
       const face = ok && hasFile ? api.tileFace(c, kind) : null, canvas = choice.canvas.el.dom;
       canvas.hidden = !face;
+      choice.placeholder.el.dom.hidden = !!face;
+      choice.placeholder.el.dom.textContent = pending ? 'Loading image…' : retry ? 'Image unavailable' :
+        kind.startsWith('custom') ? 'Import a PNG' : 'No artwork available';
       if (face) { [canvas.width, canvas.height] = api.box(c.platform); api.draw(canvas, face, c.platform); }
     }
     const bg = api.background(c), shell = api.shellOf(c), shells = api.canShell(c);
@@ -84,6 +116,7 @@ export function createEditor(api) {
     cart?.el.root.classList.remove('current');
     cart = c; api.ensureTiles(c); visit(c); c.el.root.classList.add('current');
     const canvas = document.getElementById('ed-face');
+    canvas.hidden = true;
     [canvas.width, canvas.height] = api.box(c.platform);
     panel.show(); refresh(); panel.focus();
   }
@@ -115,6 +148,9 @@ export function createEditor(api) {
     if (kind === 'real') api.retryReal(c);
     change(c => kind === 'customLogo' ? api.useCustomLogo(c, bytes) :
       kind === 'customLabel' ? api.useCustomLabel(c, bytes) : api.choose(c, kind));
+  });
+  for (const choice of Object.values(ui.choices)) choice.canvas.el.dom.addEventListener('click', () => {
+    if (!choice.button.disabled) choice.button.fireEvent('click', choice.button);
   });
   f['ed-file'].el.dom.addEventListener('change', async e => {
     const c = cart, kind = picking, file = e.target.files[0]; e.target.value = '';

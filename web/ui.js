@@ -8,6 +8,7 @@ export function createStudioUi() {
   const buttons = {}, fields = {}, choices = {}, fillChoices = {};
   let progressDialogActive = false;
   let progressOptions = null;
+  let progressCancelButton = null, progressCancelHandler = null;
   function maskBackground() {
     const blocked = progressDialogActive || ['cart-editor-window', 'music-editor-window', 'fill']
       .some(id => H.getCmp(id)?.isVisible());
@@ -70,18 +71,39 @@ export function createStudioUi() {
     return w;
   }
   const cartFace = box('ed-face', { autoEl: { tag: 'canvas', cls: 'editor-art' } });
+  const previewPlaceholder = box('ed-preview-placeholder', {
+    autoEl: { tag: 'div', cls: 'art-placeholder', html: 'Choose an image to preview.' },
+  });
+  const realLoadingScreen = box('ed-real-loading', {
+    autoEl: { tag: 'div', cls: 'real-label-loading', hidden: true,
+      role: 'progressbar', 'aria-label': 'Loading real label',
+      'aria-valuetext': 'Downloading artwork and preparing your preview',
+      html: '<span class="real-label-spinner" aria-hidden="true"></span>' +
+        '<strong>Loading real label…</strong><span>Preparing your preview. Please wait.</span>' },
+  });
+  const cartPreview = new H.Panel({
+    id: 'ed-preview', height: 180, border: false,
+    items: [cartFace, previewPlaceholder, realLoadingScreen],
+  });
+  const previewMessage = box('ed-preview-message', {
+    autoEl: { tag: 'div', cls: 'editor-preview-message', role: 'status', 'aria-live': 'polite', 'aria-atomic': 'true' },
+  });
   for (const [kind, label] of Object.entries({
     card: 'On the card', real: 'Real Label', logo: 'Logo Only',
     customLogo: 'Custom logo', customLabel: 'Custom label',
   })) {
     const canvas = box('choice-' + kind, { autoEl: { tag: 'canvas', cls: 'choice-art' } });
-    const note = box('choice-note-' + kind);
+    const placeholder = box('choice-placeholder-' + kind, { autoEl: { tag: 'div', cls: 'art-placeholder' } });
+    const preview = new H.Panel({
+      height: 120, border: false, cls: 'choice-preview', items: [canvas, placeholder],
+    });
+    const note = box('choice-note-' + kind, { autoEl: { tag: 'div', cls: 'choice-note' } });
     const choose = button('choose-' + kind, label);
     const panel = new H.Panel({
       id: 'choice-panel-' + kind, title: label, width: 178, autoHeight: true, bodyStyle: 'padding:6px',
-      items: [canvas, note], buttons: [choose],
+      cls: 'art-choice', items: [preview, note], buttons: [choose],
     });
-    choices[kind] = { canvas, note, button: choose, panel };
+    choices[kind] = { label, canvas, placeholder, note, button: choose, panel };
   }
   const background = new H.form.FieldSet({
     id: 'ed-background-fieldset', title: 'Background', autoHeight: true,
@@ -98,15 +120,22 @@ export function createStudioUi() {
     combo('ed-outline', 'Outline', [['auto', 'Auto'], ['notched', 'Notched'], ['rounded', 'Rounded']])],
     buttons: [button('ed-shell-auto', 'Automatic'), button('ed-shell-palette', 'Palette')],
   });
-  const cartForm = new H.FormPanel({
-    id: 'editor', labelWidth: 78, autoScroll: true, bodyStyle: 'padding:10px',
-    items: [cartFace, combo('ed-game', 'Game', [], { editable: true, minChars: 0, emptyText: 'Choose a game' }),
+  const previewRegion = new H.Panel({
+    border: false, autoHeight: true, layout: 'form', labelWidth: 78, cls: 'editor-preview-region',
+    items: [cartPreview, previewMessage, combo('ed-game', 'Game', [], { editable: true, minChars: 0, emptyText: 'Choose a game' })],
+  });
+  const cartOptions = new H.Panel({
+    id: 'ed-options', border: false, layout: 'form', labelWidth: 78, autoScroll: true, cls: 'editor-options',
+    items: [
       new H.Panel({ title: 'Label', autoHeight: true, items: [
-        choices.card.panel,
-        new H.Panel({ border: false, layout: 'table', layoutConfig: { columns: 2 },
-          autoHeight: true, items: Object.entries(choices).filter(([kind]) => kind !== 'card').map(([, c]) => c.panel) }),
+        new H.Panel({ border: false, cls: 'image-choice-grid',
+          autoHeight: true, items: Object.values(choices).map(c => c.panel) }),
       ] }),
       file('ed-file', 'image/png,.png'), background, shell],
+  });
+  const cartForm = new H.FormPanel({
+    id: 'editor', labelWidth: 78, bodyStyle: 'padding:10px',
+    items: [previewRegion, cartOptions],
     bbar: [button('ed-undo', 'Undo'), button('ed-redo', 'Redo'), '->', button('ed-revert', 'Revert')],
   });
   const cartEditor = windowPanel('cart-editor-window', 'Cart editor', cartForm, {
@@ -114,9 +143,8 @@ export function createStudioUi() {
   });
   function layoutCartChoices() {
     // Use the form's usable width, including space taken by its vertical scrollbar.
-    const width = cartForm.body.getViewSize().width - cartForm.body.getPadding('lr') - 2;
-    for (const [kind, c] of Object.entries(choices)) c.panel.setSize(
-      Math.floor(width / (kind === 'card' ? 1 : 2)));
+    const width = cartOptions.body.getViewSize().width - 2;
+    for (const c of Object.values(choices)) c.panel.setSize(Math.floor((width - 8) / 2));
     cartForm.doLayout();
   }
   cartEditor.on('resize', layoutCartChoices);
@@ -197,7 +225,8 @@ export function createStudioUi() {
   const header = new H.Panel({
     id: 'studio-header', region: 'north', title: 'Cart Studio', autoHeight: true, border: false,
     items: [cardInput, banner],
-    tbar: [button('pick', 'Choose SD Card', { disabled: true }), button('write', 'Write to card', {
+    tbar: [button('pick', 'Choose SD Card', { disabled: true }),
+      button('download-assets', 'Download Assets', { disabled: true }), button('write', 'Write to card', {
       disabled: true, hidden: true,
     }), button('fill-open', 'Fill unlabelled carts…', { hidden: true }), '->', button('about', 'About', { handler: () => {
       about.setSize(Math.min(440, innerWidth - 20), Math.min(300, innerHeight - 20)); about.show(); about.center();
@@ -298,6 +327,7 @@ export function createStudioUi() {
   const resultPanels = [];
   return {
     buttons, fields, choices, fillChoices, background, shell, cartEditor, musicEditor, fill, encode, layoutCartChoices,
+    preview: { panel: cartPreview, placeholder: previewPlaceholder, message: previewMessage, loading: realLoadingScreen },
     setFieldVisible(id, visible) {
       fields[id].setVisible(visible);
       const row = fields[id].el.dom.closest('.x-form-item');
@@ -316,10 +346,22 @@ export function createStudioUi() {
         H.MessageBox.updateText(progressOptions.msg);
       }
     },
-    showProgress(title, message) {
+    showProgress(title, message, cancel = null) {
       progressOptions = { title, msg: encode(message), progress: true, closable: false,
-        modal: true, width: Math.min(420, innerWidth - 20), progressText: 'Please wait…' };
+        modal: true, width: Math.min(420, innerWidth - 20), progressText: 'Please wait…',
+        buttons: cancel ? { cancel: 'Cancel download' } : false,
+        fn: button => { if (button === 'cancel') cancel?.(); } };
+      progressBar.setAttribute('aria-label', title + ' progress');
       H.MessageBox.show(progressOptions);
+      if (cancel) {
+        progressCancelButton ??= progressDialog.buttons.find(button => button.text === 'Cancel download');
+        progressCancelHandler ??= progressCancelButton.handler;
+        // MessageBox normally hides before calling its button callback. Keep the
+        // mask in place until the server has acknowledged cancellation instead.
+        progressCancelButton.setHandler(cancel);
+      } else if (progressCancelButton) {
+        progressCancelButton.setHandler(progressCancelHandler);
+      }
       progressDialog.keyMap.disable();
       progressDialog.center();
     },

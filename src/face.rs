@@ -1,10 +1,19 @@
-//! A cart face for a label held in memory, drawn by slot's own `cart_face`.
+//! Previews for labels held in memory: SNES artwork alone, other carts drawn by slot.
 
 use std::path::Path;
 
 use slot_store::Platform;
 
 use crate::{art, cart};
+
+/// SNES shows the label alone; other platforms keep the device's cart face.
+pub fn size(platform: Platform) -> (u32, u32) {
+    if platform == Platform::Snes {
+        (crate::label::SNES_W / 4, crate::label::SNES_H / 4)
+    } else {
+        cart::cart_box(platform)
+    }
+}
 
 /// The platform a card folder names. It picks the GBA cart, a Game Boy pak or the PlayStation
 /// case; which pak, and its plastic, is the header's to say. Anything unrecognised is GBA, which
@@ -31,6 +40,26 @@ fn draw(
     stem: &str,
     key: &Path,
 ) -> Vec<u8> {
+    if platform == Platform::Snes {
+        let (w, h) = size(platform);
+        if let Some(rgba) = art::cover(key, w, h) {
+            return rgba;
+        }
+        // Keep a readable title placeholder when there is no artwork yet.
+        let title = cart::clean_label(stem);
+        let colour = cart::label_colour(&title);
+        let mut rgba = [colour[0], colour[1], colour[2], 255].repeat((w * h) as usize);
+        if let Some(font) = crate::text::label_font() {
+            let layout = crate::text::fit(font, &title, w as f32 - 20.0, 4, 30.0, 10.0);
+            let ink = if colour.iter().map(|v| *v as u32).sum::<u32>() > 384 {
+                [24, 24, 24]
+            } else {
+                [240, 240, 240]
+            };
+            crate::text::draw_centred(&mut rgba, w, h, &layout, ink);
+        }
+        return rgba;
+    }
     slot_store::gb::with_header(head, |rom| {
         cart::cart_face(&slot_store::Cart {
             platform,

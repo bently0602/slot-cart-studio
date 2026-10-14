@@ -29,7 +29,7 @@ import { matchedChecksum, romChecksums } from './snes.js';
 import { existingCover, needsCoverWrite, readAlbum } from './music.js';
 import { createMusicEditor, setCoverImage } from './music-editor.js';
 import { DEFAULT_MUSIC_API, DEFAULT_ART_BASE } from './config.js';
-import { fetchArt, fetchDat, fetchIndex, fetchThumb, limiter } from './libretro.js';
+import { fetchArt, fetchDat, fetchIndex, fetchLibrary, fetchThumb, limiter } from './libretro.js';
 import { createEditor } from './editor.js';
 import { amend, commit } from './history.js';
 import { smallPrint } from './smallprint.js';
@@ -56,6 +56,7 @@ const dats = new Map();
 let session = null;
 let busy = 0;
 let writing = false;
+let downloadingAssets = false;
 let loadOperation = null;
 // Set by the first WASM trap. What the module holds is undefined after one (a RefCell can stay
 // borrowed, and then every face panics), so nothing calls into it again.
@@ -181,6 +182,7 @@ const crcHex = (crc) => crc.toString(16).toUpperCase().padStart(8, '0');
 // Our own set, published beside the studio. `?art=` points at another, a local one while it is
 // being harvested, and an empty `?art=` leaves every cart to libretro.
 const ART_BASE = new URLSearchParams(location.search).get('art') ?? DEFAULT_ART_BASE;
+let artLibrary = null;
 let artIndex = null;
 const fromHex = (value) => [1, 3, 5].map((at) => parseInt(value.slice(at, at + 2), 16));
 // A sure look from the art set, or null: anything missing, unsure or malformed counts as no look.
@@ -477,7 +479,7 @@ function fetchReal(s, c) {
   real.pending = (async () => {
     let bytes = null;
     try {
-      bytes = await limit(async () => (s === session && !fatal ? fetchArt(ART_BASE, path) : null));
+      bytes = await limit(async () => (s === session && !fatal ? fetchArt(ART_BASE, path, !!artLibrary) : null));
       if (bytes && !readable(bytes)) bytes = null;
     } catch (e) {
       if (trapped(e)) return;
@@ -507,6 +509,7 @@ function loading(text) {
   if (!text) {
     loadOperation = null;
     ui.hideProgress();
+    updateWriteBar();
   }
   ui.setLoading(text);
 }
@@ -534,6 +537,7 @@ async function open(source) {
   musicEditor.close();
   ui.fill.hide();
   const operation = loadOperation = { pending: new Set(), initializing: true, checkedFill: false, waitingForFill: false };
+  updateWriteBar();
   ui.showProgress('Loading SD card', 'Reading the card…');
   ui.setProgress(0, 0);
   loading('Reading the card…');
@@ -691,7 +695,7 @@ async function match(s) {
   for (const platform of new Set(s.carts.map((c) => c.platform))) {
     if (dats.has(platform)) continue;
     try {
-      dats.set(platform, Dat.parse(await fetchDat(platform)));
+      dats.set(platform, Dat.parse(await fetchDat(platform, artLibrary)));
     } catch (e) {
       if (trapped(e) || s !== session || fatal) return;
       s.datFailed = true;
@@ -782,14 +786,14 @@ async function dress(s, c) {
     !name
       ? Promise.resolve(null)
       : limit(async () =>
-          s === session && !fatal ? fetchThumb(c.platform, folder, name, stub_target) : null,
+          s === session && !fatal ? fetchThumb(c.platform, folder, name, stub_target, artLibrary) : null,
         ).catch(noImage);
   // Prefer checksum-matched artwork, then named libretro logos for cartridges.
   const ours = (media) => {
     const path = key && artIndex?.[key]?.[media];
     if (!path) return Promise.resolve(null);
     return limit(async () =>
-      s === session && !fatal ? fetchArt(ART_BASE, path) : null,
+      s === session && !fatal ? fetchArt(ART_BASE, path, !!artLibrary) : null,
     ).catch(noImage);
   };
   // The ground's colour is read off the box art, so that request starts now and is waited on
@@ -851,14 +855,64 @@ function showPlatform(p) {
 }
 
 function updateWriteBar() {
+  ui.buttons['download-assets'].setDisabled(!artLibrary?.onDemand || artLibrary.downloadsEnabled === false ||
+    downloadingAssets || writing || fatal || !!loadOperation);
+  ui.buttons.pick.setDisabled(writing || downloadingAssets || fatal);
   if (!session) return;
   const n = readyCarts().length + shellChanges().length + readyAlbums().length;
   ui.buttons.write.setVisible(n > 0 || writing);
-  ui.buttons.write.setDisabled(n === 0 || writing || fatal);
-  ui.buttons.pick.setDisabled(writing || fatal);
+  ui.buttons.write.setDisabled(n === 0 || writing || downloadingAssets || fatal);
   ui.buttons.write.setText(session.source.direct ? 'Write to card' : 'Download ZIP');
   ui.buttons['music-save'].setText(ui.buttons.write.text);
   ui.buttons['music-save'].setDisabled(ui.buttons.write.disabled);
+}
+
+async function assetRequest(operation, method = 'GET') {
+  const response = await fetch(new URL('/api/artwork/' + operation, location.origin), { method });
+  const status = await response.json();
+  if (!response.ok) throw new Error(status.error || `Asset download returned HTTP ${response.status}`);
+  return status;
+}
+
+async function downloadAssets(current = null) {
+  if (downloadingAssets || writing || fatal || loadOperation || !artLibrary?.onDemand || artLibrary.downloadsEnabled === false) return;
+  downloadingAssets = true;
+  updateWriteBar();
+  ui.showBanner('');
+  let stopping = false;
+  const cancel = async () => {
+    stopping = true;
+    ui.showProgress('Download Assets', 'Stopping after the current downloads…');
+    try { await assetRequest('cancel', 'POST'); }
+    catch (error) { banner(error.message); }
+  };
+  ui.showProgress('Download Assets', 'Preparing the full five-platform library…', cancel);
+  try {
+    let status = current ?? await assetRequest('download', 'POST');
+    while (status.running) {
+      ui.setLoading(stopping ? 'Stopping after the current downloads…' : status.stage);
+      ui.setProgress(status.completed, status.total);
+      await new Promise(resolve => setTimeout(resolve, 500));
+      status = await assetRequest('status');
+    }
+    if (status.cancelled) {
+      banner(`Asset download cancelled. ${status.available} files are ready; click Download Assets to resume.`);
+    } else if (status.error && !status.failed) {
+      throw new Error(status.error);
+    } else {
+      const unavailable = (status.missing || 0) + (status.failed || 0);
+      banner(`Asset download complete: ${status.available} files ready${unavailable ? `, ${unavailable} unavailable` : ''}.` +
+        (status.failed ? ` ${status.error}` : ''), status.failed ? () => track(downloadAssets()) : null);
+    }
+  } catch (error) {
+    logError('Download assets', error);
+    banner(`Asset download failed: ${error.message}`, () => track(downloadAssets()));
+  } finally {
+    downloadingAssets = false;
+    ui.hideProgress();
+    ui.setLoading(null);
+    updateWriteBar();
+  }
 }
 
 function writeProgress(done, total) {
@@ -1144,7 +1198,7 @@ async function lookUp(s, c) {
   paint(c);
   try {
     if (c.crc === null && !onDisc(c)) Object.assign(c, await romChecksums(await c.file(), c.platform, Crc32));
-    if (!dats.has(c.platform)) dats.set(c.platform, Dat.parse(await fetchDat(c.platform)));
+    if (!dats.has(c.platform)) dats.set(c.platform, Dat.parse(await fetchDat(c.platform, artLibrary)));
     if (s !== session || fatal) return;
     c.game = gameFor(c);
     await dress(s, c);
@@ -1208,6 +1262,10 @@ const editor = createEditor({
   wearing,
   available: (c, kind) => available(view(c), kind),
   realFailed: (c) => !!realOf(c)?.failed,
+  realLoading: (c) => {
+    const real = realOf(c);
+    return !!real && !real.bytes && !real.failed;
+  },
   retryReal,
   fill: () => session?.fill ?? null,
   tileFace: (c, kind) => {
@@ -1222,8 +1280,8 @@ const editor = createEditor({
   useCustomLogo,
   useCustomLabel,
   ensureTiles,
-  hasShell: (c) => !onDisc(c),
-  canShell: (c) => !onDisc(c) && !c.looking && ['ready', 'has-label', 'needs-logo', 'unfilled'].includes(stateOf(c)) && shell_key_ok(c.stem),
+  hasShell: (c) => !onDisc(c) && c.platform !== 'SNES',
+  canShell: (c) => !onDisc(c) && c.platform !== 'SNES' && !c.looking && ['ready', 'has-label', 'needs-logo', 'unfilled'].includes(stateOf(c)) && shell_key_ok(c.stem),
   search: (c, query) => dats.get(c.platform)?.search(query, 30) ?? null,
   chooseGame,
   noMatch,
@@ -1251,6 +1309,7 @@ async function start() {
   // back to libretro, which is all the page had before there was a set to point at.
   if (ART_BASE) {
     try {
+      artLibrary = await fetchLibrary(ART_BASE);
       artIndex = await fetchIndex(ART_BASE);
       console.info(`art set: ${Object.keys(artIndex).length} checksums from ${ART_BASE}`);
     } catch (e) {
@@ -1259,6 +1318,7 @@ async function start() {
   }
   const direct = 'showDirectoryPicker' in window;
   ui.buttons.pick.enable();
+  updateWriteBar();
 
   ui.buttons.pick.on('click', async () => {
     if (!direct) { $('pick-files').click(); return; }
@@ -1287,6 +1347,7 @@ async function start() {
     }
   });
   ui.buttons['write'].on('click', () => track(writeLabels()));
+  ui.buttons['download-assets'].on('click', () => track(downloadAssets()));
   ui.buttons['music-save'].on('click', () => track(writeLabels()));
   ui.buttons['fill-open'].on('click', () => track(askFill(session)));
   for (const kind of ['real', 'logo']) ui.buttons['fill-' + kind].on('click', () => answerFill(kind));
@@ -1323,6 +1384,12 @@ async function start() {
     };
   }
   document.body.dataset.ready = 'true';
+  if (artLibrary?.onDemand && artLibrary.downloadsEnabled !== false) {
+    try {
+      const status = await assetRequest('status');
+      if (status.running) track(downloadAssets(status));
+    } catch (error) { console.info('Asset download status unavailable:', error.message); }
+  }
 }
 
 $('build').append(

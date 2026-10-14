@@ -1,6 +1,11 @@
 version: '3'
 
 vars:
+  PYTHON: '{{if eq OS "windows"}}python{{else}}python3{{end}}'
+  ART_DIR: out/near-art
+  JOBS: '8'
+  ART_ARCHIVE: out/packages/cart-studio-art.zip
+
   SLOT: ../slot-b
   # What the studio's faces are made of: the four files compiled in place, slot's art.rs that
   # src/art.rs copies, the assets they include, where `Cart` comes from, gba.rs, whose header
@@ -102,3 +107,39 @@ tasks:
     desc: After task verify, render out/sheet.png with generated labels on the left and slot's hand-made ones on the right
     cmds:
       - cargo run --example sheet -- out/card {{.SLOT}}/sdcard out/sheet.png
+
+  data:download:
+    desc: Download SNES labels and the complete local game artwork/database library
+    cmds:
+      # Both stages update index.json, so keep them sequential.
+      - task: data:download:snes
+      - task: data:download:covers
+
+  data:download:snes:
+    desc: Download and prepare all original Near SNES cartridge labels
+    preconditions:
+      - sh: '{{.PYTHON | shellQuote}} -c "import PIL"'
+        msg: Python with Pillow is required; set PYTHON to your Python executable.
+    cmds:
+      - '{{.PYTHON | shellQuote}} tools/harvest-near.py --all --out {{.ART_DIR | shellQuote}} --jobs {{.JOBS | shellQuote}}'
+
+  data:download:covers:
+    desc: Cache GBA, GB, GBC, SNES and PSX covers, logos, labels and matching databases
+    preconditions:
+      - sh: '{{.PYTHON | shellQuote}} -c "import PIL"'
+        msg: Python with Pillow is required; set PYTHON to your Python executable.
+      - sh: git --version
+        msg: Git must be installed to download the cover repositories.
+    cmds:
+      - '{{.PYTHON | shellQuote}} tools/cache-art.py --out {{.ART_DIR | shellQuote}} --jobs {{.JOBS | shellQuote}}'
+
+  data:rebuild:
+    desc: Rebuild the data library from cached originals and snapshots without downloading
+    cmds:
+      - '{{.PYTHON | shellQuote}} tools/harvest-near.py --all --offline --out {{.ART_DIR | shellQuote}} --jobs {{.JOBS | shellQuote}}'
+      - '{{.PYTHON | shellQuote}} tools/cache-art.py --offline --out {{.ART_DIR | shellQuote}} --jobs {{.JOBS | shellQuote}}'
+
+  data:pack:
+    desc: Export the prepared library as a portable ZIP without downloading or building the app
+    cmds:
+      - '{{.PYTHON | shellQuote}} tools/pack-art.py {{.ART_DIR | shellQuote}} {{.ART_ARCHIVE | shellQuote}}'
